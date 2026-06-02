@@ -66,59 +66,268 @@ button[title="View fullscreen"] { display: none !important; }
 }
 
 /* ==========================
-   HERO
+   HERO - DIRECT BUY SEARCH PREMIUM
    ========================== */
 
 .hero-wrap {
+    position: relative;
+    overflow: hidden;
+    min-height: 390px;
+    border-radius: 28px;
+    padding: 3.6rem 3.6rem 3.2rem 3.6rem;
+    margin: 0 -1rem 2.2rem -1rem;
+    color: #ffffff;
     background:
-        linear-gradient(135deg, rgba(0, 91, 165, 0.70), rgba(0, 153, 220, 0.52)),
-        url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=80");
+        radial-gradient(circle at 68% 48%, rgba(40,132,189,0.42), transparent 0 18%, transparent 38%),
+        radial-gradient(circle at 78% 12%, rgba(67,167,255,0.22), transparent 0 26%, transparent 44%),
+        linear-gradient(90deg, rgba(2,10,22,0.98) 0%, rgba(4,20,39,0.98) 43%, rgba(7,43,75,0.92) 100%);
+    box-shadow:
+        0 24px 60px rgba(0, 50, 95, 0.20),
+        0 0 0 1px rgba(255,255,255,0.10) inset;
+}
+
+.hero-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, rgba(0,0,0,0.08), rgba(0,109,196,0.18)),
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0 1px, transparent 1px 72px),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 72px);
+    opacity: 0.55;
+}
+
+.hero-wrap::after {
+    content: "";
+    position: absolute;
+    right: -70px;
+    top: 0;
+    width: 48%;
+    height: 100%;
+    background:
+        linear-gradient(90deg, rgba(3,12,27,0.05), rgba(3,12,27,0.45)),
+        url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1400&q=80");
     background-size: cover;
     background-position: center;
-    border-radius: 0 0 34px 34px;
-    padding: 4rem 2rem 4.8rem 2rem;
-    margin: 0 -2rem 2rem -2rem;
-    text-align: center;
-    color: white;
-    box-shadow: 0 18px 45px rgba(0, 55, 110, 0.10);
+    opacity: 0.46;
+    filter: saturate(1.1) contrast(1.1);
+    mask-image: linear-gradient(90deg, transparent 0%, black 34%, black 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 34%, black 100%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 760px;
+}
+
+.hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.6rem 0.95rem;
+    border-radius: 999px;
+    border: 1px solid rgba(62, 169, 255, 0.55);
+    background: rgba(6, 22, 42, 0.68);
+    color: #eef8ff;
+    font-size: 0.88rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    box-shadow: 0 12px 28px rgba(0, 122, 255, 0.13);
+    backdrop-filter: blur(14px);
+}
+
+.hero-eyebrow svg {
+    width: 18px;
+    height: 18px;
+    stroke: #45b7ff;
 }
 
 .hero-title {
-    font-size: clamp(2.3rem, 5vw, 4rem);
-    font-weight: 850;
-    letter-spacing: -0.06em;
-    margin: 0;
-    line-height: 1.05;
-    text-shadow: 0 3px 16px rgba(0,0,0,0.18);
+    margin: 1.35rem 0 0 0;
+    font-size: clamp(3.2rem, 7vw, 6.2rem);
+    font-weight: 950;
+    letter-spacing: -0.08em;
+    line-height: 0.9;
+    text-transform: uppercase;
+    text-shadow: 0 18px 38px rgba(0,0,0,0.36);
+}
+
+.hero-title span {
+    display: block;
+    background: linear-gradient(180deg, #79caff 0%, #238dff 54%, #0f62d9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero-accent-line {
+    width: 92px;
+    height: 4px;
+    border-radius: 999px;
+    margin-top: 1.55rem;
+    background: linear-gradient(90deg, #2baaff, transparent);
+    box-shadow: 0 0 22px rgba(43,170,255,0.65);
 }
 
 .hero-subtitle {
-    font-size: 1.12rem;
-    margin-top: 1rem;
-    opacity: 0.98;
+    max-width: 650px;
+    margin-top: 1.2rem;
+    color: rgba(235, 246, 255, 0.88);
+    font-size: 1.15rem;
+    line-height: 1.55;
     font-weight: 500;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.15);
 }
 
 .hero-pills {
-    display: flex;
-    justify-content: center;
-    gap: 0.8rem;
-    flex-wrap: wrap;
-    margin-top: 1.6rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(128px, 1fr));
+    gap: 0.9rem;
+    margin-top: 2rem;
+    max-width: 760px;
 }
 
 .hero-pill {
-    background: rgba(255,255,255,0.22);
-    border: 1px solid rgba(255,255,255,0.38);
-    color: white;
-    padding: 0.6rem 0.95rem;
-    border-radius: 999px;
-    font-size: 0.88rem;
-    font-weight: 750;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    gap: 0.72rem;
+    min-height: 78px;
+    padding: 0.85rem 1rem;
+    border-radius: 18px;
+    background: rgba(8, 25, 48, 0.70);
+    border: 1px solid rgba(158, 212, 255, 0.28);
+    box-shadow:
+        0 14px 28px rgba(0,0,0,0.16),
+        0 0 0 1px rgba(255,255,255,0.035) inset;
+    backdrop-filter: blur(16px);
 }
+
+.hero-pill-icon {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 13px;
+    display: grid;
+    place-items: center;
+    background: rgba(45, 160, 255, 0.13);
+    border: 1px solid rgba(79, 178, 255, 0.35);
+}
+
+.hero-pill-icon svg {
+    width: 22px;
+    height: 22px;
+    stroke: #48b8ff;
+}
+
+.hero-pill strong {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 900;
+    line-height: 1.15;
+    color: #ffffff;
+}
+
+.hero-pill small {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.78rem;
+    line-height: 1.25;
+    color: rgba(235,246,255,0.75);
+}
+
+.hero-orb {
+    position: absolute;
+    z-index: 2;
+    right: 24.5%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 220px;
+    height: 220px;
+    border-radius: 999px;
+    background: rgba(18, 103, 176, 0.18);
+    border: 1px solid rgba(129, 205, 255, 0.55);
+    box-shadow:
+        0 0 64px rgba(29, 151, 255, 0.45),
+        0 0 0 28px rgba(50, 154, 255, 0.055),
+        0 0 0 72px rgba(50, 154, 255, 0.035);
+    backdrop-filter: blur(4px);
+}
+
+.hero-orb svg {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 104px;
+    height: 104px;
+    stroke: #ffffff;
+    stroke-width: 2.3;
+    filter: drop-shadow(0 0 18px rgba(59,174,255,0.75));
+}
+
+.hero-stat-stack {
+    position: absolute;
+    z-index: 4;
+    right: 3.2rem;
+    top: 4.2rem;
+    display: grid;
+    gap: 1rem;
+    width: 255px;
+}
+
+.hero-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.95rem 1rem;
+    border-radius: 19px;
+    background: rgba(10, 30, 56, 0.66);
+    border: 1px solid rgba(165, 217, 255, 0.26);
+    color: #fff;
+    backdrop-filter: blur(17px);
+    box-shadow: 0 16px 34px rgba(0,0,0,0.18);
+}
+
+.hero-stat-icon {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 15px;
+    background: rgba(62, 169, 255, 0.13);
+}
+
+.hero-stat-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: #dff3ff;
+}
+
+.hero-stat strong {
+    display: block;
+    font-size: 0.92rem;
+    font-weight: 900;
+}
+
+.hero-stat span {
+    display: block;
+    color: rgba(235,246,255,0.72);
+    font-size: 0.78rem;
+    margin-top: 0.15rem;
+}
+
+.hero-bottom-glow {
+    position: absolute;
+    z-index: 5;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #2aaaff, transparent);
+    box-shadow: 0 0 32px rgba(42,170,255,0.85);
+}
+
 
 /* ==========================
    CARD HEADER STYLE
@@ -467,23 +676,6 @@ stroke-linecap="round" stroke-linejoin="round">
 """
 
 # ==========================
-# HERO
-# ==========================
-
-st.markdown("""
-<div class="hero-wrap">
-    <h1 class="hero-title">Explore Brands & Categories</h1>
-    <div class="hero-subtitle">Find the best Direct Buy products, compare costs, and search smarter.</div>
-    <div class="hero-pills">
-        <div class="hero-pill">Best Match Search</div>
-        <div class="hero-pill">Category Filters</div>
-        <div class="hero-pill">Cost Calculator</div>
-        <div class="hero-pill">Best Deal Comparison</div>
-    </div>
-</div>
-""", unsafe_allow_html=True)
-
-# ==========================
 # LOAD DATA
 # ==========================
 
@@ -496,6 +688,67 @@ def load_data():
     return df
 
 df = load_data()
+
+# ==========================
+# HERO
+# ==========================
+
+st.markdown(f"""
+<div class="hero-wrap">
+    <div class="hero-content">
+        <div class="hero-eyebrow">
+            {best_match_icon}
+            ISG DIRECT BUY
+        </div>
+
+        <h1 class="hero-title">Direct Buy <span>Search</span></h1>
+        <div class="hero-accent-line"></div>
+
+        <div class="hero-subtitle">
+            Find the right products faster, compare direct costs, and uncover the best buying opportunities across ISG suppliers.
+        </div>
+
+        <div class="hero-pills">
+            <div class="hero-pill">
+                <div class="hero-pill-icon">{best_match_icon}</div>
+                <div><strong>Smart Search</strong><small>Find exactly what you need</small></div>
+            </div>
+            <div class="hero-pill">
+                <div class="hero-pill-icon">{category_icon}</div>
+                <div><strong>Categories</strong><small>Browse by class or brand</small></div>
+            </div>
+            <div class="hero-pill">
+                <div class="hero-pill-icon">{calculator_icon}</div>
+                <div><strong>Cost Calculator</strong><small>Estimate direct cost fast</small></div>
+            </div>
+            <div class="hero-pill">
+                <div class="hero-pill-icon">{compare_icon}</div>
+                <div><strong>Best Deals</strong><small>Compare lowest prices</small></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-orb">{best_match_icon}</div>
+
+    <div class="hero-stat-stack">
+        <div class="hero-stat">
+            <div class="hero-stat-icon">{category_icon}</div>
+            <div><strong>{len(df):,}+ Products</strong><span>Loaded and searchable</span></div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-icon">{compare_icon}</div>
+            <div><strong>Best Deal Finder</strong><span>Compare costs instantly</span></div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-icon">{calculator_icon}</div>
+            <div><strong>Cost Insights</strong><span>List price vs direct cost</span></div>
+        </div>
+    </div>
+
+    <div class="hero-bottom-glow"></div>
+</div>
+""", unsafe_allow_html=True)
+
 
 direct_cost_col = next(col for col in df.columns if "JUN 2026" in col and "Direct Cost" in col)
 list_price_col = next(col for col in df.columns if "MAY 2026 List Price" in col)
