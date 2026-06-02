@@ -147,9 +147,15 @@ button[title="View fullscreen"] { display: none !important; }
     place-items: center;
     background: linear-gradient(135deg, #eef7ff, #ffffff);
     border: 1px solid #d7e8ff;
-    color: #006fd6;
+    color: #2884bd;
     font-size: 1.4rem;
     box-shadow: 0 6px 16px rgba(0, 111, 214, 0.06);
+}
+
+.icon-bubble svg {
+    width: 24px;
+    height: 24px;
+    display: block;
 }
 
 .card-title {
@@ -407,6 +413,60 @@ hr {
 """, unsafe_allow_html=True)
 
 # ==========================
+# SVG ICONS
+# ==========================
+
+best_match_icon = """
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+viewBox="0 0 24 24" fill="none" stroke="#2884bd" stroke-width="2" 
+stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon lucide-search">
+<path d="m21 21-4.34-4.34"/>
+<circle cx="11" cy="11" r="8"/>
+</svg>
+"""
+
+category_icon = """
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+viewBox="0 0 24 24" fill="none" stroke="#2884bd" stroke-width="2" 
+stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-bar-stacked-icon lucide-chart-bar-stacked">
+<path d="M11 13v4"/>
+<path d="M15 5v4"/>
+<path d="M3 3v16a2 2 0 0 0 2 2h16"/>
+<rect x="7" y="13" width="9" height="4" rx="1"/>
+<rect x="7" y="5" width="12" height="4" rx="1"/>
+</svg>
+"""
+
+calculator_icon = """
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+viewBox="0 0 24 24" fill="none" stroke="#2884bd" stroke-width="2" 
+stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calculator-icon lucide-calculator">
+<rect width="16" height="20" x="4" y="2" rx="2"/>
+<line x1="8" x2="16" y1="6" y2="6"/>
+<line x1="16" x2="16" y1="14" y2="18"/>
+<path d="M16 10h.01"/>
+<path d="M12 10h.01"/>
+<path d="M8 10h.01"/>
+<path d="M12 14h.01"/>
+<path d="M8 14h.01"/>
+<path d="M12 18h.01"/>
+<path d="M8 18h.01"/>
+</svg>
+"""
+
+compare_icon = """
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+viewBox="0 0 24 24" fill="none" stroke="#2884bd" stroke-width="2"
+stroke-linecap="round" stroke-linejoin="round">
+<path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+<path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+<path d="M7 21h10"/>
+<path d="M12 3v18"/>
+<path d="M3 7h2c2 0 5-1 7-3 2 2 5 3 7 3h2"/>
+</svg>
+"""
+
+# ==========================
 # HERO
 # ==========================
 
@@ -461,7 +521,7 @@ clicked_item_number = ""
 with st.container(border=True):
     st.markdown(f"""
     <div class="card-title-row">
-        <div class="icon-bubble">⭐</div>
+        <div class="icon-bubble">{best_match_icon}</div>
         <div>
             <div class="card-title-wrap">
                 <div class="card-title">Best Match Search</div>
@@ -544,9 +604,9 @@ st.write("")
 # ==========================
 
 with st.container(border=True):
-    st.markdown("""
+    st.markdown(f"""
     <div class="card-title-row">
-        <div class="icon-bubble">📁</div>
+        <div class="icon-bubble">{category_icon}</div>
         <div>
             <div class="card-title">Category Search</div>
             <div class="card-subtitle">Browse by category, then narrow results by description, brand, and manufacturer.</div>
@@ -689,9 +749,9 @@ if selected_class:
     st.write("")
 
     with st.container(border=True):
-        st.markdown("""
+        st.markdown(f"""
         <div class="card-title-row">
-            <div class="icon-bubble">🧮</div>
+            <div class="icon-bubble">{calculator_icon}</div>
             <div>
                 <div class="card-title">Item Number Cost Calculator</div>
                 <div class="card-subtitle">Click a product row above or enter an item number to estimate direct cost, list price, and savings.</div>
@@ -789,9 +849,9 @@ if selected_class:
     st.write("")
 
     with st.container(border=True):
-        st.markdown("""
+        st.markdown(f"""
         <div class="card-title-row">
-            <div class="icon-bubble">⚖️</div>
+            <div class="icon-bubble">{compare_icon}</div>
             <div>
                 <div class="card-title">Compare Product vs Best Deal</div>
                 <div class="card-subtitle">Choose any product in the category and compare it against the lowest direct cost option.</div>
