@@ -39,14 +39,24 @@ button[title="View fullscreen"] { display: none !important; }
 
 /* ==========================
    PAGE BACKGROUND
+   Seamless Kentico white blend
    ========================== */
 
 .stApp {
-    background:
-        radial-gradient(circle at top left, rgba(0, 118, 210, 0.06), transparent 30%),
-        radial-gradient(circle at top right, rgba(0, 77, 150, 0.06), transparent 35%),
-        linear-gradient(180deg, #f7fbff 0%, #ffffff 42%, #f8fafc 100%);
+    background: #ffffff !important;
     color: #172033;
+}
+
+[data-testid="stAppViewContainer"] {
+    background: #ffffff !important;
+}
+
+[data-testid="stHeader"] {
+    background: transparent !important;
+}
+
+[data-testid="stSidebar"] {
+    background: #ffffff !important;
 }
 
 .block-container {
@@ -61,7 +71,7 @@ button[title="View fullscreen"] { display: none !important; }
 
 .hero-wrap {
     background:
-        linear-gradient(135deg, rgba(0, 91, 165, 0.74), rgba(0, 153, 220, 0.58)),
+        linear-gradient(135deg, rgba(0, 91, 165, 0.70), rgba(0, 153, 220, 0.52)),
         url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=80");
     background-size: cover;
     background-position: center;
@@ -70,7 +80,7 @@ button[title="View fullscreen"] { display: none !important; }
     margin: 0 -2rem 2rem -2rem;
     text-align: center;
     color: white;
-    box-shadow: 0 28px 70px rgba(0, 55, 110, 0.16);
+    box-shadow: 0 18px 45px rgba(0, 55, 110, 0.10);
 }
 
 .hero-title {
@@ -136,10 +146,10 @@ button[title="View fullscreen"] { display: none !important; }
     display: grid;
     place-items: center;
     background: linear-gradient(135deg, #eef7ff, #ffffff);
-    border: 1px solid #cfe4ff;
+    border: 1px solid #d7e8ff;
     color: #006fd6;
     font-size: 1.4rem;
-    box-shadow: 0 8px 20px rgba(0, 111, 214, 0.08);
+    box-shadow: 0 6px 16px rgba(0, 111, 214, 0.06);
 }
 
 .card-title {
@@ -169,19 +179,19 @@ button[title="View fullscreen"] { display: none !important; }
     font-weight: 850;
     font-size: 0.82rem;
     white-space: nowrap;
-    box-shadow: 0 6px 14px rgba(8, 123, 59, 0.08);
+    box-shadow: 0 6px 14px rgba(8, 123, 59, 0.06);
 }
 
 /* ==========================
    STREAMLIT CONTAINERS
+   Softer white cards
    ========================== */
 
 [data-testid="stVerticalBlockBorderWrapper"] {
-    border-radius: 24px !important;
-    border: 1px solid rgba(196, 219, 244, 0.95) !important;
-    box-shadow: 0 18px 48px rgba(15, 33, 58, 0.06) !important;
-    background:
-        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(247,251,255,0.95)) !important;
+    border-radius: 22px !important;
+    border: 1px solid rgba(220, 230, 242, 0.95) !important;
+    box-shadow: 0 10px 28px rgba(15, 33, 58, 0.045) !important;
+    background: #ffffff !important;
     padding: 1.35rem !important;
 }
 
@@ -260,7 +270,7 @@ div[data-baseweb="select"] > div:focus-within {
     border-radius: 17px !important;
     overflow: hidden !important;
     border: 1px solid #dfe8f2 !important;
-    box-shadow: 0 14px 32px rgba(16,24,40,0.045);
+    box-shadow: 0 10px 24px rgba(16,24,40,0.04);
     background: #ffffff !important;
 }
 
@@ -300,14 +310,14 @@ div[data-baseweb="select"] > div:focus-within {
    ========================== */
 
 .feature-strip {
-    background: rgba(255,255,255,0.95);
-    border: 1px solid #d6eaff;
+    background: #ffffff;
+    border: 1px solid rgba(220, 230, 242, 0.95);
     border-radius: 24px;
     padding: 1.25rem;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
-    box-shadow: 0 14px 34px rgba(16,24,40,0.045);
+    box-shadow: 0 10px 28px rgba(15, 33, 58, 0.04);
     margin-top: 2rem;
 }
 
