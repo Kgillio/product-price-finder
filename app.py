@@ -55,7 +55,7 @@ button[title="View fullscreen"] {
 </style>
 """, unsafe_allow_html=True)
 
-st.title("🔎 Direct Buy Search")
+st.title("Direct Buy Search")
 st.write("Search by category, descriptions, brand, manufacturer, or item number.")
 
 file_name = "cost list pricer.xlsx"
