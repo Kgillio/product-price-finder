@@ -445,17 +445,17 @@ stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calculator-i
 # HERO
 # ==========================
 
-st.html("""
+st.markdown("""
 <div class="hero-wrap">
 <div class="hero-content">
 <div class="hero-icon-card">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#2884bd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-<path d="M14 2v6h6"></path>
-<path d="M8 13h4"></path>
-<path d="M8 17h3"></path>
-<circle cx="15.5" cy="15.5" r="3.5"></circle>
-<path d="m18.2 18.2 2.8 2.8"></path>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2884bd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package-search-icon lucide-package-search">
+<path d="M12 22V12"/>
+<path d="M20.27 18.27 22 20"/>
+<path d="M21 10.498V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.729l7 4a2 2 0 0 0 2 .001l.98-.559"/>
+<path d="M3.29 7 12 12l8.71-5"/>
+<path d="m7.5 4.27 8.997 5.148"/>
+<circle cx="18.5" cy="16.5" r="2.5"/>
 </svg>
 </div>
 <div class="hero-copy">
@@ -464,7 +464,7 @@ st.html("""
 </div>
 </div>
 </div>
-""")
+""", unsafe_allow_html=True)
 
 # ==========================
 # LOAD DATA
@@ -605,23 +605,12 @@ with st.container(border=True):
 
     st.markdown("## Filters")
 
-    filter_col1, filter_col2, filter_col3, filter_col4 = st.columns(4)
+    filter_col1, filter_col2, filter_col3 = st.columns(3)
 
     with filter_col1:
-        product_class_search = st.text_input(
-            "Filter Categories",
-            placeholder="Type report, folder, binder..."
-        )
-
-        filtered_classes = [
-            pc for pc in product_classes
-            if product_class_search.lower() in pc.lower()
-        ] if product_class_search else product_classes
-
-    with filter_col2:
         selected_class = st.selectbox(
             "Select Category",
-            options=[""] + filtered_classes,
+            options=[""] + product_classes,
             index=0
         )
 
@@ -633,7 +622,7 @@ with st.container(border=True):
         results = df[df["Product Class"] == selected_class].copy()
         results = results.sort_values(direct_cost_col, ascending=True)
 
-        with filter_col3:
+        with filter_col2:
             description_search = st.text_input(
                 "Search within products",
                 placeholder="Example: clear, blue, letter"
@@ -646,7 +635,7 @@ with st.container(border=True):
                 results["Long Description"].astype(str).str.contains(description_search, case=False, na=False)
             ]
 
-        with filter_col4:
+        with filter_col3:
             brand_options = sorted(results["Brand Name"].dropna().astype(str).unique())
             selected_brands = st.multiselect("Filter by Brand", brand_options)
 
