@@ -66,8 +66,8 @@ button[title="View fullscreen"] { display: none !important; }
     background-size: cover;
     background-position: center;
     border-radius: 0 0 34px 34px;
-    padding: 4rem 2rem 6rem 2rem;
-    margin: 0 -2rem 0 -2rem;
+    padding: 4rem 2rem 4.8rem 2rem;
+    margin: 0 -2rem 2rem -2rem;
     text-align: center;
     color: white;
     box-shadow: 0 28px 70px rgba(0, 55, 110, 0.20);
@@ -108,28 +108,21 @@ button[title="View fullscreen"] { display: none !important; }
 }
 
 /* ==========================
-   MAIN CARDS
+   CARD HEADER STYLE
    ========================== */
-
-.custom-card {
-    background: rgba(255,255,255,0.96);
-    border: 1px solid rgba(213, 225, 240, 0.95);
-    box-shadow: 0 18px 48px rgba(15, 33, 58, 0.075);
-    border-radius: 24px;
-    padding: 1.6rem 1.65rem;
-    margin-bottom: 2rem;
-}
-
-.float-card {
-    margin-top: -3.8rem;
-    position: relative;
-    z-index: 3;
-}
 
 .card-title-row {
     display: flex;
     align-items: center;
     gap: 0.95rem;
+    margin-bottom: 0.55rem;
+}
+
+.card-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
 }
 
 .icon-bubble {
@@ -160,15 +153,18 @@ button[title="View fullscreen"] { display: none !important; }
     line-height: 1.45;
 }
 
-.status-bar {
-    background: linear-gradient(90deg, #e8fff1, #f4fff8);
-    border: 1px solid #c7efd8;
+.loaded-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: linear-gradient(90deg, #e7fff1, #f4fff8);
+    border: 1px solid #bdeccb;
     color: #087b3b;
-    padding: 0.9rem 1rem;
-    border-radius: 15px;
-    margin-top: 1.3rem;
-    font-weight: 800;
-    font-size: 0.95rem;
+    padding: 0.42rem 0.72rem;
+    border-radius: 999px;
+    font-weight: 850;
+    font-size: 0.82rem;
+    white-space: nowrap;
 }
 
 /* ==========================
@@ -177,9 +173,10 @@ button[title="View fullscreen"] { display: none !important; }
 
 [data-testid="stVerticalBlockBorderWrapper"] {
     border-radius: 24px !important;
-    border: 1px solid rgba(213, 225, 240, 0.95) !important;
+    border: 1px solid rgba(183, 211, 244, 0.95) !important;
     box-shadow: 0 18px 48px rgba(15, 33, 58, 0.07) !important;
-    background: rgba(255,255,255,0.96) !important;
+    background:
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(240,247,255,0.92)) !important;
     padding: 1.35rem !important;
 }
 
@@ -346,11 +343,7 @@ hr {
     .hero-wrap {
         margin-left: -1rem;
         margin-right: -1rem;
-        padding-bottom: 5rem;
-    }
-
-    .custom-card {
-        padding: 1.25rem;
+        padding-bottom: 4rem;
     }
 }
 
@@ -420,32 +413,18 @@ results = pd.DataFrame()
 clicked_item_number = ""
 
 # ==========================
-# DIRECT BUY SEARCH CARD
-# ==========================
-
-st.markdown(f"""
-<div class="custom-card float-card">
-    <div class="card-title-row">
-        <div class="icon-bubble">🔎</div>
-        <div>
-            <div class="card-title">Direct Buy Search</div>
-            <div class="card-subtitle">Search by category, descriptions, brand, manufacturer, or item number.</div>
-        </div>
-    </div>
-    <div class="status-bar">✅ Loaded {len(df):,} products</div>
-</div>
-""", unsafe_allow_html=True)
-
-# ==========================
 # BEST MATCH SEARCH
 # ==========================
 
 with st.container(border=True):
-    st.markdown("""
+    st.markdown(f"""
     <div class="card-title-row">
         <div class="icon-bubble">⭐</div>
         <div>
-            <div class="card-title">Best Match Search</div>
+            <div class="card-title-wrap">
+                <div class="card-title">Best Match Search</div>
+                <div class="loaded-pill">✅ Loaded {len(df):,} products</div>
+            </div>
             <div class="card-subtitle">Search anything to find the most relevant products across categories, brands, descriptions, and item numbers.</div>
         </div>
     </div>
