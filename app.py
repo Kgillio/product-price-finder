@@ -9,53 +9,23 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-
-/* Hide Streamlit footer */
-footer {
-    visibility: hidden;
-}
-
-/* Hide hamburger menu */
-#MainMenu {
-    visibility: hidden;
-}
-
-/* Hide toolbar */
-[data-testid="stToolbar"] {
-    display: none !important;
-}
-
-/* Hide fullscreen button */
-button[title="View fullscreen"] {
-    display: none !important;
-}
-
-/* Hide deploy/status widgets */
-[data-testid="stStatusWidget"] {
-    display: none !important;
-}
-
-/* Hide built with Streamlit badge */
-.stAppDeployButton {
-    display: none !important;
-}
-
-[data-testid="stDecoration"] {
-    display: none !important;
-}
-
-/* Hide bottom embedded app bar */
+footer { visibility: hidden; }
+#MainMenu { visibility: hidden; }
+[data-testid="stToolbar"] { display: none !important; }
+button[title="View fullscreen"] { display: none !important; }
+[data-testid="stStatusWidget"] { display: none !important; }
+.stAppDeployButton { display: none !important; }
+[data-testid="stDecoration"] { display: none !important; }
 .viewerBadge_container__1QSob,
 .viewerBadge_link__1S137,
 .viewerBadge_text__1JaDK,
 .viewerBadge_container__r5tak {
     display: none !important;
 }
-
 </style>
 """, unsafe_allow_html=True)
 
-st.title("Direct Buy Search")
+st.title("🔎 Direct Buy Search")
 st.write("Search by category, descriptions, brand, manufacturer, or item number.")
 
 file_name = "cost list pricer.xlsx"
@@ -127,21 +97,27 @@ if best_match_search:
 
     st.write("### Best Matching Products")
 
-    st.dataframe(
-        best_results[
-            [
-                "Match Score",
-                "Product Class",
-                "Brand Name",
-                "Manufacturer Name",
-                "ISG Product Code",
-                "Short Description",
-                list_price_col,
-                direct_cost_col
-            ]
-        ].head(100),
-        use_container_width=True
+    best_display = best_results[
+        [
+            "Match Score",
+            "Product Class",
+            "Manufacturer Name",
+            "ISG Product Code",
+            "Short Description",
+            list_price_col,
+            direct_cost_col
+        ]
+    ].head(100).copy()
+
+    best_display[list_price_col] = best_display[list_price_col].apply(
+        lambda x: f"${x:,.2f}" if pd.notna(x) else ""
     )
+
+    best_display[direct_cost_col] = best_display[direct_cost_col].apply(
+        lambda x: f"${x:,.2f}" if pd.notna(x) else ""
+    )
+
+    st.dataframe(best_display, use_container_width=True)
 
     st.info(f"Showing top {min(len(best_results), 100)} best matches.")
 
@@ -206,26 +182,32 @@ if selected_class:
     if selected_manufacturers:
         results = results[results["Manufacturer Name"].astype(str).isin(selected_manufacturers)]
 
-    st.write(f"### Cheapest products in {selected_class}")
+    st.write(f"### Best deals in {selected_class}")
     st.caption("Click a row below to auto-fill the calculator.")
 
     display_columns = [
-        "Brand Name",
         "Manufacturer Name",
         "ISG Product Code",
         "Short Description",
-        "Long Description",
         list_price_col,
         direct_cost_col
     ]
 
     if moq_col in df.columns:
-        display_columns.insert(5, moq_col)
+        display_columns.insert(3, moq_col)
 
     if uom_col in df.columns:
-        display_columns.insert(6, uom_col)
+        display_columns.insert(4, uom_col)
 
     display_df = results[display_columns].copy()
+
+    display_df[list_price_col] = display_df[list_price_col].apply(
+        lambda x: f"${x:,.2f}" if pd.notna(x) else ""
+    )
+
+    display_df[direct_cost_col] = display_df[direct_cost_col].apply(
+        lambda x: f"${x:,.2f}" if pd.notna(x) else ""
+    )
 
     table_selection = st.dataframe(
         display_df,
@@ -332,10 +314,10 @@ if selected_class:
     # COMPARE PRODUCT
     # ==========================
 
-    st.write("### Compare Product vs Cheapest Option")
+    st.write("### Compare Product vs Best Deal")
 
     if not results.empty:
-        cheapest_product = results.iloc[0]
+        best_deal_product = results.iloc[0]
 
         product_choices = (
             results["Manufacturer Name"].astype(str)
@@ -355,20 +337,20 @@ if selected_class:
         selected_index = product_choices[product_choices == selected_product_label].index[0]
         selected_product = results.loc[selected_index]
 
-        cheapest_cost = cheapest_product[direct_cost_col]
+        best_deal_cost = best_deal_product[direct_cost_col]
         selected_cost = selected_product[direct_cost_col]
-        savings = selected_cost - cheapest_cost
+        savings = selected_cost - best_deal_cost
 
         c1, c2, c3 = st.columns(3)
 
-        c1.metric("Cheapest Cost", f"${cheapest_cost:,.2f}")
+        c1.metric("Best Deal Cost", f"${best_deal_cost:,.2f}")
         c2.metric("Selected Product Cost", f"${selected_cost:,.2f}")
         c3.metric("Potential Savings", f"${savings:,.2f}")
 
-        st.write("#### Cheapest Product")
-        st.write(cheapest_product["Short Description"])
+        st.write("#### Best Deal Product")
+        st.write(best_deal_product["Short Description"])
 
         st.write("#### Selected Product")
         st.write(selected_product["Short Description"])
 
-    st.info(f"Showing {len(results):,} products sorted from cheapest to most expensive.")
+    st.info(f"Showing {len(results):,} products sorted from best deal to highest cost.")
