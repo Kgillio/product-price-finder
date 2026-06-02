@@ -43,9 +43,9 @@ button[title="View fullscreen"] { display: none !important; }
 
 .stApp {
     background:
-        radial-gradient(circle at top left, rgba(0, 118, 210, 0.08), transparent 30%),
-        radial-gradient(circle at top right, rgba(0, 77, 150, 0.08), transparent 35%),
-        linear-gradient(180deg, #f4f8fd 0%, #ffffff 42%, #f7f9fc 100%);
+        radial-gradient(circle at top left, rgba(0, 118, 210, 0.06), transparent 30%),
+        radial-gradient(circle at top right, rgba(0, 77, 150, 0.06), transparent 35%),
+        linear-gradient(180deg, #f7fbff 0%, #ffffff 42%, #f8fafc 100%);
     color: #172033;
 }
 
@@ -61,7 +61,7 @@ button[title="View fullscreen"] { display: none !important; }
 
 .hero-wrap {
     background:
-        linear-gradient(135deg, rgba(0, 67, 125, 0.94), rgba(0, 130, 205, 0.84)),
+        linear-gradient(135deg, rgba(0, 91, 165, 0.74), rgba(0, 153, 220, 0.58)),
         url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=80");
     background-size: cover;
     background-position: center;
@@ -70,7 +70,7 @@ button[title="View fullscreen"] { display: none !important; }
     margin: 0 -2rem 2rem -2rem;
     text-align: center;
     color: white;
-    box-shadow: 0 28px 70px rgba(0, 55, 110, 0.20);
+    box-shadow: 0 28px 70px rgba(0, 55, 110, 0.16);
 }
 
 .hero-title {
@@ -79,13 +79,15 @@ button[title="View fullscreen"] { display: none !important; }
     letter-spacing: -0.06em;
     margin: 0;
     line-height: 1.05;
+    text-shadow: 0 3px 16px rgba(0,0,0,0.18);
 }
 
 .hero-subtitle {
     font-size: 1.12rem;
     margin-top: 1rem;
-    opacity: 0.94;
-    font-weight: 450;
+    opacity: 0.98;
+    font-weight: 500;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.15);
 }
 
 .hero-pills {
@@ -97,14 +99,15 @@ button[title="View fullscreen"] { display: none !important; }
 }
 
 .hero-pill {
-    background: rgba(255,255,255,0.16);
-    border: 1px solid rgba(255,255,255,0.28);
+    background: rgba(255,255,255,0.22);
+    border: 1px solid rgba(255,255,255,0.38);
     color: white;
     padding: 0.6rem 0.95rem;
     border-radius: 999px;
     font-size: 0.88rem;
-    font-weight: 700;
+    font-weight: 750;
     backdrop-filter: blur(10px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
 /* ==========================
@@ -132,10 +135,11 @@ button[title="View fullscreen"] { display: none !important; }
     border-radius: 17px;
     display: grid;
     place-items: center;
-    background: linear-gradient(135deg, #e7f2ff, #f7fbff);
-    border: 1px solid #d7e8ff;
+    background: linear-gradient(135deg, #eef7ff, #ffffff);
+    border: 1px solid #cfe4ff;
     color: #006fd6;
     font-size: 1.4rem;
+    box-shadow: 0 8px 20px rgba(0, 111, 214, 0.08);
 }
 
 .card-title {
@@ -157,7 +161,7 @@ button[title="View fullscreen"] { display: none !important; }
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    background: linear-gradient(90deg, #e7fff1, #f4fff8);
+    background: linear-gradient(90deg, #e7fff1, #f7fffa);
     border: 1px solid #bdeccb;
     color: #087b3b;
     padding: 0.42rem 0.72rem;
@@ -165,6 +169,7 @@ button[title="View fullscreen"] { display: none !important; }
     font-weight: 850;
     font-size: 0.82rem;
     white-space: nowrap;
+    box-shadow: 0 6px 14px rgba(8, 123, 59, 0.08);
 }
 
 /* ==========================
@@ -173,10 +178,10 @@ button[title="View fullscreen"] { display: none !important; }
 
 [data-testid="stVerticalBlockBorderWrapper"] {
     border-radius: 24px !important;
-    border: 1px solid rgba(183, 211, 244, 0.95) !important;
-    box-shadow: 0 18px 48px rgba(15, 33, 58, 0.07) !important;
+    border: 1px solid rgba(196, 219, 244, 0.95) !important;
+    box-shadow: 0 18px 48px rgba(15, 33, 58, 0.06) !important;
     background:
-        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(240,247,255,0.92)) !important;
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(247,251,255,0.95)) !important;
     padding: 1.35rem !important;
 }
 
@@ -190,21 +195,35 @@ div[data-testid="stVerticalBlock"] > div {
 }
 
 /* ==========================
-   INPUTS
+   BRIGHTER INPUTS
    ========================== */
 
 div[data-baseweb="input"] {
     border-radius: 14px !important;
-    border: 1px solid #d8e2ee !important;
+    border: 1px solid #cfdbea !important;
     background: #ffffff !important;
-    min-height: 46px !important;
+    min-height: 48px !important;
+    box-shadow:
+        0 1px 0 rgba(255,255,255,0.95) inset,
+        0 8px 20px rgba(16,24,40,0.035) !important;
 }
 
 div[data-baseweb="select"] > div {
     border-radius: 14px !important;
-    border-color: #d8e2ee !important;
+    border-color: #cfdbea !important;
     background: #ffffff !important;
-    min-height: 46px !important;
+    min-height: 48px !important;
+    box-shadow:
+        0 1px 0 rgba(255,255,255,0.95) inset,
+        0 8px 20px rgba(16,24,40,0.035) !important;
+}
+
+div[data-baseweb="input"]:focus-within,
+div[data-baseweb="select"] > div:focus-within {
+    border-color: #75b7ff !important;
+    box-shadow:
+        0 0 0 3px rgba(0, 119, 223, 0.10),
+        0 10px 24px rgba(16,24,40,0.05) !important;
 }
 
 .stTextInput label,
@@ -218,7 +237,19 @@ div[data-baseweb="select"] > div {
 
 .stTextInput input,
 .stNumberInput input {
-    min-height: 46px;
+    min-height: 48px;
+    background: #ffffff !important;
+    color: #1f2937 !important;
+}
+
+.stTextInput input::placeholder {
+    color: #8a97a8 !important;
+    opacity: 1 !important;
+}
+
+/* Multiselect selected/input area */
+[data-baseweb="select"] input {
+    background: #ffffff !important;
 }
 
 /* ==========================
@@ -229,7 +260,8 @@ div[data-baseweb="select"] > div {
     border-radius: 17px !important;
     overflow: hidden !important;
     border: 1px solid #dfe8f2 !important;
-    box-shadow: 0 14px 32px rgba(16,24,40,0.055);
+    box-shadow: 0 14px 32px rgba(16,24,40,0.045);
+    background: #ffffff !important;
 }
 
 /* ==========================
@@ -237,11 +269,11 @@ div[data-baseweb="select"] > div {
    ========================== */
 
 [data-testid="stMetric"] {
-    background: linear-gradient(180deg, #ffffff, #f8fbff);
+    background: linear-gradient(180deg, #ffffff, #fbfdff);
     border: 1px solid #dfe8f3;
     padding: 1rem;
     border-radius: 17px;
-    box-shadow: 0 10px 26px rgba(16,24,40,0.045);
+    box-shadow: 0 10px 26px rgba(16,24,40,0.04);
 }
 
 [data-testid="stMetricLabel"] {
@@ -260,7 +292,7 @@ div[data-baseweb="select"] > div {
 
 [data-testid="stAlert"] {
     border-radius: 15px !important;
-    border: 1px solid rgba(120, 170, 230, 0.25) !important;
+    border: 1px solid rgba(120, 170, 230, 0.22) !important;
 }
 
 /* ==========================
@@ -268,14 +300,14 @@ div[data-baseweb="select"] > div {
    ========================== */
 
 .feature-strip {
-    background: rgba(255,255,255,0.9);
-    border: 1px solid #cfe4ff;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid #d6eaff;
     border-radius: 24px;
     padding: 1.25rem;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
-    box-shadow: 0 14px 34px rgba(16,24,40,0.06);
+    box-shadow: 0 14px 34px rgba(16,24,40,0.045);
     margin-top: 2rem;
 }
 
@@ -293,7 +325,7 @@ div[data-baseweb="select"] > div {
     border-radius: 16px;
     display: grid;
     place-items: center;
-    background: #eaf4ff;
+    background: #eef7ff;
     color: #006fd6;
     font-size: 1.25rem;
 }
