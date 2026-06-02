@@ -2,10 +2,61 @@ import streamlit as st
 import pandas as pd
 from rapidfuzz import fuzz
 
-st.set_page_config(page_title="Product Price Finder", layout="wide")
+st.set_page_config(
+    page_title="Direct Buy Search",
+    layout="wide"
+)
 
-st.title("🔎 Product Price Finder")
-st.write("Search by Product Class, descriptions, brand, manufacturer, or item number.")
+st.markdown("""
+<style>
+
+/* Hide Streamlit footer */
+footer {
+    visibility: hidden;
+}
+
+/* Hide hamburger menu */
+#MainMenu {
+    visibility: hidden;
+}
+
+/* Hide toolbar */
+[data-testid="stToolbar"] {
+    display: none !important;
+}
+
+/* Hide fullscreen button */
+button[title="View fullscreen"] {
+    display: none !important;
+}
+
+/* Hide deploy/status widgets */
+[data-testid="stStatusWidget"] {
+    display: none !important;
+}
+
+/* Hide built with Streamlit badge */
+.stAppDeployButton {
+    display: none !important;
+}
+
+[data-testid="stDecoration"] {
+    display: none !important;
+}
+
+/* Hide bottom embedded app bar */
+.viewerBadge_container__1QSob,
+.viewerBadge_link__1S137,
+.viewerBadge_text__1JaDK,
+.viewerBadge_container__r5tak {
+    display: none !important;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+st.title("🔎 Direct Buy Search")
+st.write("Search by category, descriptions, brand, manufacturer, or item number.")
 
 file_name = "cost list pricer.xlsx"
 
@@ -97,17 +148,17 @@ if best_match_search:
 st.divider()
 
 # ==========================
-# PRODUCT CLASS SEARCH
+# CATEGORY SEARCH
 # ==========================
 
-st.write("## Product Class Search")
+st.write("## Category Search")
 
 product_classes = sorted(
     df["Product Class"].dropna().astype(str).unique()
 )
 
 product_class_search = st.text_input(
-    "Filter Product Classes",
+    "Filter Categories",
     placeholder="Type report, folder, binder..."
 )
 
@@ -117,7 +168,7 @@ filtered_classes = [
 ] if product_class_search else product_classes
 
 selected_class = st.selectbox(
-    "Select Product Class",
+    "Select Category",
     options=[""] + filtered_classes,
     index=0
 )
@@ -275,7 +326,7 @@ if selected_class:
             e4.metric("Savings vs List", f"${savings_vs_list:,.2f}")
 
         else:
-            st.warning("No item number matches found in this Product Class.")
+            st.warning("No item number matches found in this category.")
 
     # ==========================
     # COMPARE PRODUCT
