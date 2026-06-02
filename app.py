@@ -71,17 +71,19 @@ button[title="View fullscreen"] { display: none !important; }
 
 .hero-wrap {
     background:
-        radial-gradient(circle at 12% 35%, rgba(54, 143, 255, 0.42), transparent 24%),
-        radial-gradient(circle at 88% 22%, rgba(31, 139, 255, 0.30), transparent 30%),
-        linear-gradient(135deg, #001f5f 0%, #003d99 45%, #005fbd 100%);
-    border-radius: 0 0 34px 34px;
-    padding: 4rem 2rem 4.8rem 2rem;
-    margin: 0 -2rem 2rem -2rem;
+        radial-gradient(circle at 12% 18%, rgba(40, 132, 189, 0.14), transparent 28%),
+        radial-gradient(circle at 90% 12%, rgba(0, 111, 214, 0.10), transparent 30%),
+        linear-gradient(135deg, #ffffff 0%, #f7fbff 42%, #eef7ff 100%);
+    border: 1px solid #dbeafe;
+    border-radius: 28px;
+    padding: 3.1rem 2.2rem 3rem 2.2rem;
+    margin: 1.3rem auto 1.8rem auto;
     text-align: center;
-    color: white;
-    box-shadow: 0 18px 45px rgba(0, 55, 110, 0.10);
+    color: #172033;
+    box-shadow: 0 20px 52px rgba(15, 55, 95, 0.08);
     position: relative;
     overflow: hidden;
+    max-width: 1120px;
 }
 
 .hero-wrap::before {
@@ -89,9 +91,20 @@ button[title="View fullscreen"] { display: none !important; }
     position: absolute;
     inset: 0;
     background:
-        linear-gradient(160deg, transparent 45%, rgba(255,255,255,0.07) 46%, transparent 48%),
-        linear-gradient(170deg, transparent 52%, rgba(255,255,255,0.05) 53%, transparent 55%);
+        linear-gradient(160deg, transparent 48%, rgba(40,132,189,0.08) 49%, transparent 51%),
+        linear-gradient(170deg, transparent 57%, rgba(0,111,214,0.06) 58%, transparent 60%);
     pointer-events: none;
+}
+
+.hero-wrap::after {
+    content: "";
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    bottom: 0;
+    height: 5px;
+    background: linear-gradient(90deg, transparent, rgba(40,132,189,0.55), transparent);
+    border-radius: 999px 999px 0 0;
 }
 
 .hero-content {
@@ -100,72 +113,74 @@ button[title="View fullscreen"] { display: none !important; }
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1.6rem;
+    gap: 1.45rem;
     flex-wrap: wrap;
 }
 
 .hero-icon-card {
-    width: 116px;
-    height: 116px;
-    min-width: 116px;
-    border-radius: 30px;
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.24);
+    width: 104px;
+    height: 104px;
+    min-width: 104px;
+    border-radius: 28px;
+    background: linear-gradient(135deg, #ffffff, #eef7ff);
+    border: 1px solid #cfe5ff;
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(12px);
     box-shadow:
-        0 22px 45px rgba(0,0,0,0.16),
-        inset 0 1px 0 rgba(255,255,255,0.18);
+        0 16px 34px rgba(40,132,189,0.12),
+        inset 0 1px 0 rgba(255,255,255,0.9);
 }
 
 .hero-icon-card svg {
-    width: 66px;
-    height: 66px;
-    filter: drop-shadow(0 8px 14px rgba(0,0,0,0.22));
+    width: 60px;
+    height: 60px;
+    filter: drop-shadow(0 8px 14px rgba(40,132,189,0.12));
 }
 
 .hero-copy {
     text-align: left;
-    max-width: 860px;
+    max-width: 820px;
 }
 
 .hero-title {
-    font-size: clamp(2.3rem, 5vw, 4rem);
-    font-weight: 850;
-    letter-spacing: -0.06em;
+    font-size: clamp(2.25rem, 5vw, 4rem);
+    font-weight: 900;
+    letter-spacing: -0.065em;
     margin: 0;
     line-height: 1.05;
-    text-shadow: 0 3px 16px rgba(0,0,0,0.18);
+    color: #10233f;
+    text-shadow: none;
 }
 
 .hero-subtitle {
-    font-size: 1.12rem;
-    margin-top: 1rem;
-    opacity: 0.98;
-    font-weight: 500;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    font-size: 1.08rem;
+    margin-top: 0.9rem;
+    color: #52647c;
+    opacity: 1;
+    font-weight: 600;
+    text-shadow: none;
 }
 
 .hero-pills {
+    position: relative;
+    z-index: 2;
     display: flex;
     justify-content: center;
-    gap: 0.8rem;
+    gap: 0.75rem;
     flex-wrap: wrap;
-    margin-top: 1.6rem;
+    margin-top: 1.55rem;
 }
 
 .hero-pill {
-    background: rgba(255,255,255,0.22);
-    border: 1px solid rgba(255,255,255,0.38);
-    color: white;
-    padding: 0.6rem 0.95rem;
+    background: #ffffff;
+    border: 1px solid #cfe5ff;
+    color: #1f6da8;
+    padding: 0.58rem 0.95rem;
     border-radius: 999px;
-    font-size: 0.88rem;
-    font-weight: 750;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    font-size: 0.86rem;
+    font-weight: 850;
+    box-shadow: 0 8px 20px rgba(40,132,189,0.08);
 }
 
 /* ==========================
@@ -522,7 +537,7 @@ st.html("""
 <div class="hero-wrap">
 <div class="hero-content">
 <div class="hero-icon-card">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#2884bd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
 <path d="M14 2v6h6"></path>
 <path d="M8 13h4"></path>
