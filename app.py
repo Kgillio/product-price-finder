@@ -71,16 +71,64 @@ button[title="View fullscreen"] { display: none !important; }
 
 .hero-wrap {
     background:
-        linear-gradient(135deg, rgba(0, 91, 165, 0.70), rgba(0, 153, 220, 0.52)),
-        url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=80");
-    background-size: cover;
-    background-position: center;
+        radial-gradient(circle at 12% 35%, rgba(54, 143, 255, 0.42), transparent 24%),
+        radial-gradient(circle at 88% 22%, rgba(31, 139, 255, 0.30), transparent 30%),
+        linear-gradient(135deg, #001f5f 0%, #003d99 45%, #005fbd 100%);
     border-radius: 0 0 34px 34px;
     padding: 4rem 2rem 4.8rem 2rem;
     margin: 0 -2rem 2rem -2rem;
     text-align: center;
     color: white;
     box-shadow: 0 18px 45px rgba(0, 55, 110, 0.10);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(160deg, transparent 45%, rgba(255,255,255,0.07) 46%, transparent 48%),
+        linear-gradient(170deg, transparent 52%, rgba(255,255,255,0.05) 53%, transparent 55%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.6rem;
+    flex-wrap: wrap;
+}
+
+.hero-icon-card {
+    width: 116px;
+    height: 116px;
+    min-width: 116px;
+    border-radius: 30px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.24);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(12px);
+    box-shadow:
+        0 22px 45px rgba(0,0,0,0.16),
+        inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+.hero-icon-card svg {
+    width: 66px;
+    height: 66px;
+    filter: drop-shadow(0 8px 14px rgba(0,0,0,0.22));
+}
+
+.hero-copy {
+    text-align: left;
+    max-width: 860px;
 }
 
 .hero-title {
@@ -472,11 +520,35 @@ stroke-linecap="round" stroke-linejoin="round">
 
 st.markdown("""
 <div class="hero-wrap">
-    <h1 class="hero-title">Explore Brands & Categories</h1>
-    <div class="hero-subtitle">Find the best Direct Buy products, compare costs, and search smarter.</div>
+    <div class="hero-content">
+        <div class="hero-icon-card">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="white"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <path d="M14 2v6h6"/>
+                <path d="M8 13h4"/>
+                <path d="M8 17h3"/>
+                <circle cx="15.5" cy="15.5" r="3.5"/>
+                <path d="m18.2 18.2 2.8 2.8"/>
+            </svg>
+        </div>
+
+        <div class="hero-copy">
+            <h1 class="hero-title">Direct Buy File Search</h1>
+            <div class="hero-subtitle">
+                Search thousands of supplier products instantly by item number, manufacturer, brand, description, or category.
+            </div>
+        </div>
+    </div>
+
     <div class="hero-pills">
         <div class="hero-pill">Best Match Search</div>
-        <div class="hero-pill">Category Filters</div>
+        <div class="hero-pill">Category Search</div>
         <div class="hero-pill">Cost Calculator</div>
         <div class="hero-pill">Best Deal Comparison</div>
     </div>
