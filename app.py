@@ -70,102 +70,54 @@ button[title="View fullscreen"] { display: none !important; }
    ========================== */
 
 .hero-wrap {
-    position: relative;
-    overflow: hidden;
     background:
-        radial-gradient(circle at 15% 20%, rgba(40,132,189,0.30), transparent 32%),
-        radial-gradient(circle at 85% 10%, rgba(0,174,239,0.22), transparent 30%),
-        linear-gradient(135deg, #071827 0%, #0d2c45 44%, #123f63 100%);
+        linear-gradient(135deg, rgba(0, 91, 165, 0.70), rgba(0, 153, 220, 0.52)),
+        url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=80");
+    background-size: cover;
+    background-position: center;
     border-radius: 0 0 34px 34px;
-    padding: 4.6rem 2rem 4.9rem;
+    padding: 4rem 2rem 4.8rem 2rem;
     margin: 0 -2rem 2rem -2rem;
     text-align: center;
-    color: #ffffff;
-    box-shadow: 0 22px 55px rgba(7, 24, 39, 0.18);
-}
-
-.hero-wrap::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px);
-    background-size: 42px 42px;
-    opacity: 0.28;
-}
-
-.hero-wrap::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: -120px;
-    width: 760px;
-    height: 260px;
-    transform: translateX(-50%);
-    background: rgba(40,132,189,0.28);
-    filter: blur(80px);
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 980px;
-    margin: 0 auto;
-}
-
-.hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.46rem 0.82rem;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.22);
-    color: #d9f2ff;
-    font-size: 0.76rem;
-    font-weight: 850;
-    letter-spacing: 0.14em;
-    margin-bottom: 1.1rem;
-    backdrop-filter: blur(12px);
+    color: white;
+    box-shadow: 0 18px 45px rgba(0, 55, 110, 0.10);
 }
 
 .hero-title {
-    font-size: clamp(2.8rem, 6vw, 5.4rem);
-    font-weight: 900;
-    letter-spacing: -0.075em;
+    font-size: clamp(2.3rem, 5vw, 4rem);
+    font-weight: 850;
+    letter-spacing: -0.06em;
     margin: 0;
-    line-height: 0.95;
-    text-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    line-height: 1.05;
+    text-shadow: 0 3px 16px rgba(0,0,0,0.18);
 }
 
 .hero-subtitle {
-    max-width: 760px;
-    margin: 1.15rem auto 0;
-    color: rgba(255,255,255,0.88);
-    font-size: 1.14rem;
-    line-height: 1.55;
+    font-size: 1.12rem;
+    margin-top: 1rem;
+    opacity: 0.98;
     font-weight: 500;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.15);
 }
 
 .hero-pills {
     display: flex;
     justify-content: center;
-    gap: 0.75rem;
+    gap: 0.8rem;
     flex-wrap: wrap;
-    margin-top: 1.75rem;
+    margin-top: 1.6rem;
 }
 
 .hero-pill {
-    background: rgba(255,255,255,0.14);
-    border: 1px solid rgba(255,255,255,0.24);
+    background: rgba(255,255,255,0.22);
+    border: 1px solid rgba(255,255,255,0.38);
     color: white;
-    padding: 0.68rem 1rem;
+    padding: 0.6rem 0.95rem;
     border-radius: 999px;
-    font-size: 0.86rem;
-    font-weight: 800;
-    backdrop-filter: blur(14px);
-    box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+    font-size: 0.88rem;
+    font-weight: 750;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
 /* ==========================
@@ -520,21 +472,13 @@ stroke-linecap="round" stroke-linejoin="round">
 
 st.markdown("""
 <div class="hero-wrap">
-    <div class="hero-content">
-        <div class="hero-eyebrow">ISG DIRECT BUY PRODUCT SEARCH</div>
-
-        <h1 class="hero-title">Direct Buy Search</h1>
-
-        <div class="hero-subtitle">
-            Find the right products faster, compare direct costs, and uncover the best buying opportunities across ISG suppliers.
-        </div>
-
-        <div class="hero-pills">
-            <div class="hero-pill">Smart Product Search</div>
-            <div class="hero-pill">Category Search</div>
-            <div class="hero-pill">Cost Calculator</div>
-            <div class="hero-pill">Best Deal Comparison</div>
-        </div>
+    <h1 class="hero-title">Explore Brands & Categories</h1>
+    <div class="hero-subtitle">Find the best Direct Buy products, compare costs, and search smarter.</div>
+    <div class="hero-pills">
+        <div class="hero-pill">Best Match Search</div>
+        <div class="hero-pill">Category Filters</div>
+        <div class="hero-pill">Cost Calculator</div>
+        <div class="hero-pill">Best Deal Comparison</div>
     </div>
 </div>
 """, unsafe_allow_html=True)
