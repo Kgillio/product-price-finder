@@ -43,16 +43,16 @@ button[title="View fullscreen"] { display: none !important; }
 
 .stApp {
     background:
-        radial-gradient(circle at top left, rgba(0, 123, 255, 0.10), transparent 30%),
-        radial-gradient(circle at top right, rgba(0, 82, 155, 0.10), transparent 35%),
-        linear-gradient(180deg, #f5f8fc 0%, #ffffff 45%, #f7f9fc 100%);
-    color: #162033;
+        radial-gradient(circle at top left, rgba(0, 118, 210, 0.08), transparent 30%),
+        radial-gradient(circle at top right, rgba(0, 77, 150, 0.08), transparent 35%),
+        linear-gradient(180deg, #f4f8fd 0%, #ffffff 42%, #f7f9fc 100%);
+    color: #172033;
 }
 
 .block-container {
-    max-width: 1180px;
-    padding-top: 1.5rem;
-    padding-bottom: 4rem;
+    max-width: 1220px;
+    padding-top: 0rem;
+    padding-bottom: 5rem;
 }
 
 /* ==========================
@@ -61,20 +61,20 @@ button[title="View fullscreen"] { display: none !important; }
 
 .hero-wrap {
     background:
-        linear-gradient(135deg, rgba(0, 73, 135, 0.96), rgba(0, 122, 204, 0.86)),
-        url("https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=1600&q=80");
+        linear-gradient(135deg, rgba(0, 67, 125, 0.94), rgba(0, 130, 205, 0.84)),
+        url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=80");
     background-size: cover;
     background-position: center;
-    border-radius: 0 0 28px 28px;
-    padding: 3.5rem 2rem 5.5rem 2rem;
-    margin: -1.5rem -2rem 0 -2rem;
+    border-radius: 0 0 34px 34px;
+    padding: 4rem 2rem 6rem 2rem;
+    margin: 0 -2rem 0 -2rem;
     text-align: center;
     color: white;
-    box-shadow: 0 24px 60px rgba(0, 55, 110, 0.18);
+    box-shadow: 0 28px 70px rgba(0, 55, 110, 0.20);
 }
 
 .hero-title {
-    font-size: clamp(2.2rem, 5vw, 4.2rem);
+    font-size: clamp(2.3rem, 5vw, 4rem);
     font-weight: 850;
     letter-spacing: -0.06em;
     margin: 0;
@@ -82,9 +82,9 @@ button[title="View fullscreen"] { display: none !important; }
 }
 
 .hero-subtitle {
-    font-size: 1.15rem;
+    font-size: 1.12rem;
     margin-top: 1rem;
-    opacity: 0.92;
+    opacity: 0.94;
     font-weight: 450;
 }
 
@@ -93,34 +93,35 @@ button[title="View fullscreen"] { display: none !important; }
     justify-content: center;
     gap: 0.8rem;
     flex-wrap: wrap;
-    margin-top: 1.5rem;
+    margin-top: 1.6rem;
 }
 
 .hero-pill {
-    background: rgba(255,255,255,0.14);
-    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.16);
+    border: 1px solid rgba(255,255,255,0.28);
     color: white;
-    padding: 0.55rem 0.9rem;
+    padding: 0.6rem 0.95rem;
     border-radius: 999px;
     font-size: 0.88rem;
+    font-weight: 700;
     backdrop-filter: blur(10px);
 }
 
 /* ==========================
-   CARDS
+   MAIN CARDS
    ========================== */
 
-.section-card {
-    background: rgba(255,255,255,0.94);
-    border: 1px solid rgba(214, 224, 238, 0.95);
-    box-shadow: 0 18px 45px rgba(15, 33, 58, 0.08);
-    border-radius: 22px;
-    padding: 1.5rem;
-    margin-bottom: 1.55rem;
+.custom-card {
+    background: rgba(255,255,255,0.96);
+    border: 1px solid rgba(213, 225, 240, 0.95);
+    box-shadow: 0 18px 48px rgba(15, 33, 58, 0.075);
+    border-radius: 24px;
+    padding: 1.6rem 1.65rem;
+    margin-bottom: 2rem;
 }
 
 .float-card {
-    margin-top: -3.4rem;
+    margin-top: -3.8rem;
     position: relative;
     z-index: 3;
 }
@@ -128,110 +129,111 @@ button[title="View fullscreen"] { display: none !important; }
 .card-title-row {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
-    margin-bottom: 0.25rem;
+    gap: 0.95rem;
 }
 
 .icon-bubble {
-    width: 46px;
-    height: 46px;
-    border-radius: 16px;
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    border-radius: 17px;
     display: grid;
     place-items: center;
-    background: linear-gradient(135deg, #e8f2ff, #f3f8ff);
-    border: 1px solid #d8e8ff;
+    background: linear-gradient(135deg, #e7f2ff, #f7fbff);
+    border: 1px solid #d7e8ff;
     color: #006fd6;
-    font-size: 1.45rem;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+    font-size: 1.4rem;
 }
 
 .card-title {
-    font-size: 1.45rem;
-    font-weight: 800;
-    color: #182235;
+    font-size: 1.5rem;
+    font-weight: 850;
+    color: #172033;
     margin: 0;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.04em;
 }
 
 .card-subtitle {
-    color: #637083;
-    margin-top: 0.15rem;
-    font-size: 0.95rem;
+    color: #657389;
+    margin-top: 0.25rem;
+    font-size: 0.96rem;
+    line-height: 1.45;
 }
-
-/* ==========================
-   STATUS BAR
-   ========================== */
 
 .status-bar {
-    background: linear-gradient(90deg, #e8fff1, #f0fff7);
-    border: 1px solid #c9f0d9;
-    color: #09803d;
-    padding: 0.85rem 1rem;
-    border-radius: 14px;
-    margin-top: 1.2rem;
-    font-weight: 700;
+    background: linear-gradient(90deg, #e8fff1, #f4fff8);
+    border: 1px solid #c7efd8;
+    color: #087b3b;
+    padding: 0.9rem 1rem;
+    border-radius: 15px;
+    margin-top: 1.3rem;
+    font-weight: 800;
     font-size: 0.95rem;
 }
 
 /* ==========================
-   STREAMLIT INPUTS
+   STREAMLIT CONTAINERS
+   ========================== */
+
+[data-testid="stVerticalBlockBorderWrapper"] {
+    border-radius: 24px !important;
+    border: 1px solid rgba(213, 225, 240, 0.95) !important;
+    box-shadow: 0 18px 48px rgba(15, 33, 58, 0.07) !important;
+    background: rgba(255,255,255,0.96) !important;
+    padding: 1.35rem !important;
+}
+
+/* Make column spacing breathe */
+[data-testid="column"] {
+    padding: 0.15rem 0.4rem;
+}
+
+/* More space between major blocks */
+div[data-testid="stVerticalBlock"] > div {
+    gap: 0.85rem;
+}
+
+/* ==========================
+   INPUTS
    ========================== */
 
 div[data-baseweb="input"] {
-    border-radius: 13px !important;
-    border: 1px solid #d9e2ef !important;
+    border-radius: 14px !important;
+    border: 1px solid #d8e2ee !important;
     background: #ffffff !important;
-    box-shadow: 0 1px 0 rgba(16,24,40,0.02);
+    min-height: 46px !important;
 }
 
 div[data-baseweb="select"] > div {
-    border-radius: 13px !important;
-    border-color: #d9e2ef !important;
+    border-radius: 14px !important;
+    border-color: #d8e2ee !important;
     background: #ffffff !important;
+    min-height: 46px !important;
 }
 
 .stTextInput label,
 .stSelectbox label,
 .stMultiSelect label,
 .stNumberInput label {
-    font-weight: 750 !important;
-    color: #25324a !important;
+    font-weight: 800 !important;
+    color: #26344c !important;
     font-size: 0.9rem !important;
 }
 
 .stTextInput input,
 .stNumberInput input {
-    min-height: 44px;
+    min-height: 46px;
 }
 
 /* ==========================
-   BUTTONS
-   ========================== */
-
-.stButton > button {
-    border-radius: 13px !important;
-    border: 1px solid #006fd6 !important;
-    background: linear-gradient(135deg, #0077df, #005ea8) !important;
-    color: white !important;
-    font-weight: 750 !important;
-    box-shadow: 0 10px 24px rgba(0, 111, 214, 0.18);
-}
-
-.stButton > button:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 14px 30px rgba(0, 111, 214, 0.25);
-}
-
-/* ==========================
-   DATAFRAMES
+   DATA TABLES
    ========================== */
 
 [data-testid="stDataFrame"] {
-    border-radius: 16px !important;
+    border-radius: 17px !important;
     overflow: hidden !important;
-    border: 1px solid #dfe7f1 !important;
-    box-shadow: 0 12px 28px rgba(16,24,40,0.05);
+    border: 1px solid #dfe8f2 !important;
+    box-shadow: 0 14px 32px rgba(16,24,40,0.055);
 }
 
 /* ==========================
@@ -242,13 +244,13 @@ div[data-baseweb="select"] > div {
     background: linear-gradient(180deg, #ffffff, #f8fbff);
     border: 1px solid #dfe8f3;
     padding: 1rem;
-    border-radius: 16px;
-    box-shadow: 0 10px 26px rgba(16,24,40,0.04);
+    border-radius: 17px;
+    box-shadow: 0 10px 26px rgba(16,24,40,0.045);
 }
 
 [data-testid="stMetricLabel"] {
     color: #617086 !important;
-    font-weight: 700 !important;
+    font-weight: 750 !important;
 }
 
 [data-testid="stMetricValue"] {
@@ -257,19 +259,28 @@ div[data-baseweb="select"] > div {
 }
 
 /* ==========================
-   SMALL HELPER CARDS
+   INFO / SUCCESS / WARNING BOXES
+   ========================== */
+
+[data-testid="stAlert"] {
+    border-radius: 15px !important;
+    border: 1px solid rgba(120, 170, 230, 0.25) !important;
+}
+
+/* ==========================
+   FEATURE STRIP
    ========================== */
 
 .feature-strip {
-    background: rgba(255,255,255,0.88);
+    background: rgba(255,255,255,0.9);
     border: 1px solid #cfe4ff;
-    border-radius: 22px;
-    padding: 1.2rem;
+    border-radius: 24px;
+    padding: 1.25rem;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
     box-shadow: 0 14px 34px rgba(16,24,40,0.06);
-    margin-top: 1rem;
+    margin-top: 2rem;
 }
 
 .feature-item {
@@ -280,8 +291,9 @@ div[data-baseweb="select"] > div {
 }
 
 .feature-icon {
-    width: 44px;
-    height: 44px;
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
     border-radius: 16px;
     display: grid;
     place-items: center;
@@ -302,27 +314,25 @@ div[data-baseweb="select"] > div {
     line-height: 1.35;
 }
 
-.tip-box {
-    background: linear-gradient(135deg, #eef7ff, #f8fbff);
-    border: 1px solid #cfe4ff;
-    border-radius: 16px;
-    padding: 1rem;
-    color: #294362;
-    font-size: 0.92rem;
-    margin-top: 1rem;
-}
-
 /* ==========================
-   HEADINGS
+   TEXT CLEANUP
    ========================== */
 
 h1, h2, h3 {
     letter-spacing: -0.035em;
 }
 
+h2 {
+    margin-top: 0.8rem !important;
+}
+
+h3 {
+    margin-top: 0.7rem !important;
+}
+
 hr {
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 /* ==========================
@@ -337,7 +347,11 @@ hr {
     .hero-wrap {
         margin-left: -1rem;
         margin-right: -1rem;
-        padding-bottom: 4.5rem;
+        padding-bottom: 5rem;
+    }
+
+    .custom-card {
+        padding: 1.25rem;
     }
 }
 
@@ -346,9 +360,12 @@ hr {
         grid-template-columns: 1fr;
     }
 
-    .section-card {
-        padding: 1.1rem;
-        border-radius: 18px;
+    .card-title-row {
+        align-items: flex-start;
+    }
+
+    .hero-title {
+        font-size: 2.2rem;
     }
 }
 
@@ -399,11 +416,11 @@ if moq_col in df.columns:
     df[moq_col] = pd.to_numeric(df[moq_col], errors="coerce")
 
 # ==========================
-# TOP SEARCH CARD
+# DIRECT BUY SEARCH CARD
 # ==========================
 
 st.markdown(f"""
-<div class="section-card float-card">
+<div class="custom-card float-card">
     <div class="card-title-row">
         <div class="icon-bubble">🔎</div>
         <div>
@@ -419,8 +436,8 @@ st.markdown(f"""
 # BEST MATCH SEARCH
 # ==========================
 
-st.markdown("""
-<div class="section-card">
+with st.container(border=True):
+    st.markdown("""
     <div class="card-title-row">
         <div class="icon-bubble">⭐</div>
         <div>
@@ -428,78 +445,81 @@ st.markdown("""
             <div class="card-subtitle">Search anything to find the most relevant products across categories, brands, descriptions, and item numbers.</div>
         </div>
     </div>
-</div>
-""", unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
-best_match_search = st.text_input(
-    "Search anything",
-    placeholder="Example: clear report covers, blue folder, Avery binder"
-)
+    st.write("")
 
-search_columns = [
-    "Product Class",
-    "Brand Name",
-    "Manufacturer Name",
-    "ISG Product Code",
-    "Short Description",
-    "Long Description"
-]
-
-available_search_columns = [col for col in search_columns if col in df.columns]
-
-if best_match_search:
-    search_df = df.copy()
-
-    search_df["Search Text"] = (
-        search_df[available_search_columns]
-        .fillna("")
-        .astype(str)
-        .agg(" ".join, axis=1)
+    best_match_search = st.text_input(
+        "Search anything",
+        placeholder="Example: clear report covers, blue folder, Avery binder"
     )
 
-    search_df["Match Score"] = search_df["Search Text"].apply(
-        lambda text: fuzz.token_set_ratio(best_match_search.lower(), text.lower())
-    )
+    search_columns = [
+        "Product Class",
+        "Brand Name",
+        "Manufacturer Name",
+        "ISG Product Code",
+        "Short Description",
+        "Long Description"
+    ]
 
-    best_results = search_df[search_df["Match Score"] >= 40].copy()
+    available_search_columns = [col for col in search_columns if col in df.columns]
 
-    best_results = best_results.sort_values(
-        ["Match Score", direct_cost_col],
-        ascending=[False, True]
-    )
+    if best_match_search:
+        search_df = df.copy()
 
-    st.markdown("### Best Matching Products")
+        search_df["Search Text"] = (
+            search_df[available_search_columns]
+            .fillna("")
+            .astype(str)
+            .agg(" ".join, axis=1)
+        )
 
-    best_display = best_results[
-        [
-            "Match Score",
-            "Product Class",
-            "Manufacturer Name",
-            "ISG Product Code",
-            "Short Description",
-            list_price_col,
-            direct_cost_col
-        ]
-    ].head(100).copy()
+        search_df["Match Score"] = search_df["Search Text"].apply(
+            lambda text: fuzz.token_set_ratio(best_match_search.lower(), text.lower())
+        )
 
-    best_display[list_price_col] = best_display[list_price_col].apply(
-        lambda x: f"${x:,.2f}" if pd.notna(x) else ""
-    )
+        best_results = search_df[search_df["Match Score"] >= 40].copy()
 
-    best_display[direct_cost_col] = best_display[direct_cost_col].apply(
-        lambda x: f"${x:,.2f}" if pd.notna(x) else ""
-    )
+        best_results = best_results.sort_values(
+            ["Match Score", direct_cost_col],
+            ascending=[False, True]
+        )
 
-    st.dataframe(best_display, use_container_width=True)
+        st.markdown("### Best Matching Products")
 
-    st.info(f"Showing top {min(len(best_results), 100)} best matches.")
+        best_display = best_results[
+            [
+                "Match Score",
+                "Product Class",
+                "Manufacturer Name",
+                "ISG Product Code",
+                "Short Description",
+                list_price_col,
+                direct_cost_col
+            ]
+        ].head(100).copy()
+
+        best_display[list_price_col] = best_display[list_price_col].apply(
+            lambda x: f"${x:,.2f}" if pd.notna(x) else ""
+        )
+
+        best_display[direct_cost_col] = best_display[direct_cost_col].apply(
+            lambda x: f"${x:,.2f}" if pd.notna(x) else ""
+        )
+
+        st.dataframe(best_display, use_container_width=True)
+
+        st.info(f"Showing top {min(len(best_results), 100)} best matches.")
+
+st.write("")
 
 # ==========================
 # CATEGORY SEARCH
 # ==========================
 
-st.markdown("""
-<div class="section-card">
+with st.container(border=True):
+    st.markdown("""
     <div class="card-title-row">
         <div class="icon-bubble">📁</div>
         <div>
@@ -507,128 +527,127 @@ st.markdown("""
             <div class="card-subtitle">Browse by category, then narrow results by description, brand, and manufacturer.</div>
         </div>
     </div>
-</div>
-""", unsafe_allow_html=True)
-
-product_classes = sorted(
-    df["Product Class"].dropna().astype(str).unique()
-)
-
-left_filter_col, right_results_col = st.columns([0.34, 0.66], gap="large")
-
-with left_filter_col:
-    st.markdown("### Filters")
-
-    product_class_search = st.text_input(
-        "Filter Categories",
-        placeholder="Type report, folder, binder..."
-    )
-
-    filtered_classes = [
-        pc for pc in product_classes
-        if product_class_search.lower() in pc.lower()
-    ] if product_class_search else product_classes
-
-    selected_class = st.selectbox(
-        "Select Category",
-        options=[""] + filtered_classes,
-        index=0
-    )
-
-    st.markdown("""
-    <div class="tip-box">
-        <strong>💡 Tip</strong><br>
-        Start with a category, then use description, brand, and manufacturer filters to narrow the product list.
-    </div>
     """, unsafe_allow_html=True)
 
-with right_results_col:
+    st.write("")
+
+    product_classes = sorted(
+        df["Product Class"].dropna().astype(str).unique()
+    )
+
+    filter_col, result_col = st.columns([0.34, 0.66], gap="large")
+
+    with filter_col:
+        st.markdown("## Filters")
+
+        product_class_search = st.text_input(
+            "Filter Categories",
+            placeholder="Type report, folder, binder..."
+        )
+
+        filtered_classes = [
+            pc for pc in product_classes
+            if product_class_search.lower() in pc.lower()
+        ] if product_class_search else product_classes
+
+        selected_class = st.selectbox(
+            "Select Category",
+            options=[""] + filtered_classes,
+            index=0
+        )
+
     if not selected_class:
-        st.markdown("### Best deals in")
-        st.markdown("## Select a category")
-        st.info("Choose a category from the dropdown to view matching products.")
+        with result_col:
+            st.markdown("## Best deals in")
+            st.markdown("# Select a category")
+            st.info("Choose a category from the dropdown to view matching products.")
+
+    if selected_class:
+        results = df[df["Product Class"] == selected_class].copy()
+
+        results = results.sort_values(direct_cost_col, ascending=True)
+
+        with filter_col:
+            description_search = st.text_input(
+                "Search within these products",
+                placeholder="Example: clear, blue, letter, pressboard"
+            )
+
+        if description_search:
+            results = results[
+                results["Short Description"].astype(str).str.contains(description_search, case=False, na=False)
+                |
+                results["Long Description"].astype(str).str.contains(description_search, case=False, na=False)
+            ]
+
+        with filter_col:
+            brand_options = sorted(results["Brand Name"].dropna().astype(str).unique())
+            selected_brands = st.multiselect("Filter by Brand", brand_options)
+
+            manufacturer_options = sorted(results["Manufacturer Name"].dropna().astype(str).unique())
+            selected_manufacturers = st.multiselect("Filter by Manufacturer", manufacturer_options)
+
+            st.info("Tip: Use the filters to narrow results and find the best deals faster.")
+
+        if selected_brands:
+            results = results[results["Brand Name"].astype(str).isin(selected_brands)]
+
+        if selected_manufacturers:
+            results = results[results["Manufacturer Name"].astype(str).isin(selected_manufacturers)]
+
+        with result_col:
+            st.markdown(f"## Best deals in {selected_class}")
+            st.caption("Click a row below to auto-fill the calculator.")
+
+            display_columns = [
+                "Manufacturer Name",
+                "ISG Product Code",
+                "Short Description",
+                list_price_col,
+                direct_cost_col
+            ]
+
+            if moq_col in df.columns:
+                display_columns.insert(3, moq_col)
+
+            if uom_col in df.columns:
+                display_columns.insert(4, uom_col)
+
+            display_df = results[display_columns].copy()
+
+            display_df[list_price_col] = display_df[list_price_col].apply(
+                lambda x: f"${x:,.2f}" if pd.notna(x) else ""
+            )
+
+            display_df[direct_cost_col] = display_df[direct_cost_col].apply(
+                lambda x: f"${x:,.2f}" if pd.notna(x) else ""
+            )
+
+            table_selection = st.dataframe(
+                display_df,
+                use_container_width=True,
+                on_select="rerun",
+                selection_mode="single-row",
+                key="cheapest_products_table"
+            )
+
+            clicked_item_number = ""
+
+            if table_selection.selection.rows:
+                selected_row_position = table_selection.selection.rows[0]
+                clicked_item_number = display_df.iloc[selected_row_position]["ISG Product Code"]
+
+            st.info(f"Showing {len(results):,} products sorted from best deal to highest cost.")
+
+# ==========================
+# ITEM NUMBER COST CALCULATOR
+# ==========================
 
 if selected_class:
-    results = df[df["Product Class"] == selected_class].copy()
+    st.write("")
 
-    results = results.sort_values(direct_cost_col, ascending=True)
-
-    with left_filter_col:
-        description_search = st.text_input(
-            "Search within these products",
-            placeholder="Example: clear, blue, letter, pressboard"
-        )
-
-    if description_search:
-        results = results[
-            results["Short Description"].astype(str).str.contains(description_search, case=False, na=False)
-            |
-            results["Long Description"].astype(str).str.contains(description_search, case=False, na=False)
-        ]
-
-    with left_filter_col:
-        brand_options = sorted(results["Brand Name"].dropna().astype(str).unique())
-        selected_brands = st.multiselect("Filter by Brand", brand_options)
-
-        manufacturer_options = sorted(results["Manufacturer Name"].dropna().astype(str).unique())
-        selected_manufacturers = st.multiselect("Filter by Manufacturer", manufacturer_options)
-
-    if selected_brands:
-        results = results[results["Brand Name"].astype(str).isin(selected_brands)]
-
-    if selected_manufacturers:
-        results = results[results["Manufacturer Name"].astype(str).isin(selected_manufacturers)]
-
-    with right_results_col:
-        st.markdown(f"### Best deals in {selected_class}")
-        st.caption("Click a row below to auto-fill the calculator.")
-
-        display_columns = [
-            "Manufacturer Name",
-            "ISG Product Code",
-            "Short Description",
-            list_price_col,
-            direct_cost_col
-        ]
-
-        if moq_col in df.columns:
-            display_columns.insert(3, moq_col)
-
-        if uom_col in df.columns:
-            display_columns.insert(4, uom_col)
-
-        display_df = results[display_columns].copy()
-
-        display_df[list_price_col] = display_df[list_price_col].apply(
-            lambda x: f"${x:,.2f}" if pd.notna(x) else ""
-        )
-
-        display_df[direct_cost_col] = display_df[direct_cost_col].apply(
-            lambda x: f"${x:,.2f}" if pd.notna(x) else ""
-        )
-
-        table_selection = st.dataframe(
-            display_df,
-            use_container_width=True,
-            on_select="rerun",
-            selection_mode="single-row",
-            key="cheapest_products_table"
-        )
-
-        clicked_item_number = ""
-
-        if table_selection.selection.rows:
-            selected_row_position = table_selection.selection.rows[0]
-            clicked_item_number = display_df.iloc[selected_row_position]["ISG Product Code"]
-
-        st.info(f"Showing {len(results):,} products sorted from best deal to highest cost.")
-
-    # ==========================
-    # ITEM NUMBER COST CALCULATOR
-    # ==========================
-
-    st.markdown("""
-    <div class="section-card">
+    with st.container(border=True):
+        st.markdown("""
         <div class="card-title-row">
             <div class="icon-bubble">🧮</div>
             <div>
@@ -636,96 +655,99 @@ if selected_class:
                 <div class="card-subtitle">Click a product row above or enter an item number to estimate direct cost, list price, and savings.</div>
             </div>
         </div>
-    </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
-    if clicked_item_number:
-        st.success(f"Selected item from table: {clicked_item_number}")
+        st.write("")
 
-    item_number_search = st.text_input(
-        "Enter Item Number",
-        value=str(clicked_item_number) if clicked_item_number else "",
-        placeholder="Example: ABFARB8012M"
-    )
+        if clicked_item_number:
+            st.success(f"Selected item from table: {clicked_item_number}")
 
-    if item_number_search:
-        item_matches = results[
-            results["ISG Product Code"]
-            .astype(str)
-            .str.contains(item_number_search, case=False, na=False)
-        ].copy()
+        item_number_search = st.text_input(
+            "Enter Item Number",
+            value=str(clicked_item_number) if clicked_item_number else "",
+            placeholder="Example: ABFARB8012M"
+        )
 
-        if not item_matches.empty:
-            item_matches = item_matches.sort_values(direct_cost_col, ascending=True)
+        if item_number_search:
+            item_matches = results[
+                results["ISG Product Code"]
+                .astype(str)
+                .str.contains(item_number_search, case=False, na=False)
+            ].copy()
 
-            item_choices = (
-                item_matches["Manufacturer Name"].astype(str)
-                + " | "
-                + item_matches["ISG Product Code"].astype(str)
-                + " | "
-                + item_matches["Short Description"].astype(str)
-                + " | $"
-                + item_matches[direct_cost_col].round(2).astype(str)
-            )
+            if not item_matches.empty:
+                item_matches = item_matches.sort_values(direct_cost_col, ascending=True)
 
-            selected_item_label = st.selectbox("Select matching item", item_choices)
-
-            selected_item_index = item_choices[item_choices == selected_item_label].index[0]
-            selected_item = item_matches.loc[selected_item_index]
-
-            item_cost = selected_item[direct_cost_col]
-            item_list_price = selected_item[list_price_col]
-            item_moq = selected_item[moq_col] if moq_col in df.columns else 1
-            item_uom = selected_item[uom_col] if uom_col in df.columns else "N/A"
-
-            st.markdown("### Item Details")
-
-            c1, c2, c3, c4 = st.columns(4)
-            c1.metric("Direct Cost", f"${item_cost:,.2f}")
-            c2.metric("List Price", f"${item_list_price:,.2f}")
-            c3.metric("MOQ", f"{item_moq:,.0f}" if pd.notna(item_moq) else "N/A")
-            c4.metric("ISG UOM", str(item_uom))
-
-            st.markdown("#### Product")
-            st.write(selected_item["Short Description"])
-
-            quantity = st.number_input(
-                "Enter quantity you want to buy",
-                min_value=1,
-                value=int(item_moq) if pd.notna(item_moq) and item_moq > 0 else 1,
-                step=1
-            )
-
-            if pd.notna(item_moq) and quantity < item_moq:
-                st.warning(
-                    f"This item has an MOQ of {item_moq:,.0f}. "
-                    f"You entered {quantity:,}, so the estimate uses the MOQ."
+                item_choices = (
+                    item_matches["Manufacturer Name"].astype(str)
+                    + " | "
+                    + item_matches["ISG Product Code"].astype(str)
+                    + " | "
+                    + item_matches["Short Description"].astype(str)
+                    + " | $"
+                    + item_matches[direct_cost_col].round(2).astype(str)
                 )
-                billable_quantity = item_moq
+
+                selected_item_label = st.selectbox("Select matching item", item_choices)
+
+                selected_item_index = item_choices[item_choices == selected_item_label].index[0]
+                selected_item = item_matches.loc[selected_item_index]
+
+                item_cost = selected_item[direct_cost_col]
+                item_list_price = selected_item[list_price_col]
+                item_moq = selected_item[moq_col] if moq_col in df.columns else 1
+                item_uom = selected_item[uom_col] if uom_col in df.columns else "N/A"
+
+                st.markdown("### Item Details")
+
+                c1, c2, c3, c4 = st.columns(4)
+                c1.metric("Direct Cost", f"${item_cost:,.2f}")
+                c2.metric("List Price", f"${item_list_price:,.2f}")
+                c3.metric("MOQ", f"{item_moq:,.0f}" if pd.notna(item_moq) else "N/A")
+                c4.metric("ISG UOM", str(item_uom))
+
+                st.markdown("#### Product")
+                st.write(selected_item["Short Description"])
+
+                quantity = st.number_input(
+                    "Enter quantity you want to buy",
+                    min_value=1,
+                    value=int(item_moq) if pd.notna(item_moq) and item_moq > 0 else 1,
+                    step=1
+                )
+
+                if pd.notna(item_moq) and quantity < item_moq:
+                    st.warning(
+                        f"This item has an MOQ of {item_moq:,.0f}. "
+                        f"You entered {quantity:,}, so the estimate uses the MOQ."
+                    )
+                    billable_quantity = item_moq
+                else:
+                    billable_quantity = quantity
+
+                total_direct_cost = billable_quantity * item_cost
+                total_list_price = billable_quantity * item_list_price
+                savings_vs_list = total_list_price - total_direct_cost
+
+                st.markdown("### Cost Estimate")
+
+                e1, e2, e3, e4 = st.columns(4)
+                e1.metric("Billable Qty", f"{billable_quantity:,.0f}")
+                e2.metric("Total Direct Cost", f"${total_direct_cost:,.2f}")
+                e3.metric("Total List Price", f"${total_list_price:,.2f}")
+                e4.metric("Savings vs List", f"${savings_vs_list:,.2f}")
+
             else:
-                billable_quantity = quantity
-
-            total_direct_cost = billable_quantity * item_cost
-            total_list_price = billable_quantity * item_list_price
-            savings_vs_list = total_list_price - total_direct_cost
-
-            st.markdown("### Cost Estimate")
-
-            e1, e2, e3, e4 = st.columns(4)
-            e1.metric("Billable Qty", f"{billable_quantity:,.0f}")
-            e2.metric("Total Direct Cost", f"${total_direct_cost:,.2f}")
-            e3.metric("Total List Price", f"${total_list_price:,.2f}")
-            e4.metric("Savings vs List", f"${savings_vs_list:,.2f}")
-
-        else:
-            st.warning("No item number matches found in this category.")
+                st.warning("No item number matches found in this category.")
 
     # ==========================
     # COMPARE PRODUCT
     # ==========================
 
-    st.markdown("""
-    <div class="section-card">
+    st.write("")
+
+    with st.container(border=True):
+        st.markdown("""
         <div class="card-title-row">
             <div class="icon-bubble">⚖️</div>
             <div>
@@ -733,49 +755,50 @@ if selected_class:
                 <div class="card-subtitle">Choose any product in the category and compare it against the lowest direct cost option.</div>
             </div>
         </div>
-    </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
-    if not results.empty:
-        best_deal_product = results.iloc[0]
+        st.write("")
 
-        product_choices = (
-            results["Manufacturer Name"].astype(str)
-            + " | "
-            + results["ISG Product Code"].astype(str)
-            + " | "
-            + results["Short Description"].astype(str)
-            + " | $"
-            + results[direct_cost_col].round(2).astype(str)
-        )
+        if not results.empty:
+            best_deal_product = results.iloc[0]
 
-        selected_product_label = st.selectbox(
-            "Choose a product to compare",
-            product_choices
-        )
+            product_choices = (
+                results["Manufacturer Name"].astype(str)
+                + " | "
+                + results["ISG Product Code"].astype(str)
+                + " | "
+                + results["Short Description"].astype(str)
+                + " | $"
+                + results[direct_cost_col].round(2).astype(str)
+            )
 
-        selected_index = product_choices[product_choices == selected_product_label].index[0]
-        selected_product = results.loc[selected_index]
+            selected_product_label = st.selectbox(
+                "Choose a product to compare",
+                product_choices
+            )
 
-        best_deal_cost = best_deal_product[direct_cost_col]
-        selected_cost = selected_product[direct_cost_col]
-        savings = selected_cost - best_deal_cost
+            selected_index = product_choices[product_choices == selected_product_label].index[0]
+            selected_product = results.loc[selected_index]
 
-        c1, c2, c3 = st.columns(3)
+            best_deal_cost = best_deal_product[direct_cost_col]
+            selected_cost = selected_product[direct_cost_col]
+            savings = selected_cost - best_deal_cost
 
-        c1.metric("Best Deal Cost", f"${best_deal_cost:,.2f}")
-        c2.metric("Selected Product Cost", f"${selected_cost:,.2f}")
-        c3.metric("Potential Savings", f"${savings:,.2f}")
+            c1, c2, c3 = st.columns(3)
 
-        compare_col1, compare_col2 = st.columns(2)
+            c1.metric("Best Deal Cost", f"${best_deal_cost:,.2f}")
+            c2.metric("Selected Product Cost", f"${selected_cost:,.2f}")
+            c3.metric("Potential Savings", f"${savings:,.2f}")
 
-        with compare_col1:
-            st.markdown("#### Best Deal Product")
-            st.write(best_deal_product["Short Description"])
+            compare_col1, compare_col2 = st.columns(2)
 
-        with compare_col2:
-            st.markdown("#### Selected Product")
-            st.write(selected_product["Short Description"])
+            with compare_col1:
+                st.markdown("#### Best Deal Product")
+                st.write(best_deal_product["Short Description"])
+
+            with compare_col2:
+                st.markdown("#### Selected Product")
+                st.write(selected_product["Short Description"])
 
 # ==========================
 # BOTTOM FEATURE STRIP
