@@ -76,7 +76,7 @@ button[title="View fullscreen"] { display: none !important; }
         linear-gradient(135deg, #ffffff 0%, #f7fbff 42%, #eef7ff 100%);
     border: 1px solid #dbeafe;
     border-radius: 28px;
-    padding: 3.1rem 2.2rem 3rem 2.2rem;
+    padding: 3.1rem 2.2rem 3.1rem 2.2rem;
     margin: 1.3rem auto 1.8rem auto;
     text-align: center;
     color: #172033;
@@ -160,27 +160,6 @@ button[title="View fullscreen"] { display: none !important; }
     opacity: 1;
     font-weight: 600;
     text-shadow: none;
-}
-
-.hero-pills {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    justify-content: center;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    margin-top: 1.55rem;
-}
-
-.hero-pill {
-    background: #ffffff;
-    border: 1px solid #cfe5ff;
-    color: #1f6da8;
-    padding: 0.58rem 0.95rem;
-    border-radius: 999px;
-    font-size: 0.86rem;
-    font-weight: 850;
-    box-shadow: 0 8px 20px rgba(40,132,189,0.08);
 }
 
 /* ==========================
@@ -375,53 +354,6 @@ div[data-baseweb="select"] > div:focus-within {
 }
 
 /* ==========================
-   FEATURE STRIP
-   ========================== */
-
-.feature-strip {
-    background: #ffffff;
-    border: 1px solid rgba(220, 230, 242, 0.95);
-    border-radius: 24px;
-    padding: 1.25rem;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    box-shadow: 0 10px 28px rgba(15, 33, 58, 0.04);
-    margin-top: 2rem;
-}
-
-.feature-item {
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-    padding: 0.8rem;
-}
-
-.feature-icon {
-    width: 46px;
-    height: 46px;
-    min-width: 46px;
-    border-radius: 16px;
-    display: grid;
-    place-items: center;
-    background: #eef7ff;
-    color: #006fd6;
-    font-size: 1.25rem;
-}
-
-.feature-title {
-    font-weight: 850;
-    color: #182235;
-    margin-bottom: 0.15rem;
-}
-
-.feature-text {
-    color: #627084;
-    font-size: 0.88rem;
-    line-height: 1.35;
-}
-
-/* ==========================
    TEXT CLEANUP
    ========================== */
 
@@ -447,10 +379,6 @@ hr {
    ========================== */
 
 @media (max-width: 900px) {
-    .feature-strip {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
     .hero-wrap {
         margin-left: -1rem;
         margin-right: -1rem;
@@ -459,10 +387,6 @@ hr {
 }
 
 @media (max-width: 600px) {
-    .feature-strip {
-        grid-template-columns: 1fr;
-    }
-
     .card-title-row {
         align-items: flex-start;
     }
@@ -517,18 +441,6 @@ stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calculator-i
 </svg>
 """
 
-compare_icon = """
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-viewBox="0 0 24 24" fill="none" stroke="#2884bd" stroke-width="2"
-stroke-linecap="round" stroke-linejoin="round">
-<path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
-<path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
-<path d="M7 21h10"/>
-<path d="M12 3v18"/>
-<path d="M3 7h2c2 0 5-1 7-3 2 2 5 3 7 3h2"/>
-</svg>
-"""
-
 # ==========================
 # HERO
 # ==========================
@@ -550,12 +462,6 @@ st.html("""
 <h1 class="hero-title">Direct Buy File Search</h1>
 <div class="hero-subtitle">Search thousands of supplier products instantly by item number, manufacturer, brand, description, or category.</div>
 </div>
-</div>
-<div class="hero-pills">
-<div class="hero-pill">Best Match Search</div>
-<div class="hero-pill">Category Search</div>
-<div class="hero-pill">Cost Calculator</div>
-<div class="hero-pill">Best Deal Comparison</div>
 </div>
 </div>
 """)
@@ -918,100 +824,3 @@ if selected_class:
 
             else:
                 st.warning("No item number matches found in this category.")
-
-    # ==========================
-    # COMPARE PRODUCT
-    # ==========================
-
-    st.write("")
-
-    with st.container(border=True):
-        st.markdown(f"""
-        <div class="card-title-row">
-            <div class="icon-bubble">{compare_icon}</div>
-            <div>
-                <div class="card-title">Compare Product vs Best Deal</div>
-                <div class="card-subtitle">Choose any product in the category and compare it against the lowest direct cost option.</div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.write("")
-
-        if not results.empty:
-            best_deal_product = results.iloc[0]
-
-            product_choices = (
-                results["Manufacturer Name"].astype(str)
-                + " | "
-                + results["ISG Product Code"].astype(str)
-                + " | "
-                + results["Short Description"].astype(str)
-                + " | $"
-                + results[direct_cost_col].round(2).astype(str)
-            )
-
-            selected_product_label = st.selectbox(
-                "Choose a product to compare",
-                product_choices
-            )
-
-            selected_index = product_choices[product_choices == selected_product_label].index[0]
-            selected_product = results.loc[selected_index]
-
-            best_deal_cost = best_deal_product[direct_cost_col]
-            selected_cost = selected_product[direct_cost_col]
-            savings = selected_cost - best_deal_cost
-
-            c1, c2, c3 = st.columns(3)
-
-            c1.metric("Best Deal Cost", f"${best_deal_cost:,.2f}")
-            c2.metric("Selected Product Cost", f"${selected_cost:,.2f}")
-            c3.metric("Potential Savings", f"${savings:,.2f}")
-
-            compare_col1, compare_col2 = st.columns(2)
-
-            with compare_col1:
-                st.markdown("#### Best Deal Product")
-                st.write(best_deal_product["Short Description"])
-
-            with compare_col2:
-                st.markdown("#### Selected Product")
-                st.write(selected_product["Short Description"])
-
-# ==========================
-# BOTTOM FEATURE STRIP
-# ==========================
-
-st.markdown("""
-<div class="feature-strip">
-    <div class="feature-item">
-        <div class="feature-icon">🏷️</div>
-        <div>
-            <div class="feature-title">Best Prices</div>
-            <div class="feature-text">Find the lowest direct costs fast.</div>
-        </div>
-    </div>
-    <div class="feature-item">
-        <div class="feature-icon">🛡️</div>
-        <div>
-            <div class="feature-title">Trusted Brands</div>
-            <div class="feature-text">Search top manufacturers and brands.</div>
-        </div>
-    </div>
-    <div class="feature-item">
-        <div class="feature-icon">📦</div>
-        <div>
-            <div class="feature-title">Wide Selection</div>
-            <div class="feature-text">Browse thousands of products.</div>
-        </div>
-    </div>
-    <div class="feature-item">
-        <div class="feature-icon">⚡</div>
-        <div>
-            <div class="feature-title">Fast & Easy</div>
-            <div class="feature-text">Quick search with smart filters.</div>
-        </div>
-    </div>
-</div>
-""", unsafe_allow_html=True)
