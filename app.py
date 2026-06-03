@@ -18,17 +18,6 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-:root {
-    --isg-navy: #0B5E8E;
-    --isg-blue: #0A84C6;
-    --isg-aqua: #6ECFE3;
-    --isg-green: #78BE5A;
-    --isg-slate: #55707D;
-    --isg-ink: #173447;
-    --isg-soft-blue: #EEF9FC;
-    --isg-soft-green: #F3FAEF;
-}
-
 /* ==========================
    HIDE STREAMLIT DEFAULT UI
    ========================== */
@@ -54,8 +43,8 @@ button[title="View fullscreen"] { display: none !important; }
    ========================== */
 
 .stApp {
-    background: linear-gradient(180deg, #ffffff 0%, #f8fcfd 100%) !important;
-    color: var(--isg-ink);
+    background: #ffffff !important;
+    color: #172033;
 }
 
 [data-testid="stAppViewContainer"] {
@@ -82,16 +71,16 @@ button[title="View fullscreen"] { display: none !important; }
 
 .hero-wrap {
     background:
-        radial-gradient(circle at 10% 18%, rgba(120, 190, 90, 0.16), transparent 28%),
-        radial-gradient(circle at 88% 12%, rgba(110, 207, 227, 0.22), transparent 31%),
-        linear-gradient(135deg, #ffffff 0%, #f4fbfd 45%, #eaf8fb 100%);
-    border: 1px solid #cdeef5;
+        radial-gradient(circle at 12% 18%, rgba(40, 132, 189, 0.14), transparent 28%),
+        radial-gradient(circle at 90% 12%, rgba(0, 111, 214, 0.10), transparent 30%),
+        linear-gradient(135deg, #ffffff 0%, #f7fbff 42%, #eef7ff 100%);
+    border: 1px solid #dbeafe;
     border-radius: 28px;
     padding: 3.1rem 2.2rem 3.1rem 2.2rem;
     margin: 1.3rem auto 1.8rem auto;
     text-align: center;
-    color: var(--isg-ink);
-    box-shadow: 0 20px 52px rgba(11, 94, 142, 0.09);
+    color: #172033;
+    box-shadow: 0 20px 52px rgba(15, 55, 95, 0.08);
     position: relative;
     overflow: hidden;
     max-width: 1120px;
@@ -102,8 +91,8 @@ button[title="View fullscreen"] { display: none !important; }
     position: absolute;
     inset: 0;
     background:
-        linear-gradient(160deg, transparent 48%, rgba(110,207,227,0.14) 49%, transparent 51%),
-        linear-gradient(170deg, transparent 57%, rgba(120,190,90,0.10) 58%, transparent 60%);
+        linear-gradient(160deg, transparent 48%, rgba(40,132,189,0.08) 49%, transparent 51%),
+        linear-gradient(170deg, transparent 57%, rgba(0,111,214,0.06) 58%, transparent 60%);
     pointer-events: none;
 }
 
@@ -114,7 +103,7 @@ button[title="View fullscreen"] { display: none !important; }
     right: 5%;
     bottom: 0;
     height: 5px;
-    background: linear-gradient(90deg, transparent, rgba(110,207,227,0.70), rgba(120,190,90,0.45), transparent);
+    background: linear-gradient(90deg, transparent, rgba(40,132,189,0.55), transparent);
     border-radius: 999px 999px 0 0;
 }
 
@@ -133,20 +122,20 @@ button[title="View fullscreen"] { display: none !important; }
     height: 104px;
     min-width: 104px;
     border-radius: 28px;
-    background: linear-gradient(135deg, #ffffff, #eef9fc);
-    border: 1px solid #c8edf5;
+    background: linear-gradient(135deg, #ffffff, #eef7ff);
+    border: 1px solid #cfe5ff;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow:
-        0 16px 34px rgba(10,132,198,0.12),
+        0 16px 34px rgba(40,132,189,0.12),
         inset 0 1px 0 rgba(255,255,255,0.9);
 }
 
 .hero-icon-card svg {
     width: 60px;
     height: 60px;
-    filter: drop-shadow(0 8px 14px rgba(10,132,198,0.14));
+    filter: drop-shadow(0 8px 14px rgba(40,132,189,0.12));
 }
 
 .hero-copy {
@@ -160,14 +149,14 @@ button[title="View fullscreen"] { display: none !important; }
     letter-spacing: -0.065em;
     margin: 0;
     line-height: 1.05;
-    color: var(--isg-ink);
+    color: #10233f;
     text-shadow: none;
 }
 
 .hero-subtitle {
     font-size: 1.08rem;
     margin-top: 0.9rem;
-    color: var(--isg-slate);
+    color: #52647c;
     opacity: 1;
     font-weight: 600;
     text-shadow: none;
@@ -181,17 +170,15 @@ button[title="View fullscreen"] { display: none !important; }
     display: flex;
     align-items: center;
     gap: 0.95rem;
-    margin: 0.15rem 0.15rem 1.2rem 0.15rem;
+    margin: 0 0 1.15rem 0;
     padding: 1.25rem 1.45rem;
-    background:
-        linear-gradient(90deg, rgba(120,190,90,0.11) 0%, rgba(110,207,227,0.16) 38%, rgba(255,255,255,0.88) 100%),
-        linear-gradient(180deg, #f6fcfd 0%, #eef9fc 100%);
-    border: 1px solid #d2edf4;
-    border-bottom-color: #c0e6f0;
-    border-radius: 17px 17px 0 0;
+    background: linear-gradient(180deg, #f6fbff 0%, #edf6fe 100%);
+    border: 1px solid #dbeafe;
+    border-bottom-color: #cfe3f8;
+    border-radius: 18px 18px 0 0;
     position: relative;
     overflow: hidden;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.88);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.85);
 }
 
 .section-header::before,
@@ -226,9 +213,9 @@ button[title="View fullscreen"] { display: none !important; }
     border-radius: 16px;
     display: grid;
     place-items: center;
-    background: rgba(255,255,255,0.86);
-    border: 1px solid #cdeef5;
-    color: var(--isg-blue);
+    background: rgba(255,255,255,0.82);
+    border: 1px solid #dbeafe;
+    color: #2884bd;
     font-size: 1.4rem;
     box-shadow: none;
 }
@@ -242,13 +229,13 @@ button[title="View fullscreen"] { display: none !important; }
 .card-title {
     font-size: 1.5rem;
     font-weight: 850;
-    color: var(--isg-ink);
+    color: #172033;
     margin: 0;
     letter-spacing: -0.04em;
 }
 
 .card-subtitle {
-    color: var(--isg-slate);
+    color: #657389;
     margin-top: 0.25rem;
     font-size: 0.96rem;
     line-height: 1.45;
@@ -258,15 +245,15 @@ button[title="View fullscreen"] { display: none !important; }
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    background: linear-gradient(90deg, #edf9e9, #f7fcf5);
-    border: 1px solid #c9eec0;
-    color: #3f8f2f;
+    background: linear-gradient(90deg, #e7fff1, #f7fffa);
+    border: 1px solid #bdeccb;
+    color: #087b3b;
     padding: 0.42rem 0.72rem;
     border-radius: 999px;
     font-weight: 850;
     font-size: 0.82rem;
     white-space: nowrap;
-    box-shadow: 0 6px 14px rgba(120, 190, 90, 0.10);
+    box-shadow: 0 6px 14px rgba(8, 123, 59, 0.06);
 }
 
 /* ==========================
@@ -276,8 +263,8 @@ button[title="View fullscreen"] { display: none !important; }
 
 [data-testid="stVerticalBlockBorderWrapper"] {
     border-radius: 22px !important;
-    border: 1px solid rgba(199, 225, 232, 0.95) !important;
-    box-shadow: 0 10px 28px rgba(11, 94, 142, 0.045) !important;
+    border: 1px solid rgba(220, 230, 242, 0.95) !important;
+    box-shadow: 0 10px 28px rgba(15, 33, 58, 0.045) !important;
     background: #ffffff !important;
     padding: 1.35rem !important;
 }
@@ -297,7 +284,7 @@ div[data-testid="stVerticalBlock"] > div {
 
 div[data-baseweb="input"] {
     border-radius: 14px !important;
-    border: 1px solid #c8dfe8 !important;
+    border: 1px solid #cfdbea !important;
     background: #ffffff !important;
     min-height: 48px !important;
     box-shadow:
@@ -307,7 +294,7 @@ div[data-baseweb="input"] {
 
 div[data-baseweb="select"] > div {
     border-radius: 14px !important;
-    border-color: #c8dfe8 !important;
+    border-color: #cfdbea !important;
     background: #ffffff !important;
     min-height: 48px !important;
     box-shadow:
@@ -317,9 +304,9 @@ div[data-baseweb="select"] > div {
 
 div[data-baseweb="input"]:focus-within,
 div[data-baseweb="select"] > div:focus-within {
-    border-color: var(--isg-aqua) !important;
+    border-color: #75b7ff !important;
     box-shadow:
-        0 0 0 3px rgba(110, 207, 227, 0.20),
+        0 0 0 3px rgba(0, 119, 223, 0.10),
         0 10px 24px rgba(16,24,40,0.05) !important;
 }
 
@@ -328,7 +315,7 @@ div[data-baseweb="select"] > div:focus-within {
 .stMultiSelect label,
 .stNumberInput label {
     font-weight: 800 !important;
-    color: var(--isg-ink) !important;
+    color: #26344c !important;
     font-size: 0.9rem !important;
 }
 
@@ -336,7 +323,7 @@ div[data-baseweb="select"] > div:focus-within {
 .stNumberInput input {
     min-height: 48px;
     background: #ffffff !important;
-    color: var(--isg-ink) !important;
+    color: #1f2937 !important;
 }
 
 .stTextInput input::placeholder {
@@ -356,7 +343,7 @@ div[data-baseweb="select"] > div:focus-within {
 [data-testid="stDataFrame"] {
     border-radius: 17px !important;
     overflow: hidden !important;
-    border: 1px solid #d4e9ef !important;
+    border: 1px solid #dfe8f2 !important;
     box-shadow: 0 10px 24px rgba(16,24,40,0.04);
     background: #ffffff !important;
 }
@@ -366,20 +353,20 @@ div[data-baseweb="select"] > div:focus-within {
    ========================== */
 
 [data-testid="stMetric"] {
-    background: linear-gradient(180deg, #ffffff, #f7fcfd);
-    border: 1px solid #d4e9ef;
+    background: linear-gradient(180deg, #ffffff, #fbfdff);
+    border: 1px solid #dfe8f3;
     padding: 1rem;
     border-radius: 17px;
     box-shadow: 0 10px 26px rgba(16,24,40,0.04);
 }
 
 [data-testid="stMetricLabel"] {
-    color: var(--isg-slate) !important;
+    color: #617086 !important;
     font-weight: 750 !important;
 }
 
 [data-testid="stMetricValue"] {
-    color: var(--isg-ink) !important;
+    color: #162033 !important;
     font-weight: 850 !important;
 }
 
@@ -389,7 +376,7 @@ div[data-baseweb="select"] > div:focus-within {
 
 [data-testid="stAlert"] {
     border-radius: 15px !important;
-    border: 1px solid rgba(110, 207, 227, 0.28) !important;
+    border: 1px solid rgba(120, 170, 230, 0.22) !important;
 }
 
 /* ==========================
@@ -445,7 +432,7 @@ hr {
 
 best_match_icon = """
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
-viewBox="0 0 24 24" fill="none" stroke="#0A84C6" stroke-width="2" 
+viewBox="0 0 24 24" fill="none" stroke="#2884bd" stroke-width="2" 
 stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon lucide-search">
 <path d="m21 21-4.34-4.34"/>
 <circle cx="11" cy="11" r="8"/>
@@ -454,7 +441,7 @@ stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon 
 
 category_icon = """
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
-viewBox="0 0 24 24" fill="none" stroke="#0A84C6" stroke-width="2" 
+viewBox="0 0 24 24" fill="none" stroke="#2884bd" stroke-width="2" 
 stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-bar-stacked-icon lucide-chart-bar-stacked">
 <path d="M11 13v4"/>
 <path d="M15 5v4"/>
@@ -466,7 +453,7 @@ stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-bar-st
 
 calculator_icon = """
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
-viewBox="0 0 24 24" fill="none" stroke="#0A84C6" stroke-width="2" 
+viewBox="0 0 24 24" fill="none" stroke="#2884bd" stroke-width="2" 
 stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calculator-icon lucide-calculator">
 <rect width="16" height="20" x="4" y="2" rx="2"/>
 <line x1="8" x2="16" y1="6" y2="6"/>
@@ -489,7 +476,7 @@ st.markdown("""
 <div class="hero-wrap">
 <div class="hero-content">
 <div class="hero-icon-card">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0A84C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package-search-icon lucide-package-search">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2884bd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package-search-icon lucide-package-search">
 <path d="M12 22V12"/>
 <path d="M20.27 18.27 22 20"/>
 <path d="M21 10.498V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.729l7 4a2 2 0 0 0 2 .001l.98-.559"/>
