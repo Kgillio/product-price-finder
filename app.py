@@ -612,26 +612,20 @@ if moq_col in df.columns:
 selected_class = ""
 results = pd.DataFrame()
 
-# Keep separate calculator selections available across reruns.
-# Best Match Search and Category Search each get their own calculator state.
-# This prevents Streamlit errors from both calculators trying to use the same widget key.
-if "best_calculator_item_number" not in st.session_state:
-    st.session_state["best_calculator_item_number"] = ""
+# Keep the selected calculator item available across reruns.
+# This lets someone click a row in either Best Match Search or Category Search
+# and have the calculator auto-fill with that item number.
+if "calculator_item_number" not in st.session_state:
+    st.session_state["calculator_item_number"] = ""
 
-if "best_calculator_selected_source" not in st.session_state:
-    st.session_state["best_calculator_selected_source"] = ""
-
-if "category_calculator_item_number" not in st.session_state:
-    st.session_state["category_calculator_item_number"] = ""
-
-if "category_calculator_selected_source" not in st.session_state:
-    st.session_state["category_calculator_selected_source"] = ""
+if "calculator_selected_source" not in st.session_state:
+    st.session_state["calculator_selected_source"] = ""
 
 # ==========================
 # ITEM NUMBER COST CALCULATOR FUNCTION
 # ==========================
 
-def render_item_number_cost_calculator(calculator_location_key="main", item_state_key="best_calculator_item_number", source_state_key="best_calculator_selected_source"):
+def render_item_number_cost_calculator(calculator_location_key="main"):
     """Shows the item number calculator wherever this function is placed on the page."""
     st.write("")
 
@@ -648,8 +642,8 @@ def render_item_number_cost_calculator(calculator_location_key="main", item_stat
 
         st.write("")
 
-        selected_source = st.session_state.get(source_state_key, "")
-        selected_calculator_item = st.session_state.get(item_state_key, "")
+        selected_source = st.session_state.get("calculator_selected_source", "")
+        selected_calculator_item = st.session_state.get("calculator_item_number", "")
 
         if selected_calculator_item:
             if selected_source:
@@ -660,7 +654,7 @@ def render_item_number_cost_calculator(calculator_location_key="main", item_stat
         item_number_search = st.text_input(
             "Enter Item Number",
             placeholder="Example: ABFARB8012M",
-            key=item_state_key
+            key="calculator_item_number"
         )
 
         if item_number_search:
@@ -850,8 +844,8 @@ with st.container(border=True):
             selected_row_position = best_match_selection.selection.rows[0]
             selected_best_item_number = best_display.iloc[selected_row_position]["ISG Product Code"]
 
-            st.session_state["best_calculator_item_number"] = str(selected_best_item_number)
-            st.session_state["best_calculator_selected_source"] = "Best Match Search"
+            st.session_state["calculator_item_number"] = str(selected_best_item_number)
+            st.session_state["calculator_selected_source"] = "Best Match Search"
 
             st.success(f"Selected item from Best Match Search: {selected_best_item_number}")
 
@@ -859,7 +853,7 @@ with st.container(border=True):
 
         # Calculator now appears directly under the Best Matching Products table,
         # so users do not have to scroll to the bottom for the estimate.
-        render_item_number_cost_calculator("best_match", "best_calculator_item_number", "best_calculator_selected_source")
+        render_item_number_cost_calculator("best_match")
 
 st.write("")
 
@@ -983,16 +977,17 @@ with st.container(border=True):
             selected_row_position = table_selection.selection.rows[0]
             clicked_item_number = display_df.iloc[selected_row_position]["Product Code"]
 
-            st.session_state["category_calculator_item_number"] = str(clicked_item_number)
-            st.session_state["category_calculator_selected_source"] = "Category Search"
+            st.session_state["calculator_item_number"] = str(clicked_item_number)
+            st.session_state["calculator_selected_source"] = "Category Search"
 
             st.success(f"Selected item from Category Search: {clicked_item_number}")
 
         st.info(f"Showing {len(results):,} products sorted from best deal to highest cost.")
 
-        # Category Search has its own separate calculator directly under its table.
-        # This can be used at the same time as the Best Match Search calculator.
-        render_item_number_cost_calculator("category", "category_calculator_item_number", "category_calculator_selected_source")
+        # When someone uses Category Search without Best Match Search,
+        # keep the calculator directly under that selected table too.
+        if not best_match_search:
+            render_item_number_cost_calculator("category")
 
     else:
         results = pd.DataFrame()
