@@ -635,7 +635,7 @@ def render_item_number_cost_calculator(calculator_location_key="main"):
             <div class="icon-bubble">{calculator_icon}</div>
             <div>
                 <div class="card-title">Item Number Cost Calculator</div>
-                <div class="card-subtitle">Click a product row above or enter an item number to estimate direct cost, list price, and savings.</div>
+                <div class="card-subtitle">Click a product row above or enter an item number to estimate direct cost, list price, and total price.</div>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -726,15 +726,12 @@ def render_item_number_cost_calculator(calculator_location_key="main"):
 
                     total_direct_cost = billable_quantity * item_cost
                     total_list_price = billable_quantity * item_list_price
-                    savings_vs_list = total_list_price - total_direct_cost
-
                     st.markdown("### Cost Estimate")
 
-                    e1, e2, e3, e4 = st.columns(4)
+                    e1, e2, e3 = st.columns(3)
                     e1.metric("Billable Qty", f"{billable_quantity:,.0f}")
                     e2.metric("Total Direct Cost", f"${total_direct_cost:,.2f}")
                     e3.metric("Total List Price", f"${total_list_price:,.2f}")
-                    e4.metric("Savings vs List", f"${savings_vs_list:,.2f}")
 
                 with image_right:
                     st.markdown("""
