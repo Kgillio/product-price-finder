@@ -164,53 +164,52 @@ button[title="View fullscreen"] { display: none !important; }
 
 /* ==========================
    CARD HEADER STYLE
-   Colored header panels
    ========================== */
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.95rem;
+    margin: -1.35rem -1.35rem 1.15rem -1.35rem;
+    padding: 1.25rem 1.45rem;
+    background:
+        linear-gradient(180deg, #f4f9fe 0%, #eef6fd 100%);
+    border-bottom: 1px solid #d9e8f7;
+    border-radius: 22px 22px 0 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.section-header::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: linear-gradient(180deg, #2884bd, #79c8ff);
+}
+
+.section-header::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(40,132,189,0.18), rgba(40,132,189,0));
+}
+
+.section-header > * {
+    position: relative;
+    z-index: 2;
+}
 
 .card-title-row {
     display: flex;
     align-items: center;
     gap: 0.95rem;
-    margin: -0.15rem 0 1.15rem 0;
-    background:
-        radial-gradient(circle at 0% 0%, rgba(40,132,189,0.22), transparent 34%),
-        linear-gradient(135deg, #eaf6ff 0%, #f4faff 46%, #ffffff 100%);
-    border: 1px solid #cfe5ff;
-    border-left: 6px solid #2884bd;
-    border-radius: 20px;
-    padding: 1.05rem 1.15rem;
-    box-shadow:
-        0 12px 28px rgba(40,132,189,0.10),
-        inset 0 1px 0 rgba(255,255,255,0.95);
-    position: relative;
-    overflow: hidden;
-}
-
-.card-title-row::before {
-    content: "";
-    position: absolute;
-    top: -50%;
-    right: -8%;
-    width: 260px;
-    height: 160px;
-    background: radial-gradient(circle, rgba(40,132,189,0.14), transparent 68%);
-    pointer-events: none;
-}
-
-.card-title-row::after {
-    content: "";
-    position: absolute;
-    left: 1.15rem;
-    right: 1.15rem;
-    bottom: 0;
-    height: 4px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, #2884bd, #7cc7ff, transparent);
-}
-
-.card-title-row > * {
-    position: relative;
-    z-index: 2;
+    margin-bottom: 0.55rem;
 }
 
 .card-title-wrap {
@@ -221,57 +220,53 @@ button[title="View fullscreen"] { display: none !important; }
 }
 
 .icon-bubble {
-    width: 54px;
-    height: 54px;
-    min-width: 54px;
-    border-radius: 18px;
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    border-radius: 16px;
     display: grid;
     place-items: center;
-    background: linear-gradient(135deg, #ffffff, #eef7ff);
-    border: 1px solid #bfdcff;
+    background: rgba(255,255,255,0.74);
+    border: 1px solid #d8e9fb;
     color: #2884bd;
     font-size: 1.4rem;
-    box-shadow:
-        0 8px 18px rgba(0, 111, 214, 0.10),
-        inset 0 1px 0 rgba(255,255,255,0.95);
+    box-shadow: none;
 }
 
 .icon-bubble svg {
-    width: 25px;
-    height: 25px;
+    width: 24px;
+    height: 24px;
     display: block;
 }
 
 .card-title {
-    font-size: 1.6rem;
-    font-weight: 900;
-    color: #0e2442;
+    font-size: 1.5rem;
+    font-weight: 850;
+    color: #172033;
     margin: 0;
-    letter-spacing: -0.045em;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+    letter-spacing: -0.04em;
 }
 
 .card-subtitle {
-    color: #405875;
-    margin-top: 0.28rem;
-    font-size: 0.98rem;
+    color: #657389;
+    margin-top: 0.25rem;
+    font-size: 0.96rem;
     line-height: 1.45;
-    font-weight: 650;
 }
 
 .loaded-pill {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    background: linear-gradient(90deg, #dcffe9, #f7fffa);
-    border: 1px solid #a8e8bd;
+    background: linear-gradient(90deg, #e7fff1, #f7fffa);
+    border: 1px solid #bdeccb;
     color: #087b3b;
     padding: 0.42rem 0.72rem;
     border-radius: 999px;
     font-weight: 850;
     font-size: 0.82rem;
     white-space: nowrap;
-    box-shadow: 0 6px 14px rgba(8, 123, 59, 0.08);
+    box-shadow: 0 6px 14px rgba(8, 123, 59, 0.06);
 }
 
 /* ==========================
@@ -431,7 +426,8 @@ hr {
 }
 
 @media (max-width: 600px) {
-    .card-title-row {
+    .card-title-row,
+    .section-header {
         align-items: flex-start;
     }
 
@@ -547,7 +543,7 @@ clicked_item_number = ""
 
 with st.container(border=True):
     st.markdown(f"""
-    <div class="card-title-row">
+    <div class="section-header">
         <div class="icon-bubble">{best_match_icon}</div>
         <div>
             <div class="card-title-wrap">
@@ -632,7 +628,7 @@ st.write("")
 
 with st.container(border=True):
     st.markdown(f"""
-    <div class="card-title-row">
+    <div class="section-header">
         <div class="icon-bubble">{category_icon}</div>
         <div>
             <div class="card-title">Category Search</div>
@@ -766,7 +762,7 @@ if selected_class:
 
     with st.container(border=True):
         st.markdown(f"""
-        <div class="card-title-row">
+        <div class="section-header">
             <div class="icon-bubble">{calculator_icon}</div>
             <div>
                 <div class="card-title">Item Number Cost Calculator</div>
