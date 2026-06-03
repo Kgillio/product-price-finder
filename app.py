@@ -734,12 +734,6 @@ def render_item_number_cost_calculator(calculator_location_key="main"):
                     e3.metric("Total List Price", f"${total_list_price:,.2f}")
 
                 with image_right:
-                    st.markdown("""
-                    <div class="product-image-card">
-                        <div class="product-image-title">Product Image</div>
-                    </div>
-                    """, unsafe_allow_html=True)
-
                     image_urls = get_product_image_urls(selected_item.get(image_col, "")) if image_col else []
 
                     if image_urls:
@@ -753,10 +747,6 @@ def render_item_number_cost_calculator(calculator_location_key="main"):
                                 key=f"image_choice_{calculator_location_key}_{selected_item['ISG Product Code']}"
                             )
                             st.image(image_urls[image_choice - 1], use_container_width=True)
-
-                        st.caption("Image pulled from the V2 file image column.")
-                    else:
-                        st.info("No image found for this item in the V2 file.")
 
             else:
                 st.warning("No item number matches found in the Direct Buy file.")
