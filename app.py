@@ -772,8 +772,8 @@ with st.container(border=True):
     st.write("")
 
     best_match_search = st.text_input(
-        "Search anything",
-        placeholder="Example: clear report covers, blue folder, Avery binder"
+        "Search anything — Example: clear report covers, blue folder, Avery binder",
+        placeholder="...."
     )
 
     search_columns = [
