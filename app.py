@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import pandas as pd
 from rapidfuzz import fuzz
@@ -400,6 +401,35 @@ hr {
     margin-bottom: 2rem;
 }
 
+
+/* ==========================
+   PRODUCT IMAGE PREVIEW
+   ========================== */
+
+.product-image-card {
+    border: 1px solid #dfe8f3;
+    border-radius: 18px;
+    padding: 1rem;
+    background: linear-gradient(180deg, #ffffff, #fbfdff);
+    box-shadow: 0 10px 26px rgba(16,24,40,0.04);
+    text-align: center;
+}
+
+.product-image-title {
+    font-weight: 850;
+    color: #172033;
+    font-size: 1.05rem;
+    margin-bottom: 0.55rem;
+    letter-spacing: -0.03em;
+}
+
+.product-image-help {
+    color: #657389;
+    font-size: 0.84rem;
+    margin-top: 0.55rem;
+    line-height: 1.35;
+}
+
 /* ==========================
    RESPONSIVE
    ========================== */
@@ -497,11 +527,15 @@ st.markdown("""
 # LOAD DATA
 # ==========================
 
-file_name = "cost list pricer.xlsx"
+file_name = "cost list pricer V2.xlsx"
+fallback_file_name = "cost list pricer.xlsx"
 
 @st.cache_data
 def load_data():
-    df = pd.read_excel(file_name)
+    # Use the new V2 file with images. If it is not found, fall back to the old file
+    # so the app does not break while you are updating files in GitHub/Streamlit.
+    selected_file = file_name if os.path.exists(file_name) else fallback_file_name
+    df = pd.read_excel(selected_file)
     df.columns = df.columns.astype(str).str.strip()
     return df
 
@@ -509,6 +543,61 @@ df = load_data()
 
 direct_cost_col = next(col for col in df.columns if "JUN 2026" in col and "Direct Cost" in col)
 list_price_col = next(col for col in df.columns if "MAY 2026 List Price" in col)
+
+# Image column support.
+# Your V2 file has the product picture links in the "Images" column.
+# This also handles common alternate column names in case the header changes later.
+image_col = next(
+    (
+        col for col in df.columns
+        if str(col).strip().lower() in [
+            "images",
+            "image",
+            "picture",
+            "pictures",
+            "photo",
+            "photos",
+            "image url",
+            "image_url",
+            "product image",
+            "product images"
+        ]
+    ),
+    None
+)
+
+# Backup: Excel column AC is the 29th column, which is index 28 in Python.
+# This makes the app still work if the column header is changed or blank.
+if image_col is None and len(df.columns) >= 29:
+    image_col = df.columns[28]
+
+
+def get_product_image_urls(value):
+    """Return one or more usable image URLs from an Excel cell."""
+    if pd.isna(value):
+        return []
+
+    text_value = str(value).strip()
+    if not text_value or text_value.lower() in ["nan", "none"]:
+        return []
+
+    # Handles one URL, multiple URLs separated by commas, semicolons, pipes, or line breaks.
+    separators = ["\n", "\r", ";", "|", ","]
+    parts = [text_value]
+
+    for separator in separators:
+        new_parts = []
+        for part in parts:
+            new_parts.extend(part.split(separator))
+        parts = new_parts
+
+    urls = []
+    for part in parts:
+        clean_url = part.strip().strip('"').strip("'")
+        if clean_url.lower().startswith(("http://", "https://")):
+            urls.append(clean_url)
+
+    return urls
 
 moq_col = "Min Ord Qty"
 uom_col = "ISG UOM"
@@ -836,44 +925,72 @@ if selected_class or best_match_search or st.session_state.get("calculator_item_
                 item_moq = selected_item[moq_col] if moq_col in df.columns else 1
                 item_uom = selected_item[uom_col] if uom_col in df.columns else "N/A"
 
-                st.markdown("### Item Details")
+                calculator_left, image_right = st.columns([3, 1], gap="large")
 
-                c1, c2, c3, c4 = st.columns(4)
-                c1.metric("Direct Cost", f"${item_cost:,.2f}")
-                c2.metric("List Price", f"${item_list_price:,.2f}")
-                c3.metric("MOQ", f"{item_moq:,.0f}" if pd.notna(item_moq) else "N/A")
-                c4.metric("ISG UOM", str(item_uom))
+                with calculator_left:
+                    st.markdown("### Item Details")
 
-                st.markdown("#### Product")
-                st.write(selected_item["Short Description"])
+                    c1, c2, c3, c4 = st.columns(4)
+                    c1.metric("Direct Cost", f"${item_cost:,.2f}")
+                    c2.metric("List Price", f"${item_list_price:,.2f}")
+                    c3.metric("MOQ", f"{item_moq:,.0f}" if pd.notna(item_moq) else "N/A")
+                    c4.metric("ISG UOM", str(item_uom))
 
-                quantity = st.number_input(
-                    "Enter quantity you want to buy",
-                    min_value=1,
-                    value=int(item_moq) if pd.notna(item_moq) and item_moq > 0 else 1,
-                    step=1
-                )
+                    st.markdown("#### Product")
+                    st.write(selected_item["Short Description"])
 
-                if pd.notna(item_moq) and quantity < item_moq:
-                    st.warning(
-                        f"This item has an MOQ of {item_moq:,.0f}. "
-                        f"You entered {quantity:,}, so the estimate uses the MOQ."
+                    quantity = st.number_input(
+                        "Enter quantity you want to buy",
+                        min_value=1,
+                        value=int(item_moq) if pd.notna(item_moq) and item_moq > 0 else 1,
+                        step=1
                     )
-                    billable_quantity = item_moq
-                else:
-                    billable_quantity = quantity
 
-                total_direct_cost = billable_quantity * item_cost
-                total_list_price = billable_quantity * item_list_price
-                savings_vs_list = total_list_price - total_direct_cost
+                    if pd.notna(item_moq) and quantity < item_moq:
+                        st.warning(
+                            f"This item has an MOQ of {item_moq:,.0f}. "
+                            f"You entered {quantity:,}, so the estimate uses the MOQ."
+                        )
+                        billable_quantity = item_moq
+                    else:
+                        billable_quantity = quantity
 
-                st.markdown("### Cost Estimate")
+                    total_direct_cost = billable_quantity * item_cost
+                    total_list_price = billable_quantity * item_list_price
+                    savings_vs_list = total_list_price - total_direct_cost
 
-                e1, e2, e3, e4 = st.columns(4)
-                e1.metric("Billable Qty", f"{billable_quantity:,.0f}")
-                e2.metric("Total Direct Cost", f"${total_direct_cost:,.2f}")
-                e3.metric("Total List Price", f"${total_list_price:,.2f}")
-                e4.metric("Savings vs List", f"${savings_vs_list:,.2f}")
+                    st.markdown("### Cost Estimate")
+
+                    e1, e2, e3, e4 = st.columns(4)
+                    e1.metric("Billable Qty", f"{billable_quantity:,.0f}")
+                    e2.metric("Total Direct Cost", f"${total_direct_cost:,.2f}")
+                    e3.metric("Total List Price", f"${total_list_price:,.2f}")
+                    e4.metric("Savings vs List", f"${savings_vs_list:,.2f}")
+
+                with image_right:
+                    st.markdown("""
+                    <div class="product-image-card">
+                        <div class="product-image-title">Product Image</div>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+                    image_urls = get_product_image_urls(selected_item.get(image_col, "")) if image_col else []
+
+                    if image_urls:
+                        st.image(image_urls[0], use_container_width=True)
+
+                        if len(image_urls) > 1:
+                            image_choice = st.selectbox(
+                                "More images",
+                                options=list(range(1, len(image_urls) + 1)),
+                                format_func=lambda image_number: f"Image {image_number}",
+                                key=f"image_choice_{selected_item['ISG Product Code']}"
+                            )
+                            st.image(image_urls[image_choice - 1], use_container_width=True)
+
+                        st.caption("Image pulled from the V2 file image column.")
+                    else:
+                        st.info("No image found for this item in the V2 file.")
 
             else:
                 st.warning("No item number matches found in the Direct Buy file.")
