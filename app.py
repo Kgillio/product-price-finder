@@ -170,34 +170,21 @@ button[title="View fullscreen"] { display: none !important; }
     display: flex;
     align-items: center;
     gap: 0.95rem;
-    margin: -1.35rem -1.35rem 1.15rem -1.35rem;
+    margin: 0 0 1.15rem 0;
     padding: 1.25rem 1.45rem;
-    background:
-        linear-gradient(180deg, #f4f9fe 0%, #eef6fd 100%);
-    border-bottom: 1px solid #d9e8f7;
-    border-radius: 22px 22px 0 0;
+    background: linear-gradient(180deg, #f6fbff 0%, #edf6fe 100%);
+    border: 1px solid #dbeafe;
+    border-bottom-color: #cfe3f8;
+    border-radius: 18px 18px 0 0;
     position: relative;
     overflow: hidden;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.85);
 }
 
-.section-header::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 5px;
-    background: linear-gradient(180deg, #2884bd, #79c8ff);
-}
-
+.section-header::before,
 .section-header::after {
-    content: "";
-    position: absolute;
-    left: 5px;
-    right: 0;
-    bottom: 0;
-    height: 1px;
-    background: linear-gradient(90deg, rgba(40,132,189,0.18), rgba(40,132,189,0));
+    display: none;
+    content: none;
 }
 
 .section-header > * {
@@ -226,8 +213,8 @@ button[title="View fullscreen"] { display: none !important; }
     border-radius: 16px;
     display: grid;
     place-items: center;
-    background: rgba(255,255,255,0.74);
-    border: 1px solid #d8e9fb;
+    background: rgba(255,255,255,0.82);
+    border: 1px solid #dbeafe;
     color: #2884bd;
     font-size: 1.4rem;
     box-shadow: none;
