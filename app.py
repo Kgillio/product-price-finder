@@ -522,7 +522,15 @@ if moq_col in df.columns:
 # Set defaults so later sections do not break
 selected_class = ""
 results = pd.DataFrame()
-clicked_item_number = ""
+
+# Keep the selected calculator item available across reruns.
+# This lets someone click a row in either Best Match Search or Category Search
+# and have the calculator auto-fill with that item number.
+if "calculator_item_number" not in st.session_state:
+    st.session_state["calculator_item_number"] = ""
+
+if "calculator_selected_source" not in st.session_state:
+    st.session_state["calculator_selected_source"] = ""
 
 # ==========================
 # BEST MATCH SEARCH
@@ -582,6 +590,7 @@ with st.container(border=True):
         )
 
         st.markdown("### Best Matching Products")
+        st.caption("Click a row below to auto-fill the calculator.")
 
         best_display = best_results[
             [
@@ -603,7 +612,23 @@ with st.container(border=True):
             lambda x: f"${x:,.2f}" if pd.notna(x) else ""
         )
 
-        st.dataframe(best_display, use_container_width=True, height=420)
+        best_match_selection = st.dataframe(
+            best_display,
+            use_container_width=True,
+            height=420,
+            on_select="rerun",
+            selection_mode="single-row",
+            key="best_match_products_table"
+        )
+
+        if best_match_selection.selection.rows:
+            selected_row_position = best_match_selection.selection.rows[0]
+            selected_best_item_number = best_display.iloc[selected_row_position]["ISG Product Code"]
+
+            st.session_state["calculator_item_number"] = str(selected_best_item_number)
+            st.session_state["calculator_selected_source"] = "Best Match Search"
+
+            st.success(f"Selected item from Best Match Search: {selected_best_item_number}")
 
         st.info(f"Showing top {min(len(best_results), 100)} best matches.")
 
@@ -729,10 +754,14 @@ with st.container(border=True):
             selected_row_position = table_selection.selection.rows[0]
             clicked_item_number = display_df.iloc[selected_row_position]["Product Code"]
 
+            st.session_state["calculator_item_number"] = str(clicked_item_number)
+            st.session_state["calculator_selected_source"] = "Category Search"
+
+            st.success(f"Selected item from Category Search: {clicked_item_number}")
+
         st.info(f"Showing {len(results):,} products sorted from best deal to highest cost.")
 
     else:
-        clicked_item_number = ""
         results = pd.DataFrame()
 
         st.write("")
@@ -744,7 +773,7 @@ with st.container(border=True):
 # ITEM NUMBER COST CALCULATOR
 # ==========================
 
-if selected_class:
+if selected_class or best_match_search or st.session_state.get("calculator_item_number"):
     st.write("")
 
     with st.container(border=True):
@@ -760,18 +789,26 @@ if selected_class:
 
         st.write("")
 
-        if clicked_item_number:
-            st.success(f"Selected item from table: {clicked_item_number}")
+        selected_source = st.session_state.get("calculator_selected_source", "")
+        selected_calculator_item = st.session_state.get("calculator_item_number", "")
+
+        if selected_calculator_item:
+            if selected_source:
+                st.success(f"Selected item from {selected_source}: {selected_calculator_item}")
+            else:
+                st.success(f"Selected item: {selected_calculator_item}")
 
         item_number_search = st.text_input(
             "Enter Item Number",
-            value=str(clicked_item_number) if clicked_item_number else "",
-            placeholder="Example: ABFARB8012M"
+            placeholder="Example: ABFARB8012M",
+            key="calculator_item_number"
         )
 
         if item_number_search:
-            item_matches = results[
-                results["ISG Product Code"]
+            # Search the full file, not just the selected category.
+            # This allows Best Match Search clicks to work even when no category is selected.
+            item_matches = df[
+                df["ISG Product Code"]
                 .astype(str)
                 .str.contains(item_number_search, case=False, na=False)
             ].copy()
@@ -839,4 +876,4 @@ if selected_class:
                 e4.metric("Savings vs List", f"${savings_vs_list:,.2f}")
 
             else:
-                st.warning("No item number matches found in this category.")
+                st.warning("No item number matches found in the Direct Buy file.")
