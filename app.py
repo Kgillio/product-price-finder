@@ -622,6 +622,149 @@ if "calculator_selected_source" not in st.session_state:
     st.session_state["calculator_selected_source"] = ""
 
 # ==========================
+# ITEM NUMBER COST CALCULATOR FUNCTION
+# ==========================
+
+def render_item_number_cost_calculator(calculator_location_key="main"):
+    """Shows the item number calculator wherever this function is placed on the page."""
+    st.write("")
+
+    with st.container(border=True):
+        st.markdown(f"""
+        <div class="section-header">
+            <div class="icon-bubble">{calculator_icon}</div>
+            <div>
+                <div class="card-title">Item Number Cost Calculator</div>
+                <div class="card-subtitle">Click a product row above or enter an item number to estimate direct cost, list price, and savings.</div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.write("")
+
+        selected_source = st.session_state.get("calculator_selected_source", "")
+        selected_calculator_item = st.session_state.get("calculator_item_number", "")
+
+        if selected_calculator_item:
+            if selected_source:
+                st.success(f"Selected item from {selected_source}: {selected_calculator_item}")
+            else:
+                st.success(f"Selected item: {selected_calculator_item}")
+
+        item_number_search = st.text_input(
+            "Enter Item Number",
+            placeholder="Example: ABFARB8012M",
+            key="calculator_item_number"
+        )
+
+        if item_number_search:
+            # Search the full file, not just the selected category.
+            # This allows Best Match Search clicks to work even when no category is selected.
+            item_matches = df[
+                df["ISG Product Code"]
+                .astype(str)
+                .str.contains(item_number_search, case=False, na=False)
+            ].copy()
+
+            if not item_matches.empty:
+                item_matches = item_matches.sort_values(direct_cost_col, ascending=True)
+
+                item_choices = (
+                    item_matches["Manufacturer Name"].astype(str)
+                    + " | "
+                    + item_matches["ISG Product Code"].astype(str)
+                    + " | "
+                    + item_matches["Short Description"].astype(str)
+                    + " | $"
+                    + item_matches[direct_cost_col].round(2).astype(str)
+                )
+
+                selected_item_label = st.selectbox(
+                    "Select matching item",
+                    item_choices,
+                    key=f"selected_item_label_{calculator_location_key}"
+                )
+
+                selected_item_index = item_choices[item_choices == selected_item_label].index[0]
+                selected_item = item_matches.loc[selected_item_index]
+
+                item_cost = selected_item[direct_cost_col]
+                item_list_price = selected_item[list_price_col]
+                item_moq = selected_item[moq_col] if moq_col in df.columns else 1
+                item_uom = selected_item[uom_col] if uom_col in df.columns else "N/A"
+
+                calculator_left, image_right = st.columns([3, 1], gap="large")
+
+                with calculator_left:
+                    st.markdown("### Item Details")
+
+                    c1, c2, c3, c4 = st.columns(4)
+                    c1.metric("Direct Cost", f"${item_cost:,.2f}")
+                    c2.metric("List Price", f"${item_list_price:,.2f}")
+                    c3.metric("MOQ", f"{item_moq:,.0f}" if pd.notna(item_moq) else "N/A")
+                    c4.metric("ISG UOM", str(item_uom))
+
+                    st.markdown("#### Product")
+                    st.write(selected_item["Short Description"])
+
+                    quantity = st.number_input(
+                        "Enter quantity you want to buy",
+                        min_value=1,
+                        value=int(item_moq) if pd.notna(item_moq) and item_moq > 0 else 1,
+                        step=1,
+                        key=f"quantity_{calculator_location_key}"
+                    )
+
+                    if pd.notna(item_moq) and quantity < item_moq:
+                        st.warning(
+                            f"This item has an MOQ of {item_moq:,.0f}. "
+                            f"You entered {quantity:,}, so the estimate uses the MOQ."
+                        )
+                        billable_quantity = item_moq
+                    else:
+                        billable_quantity = quantity
+
+                    total_direct_cost = billable_quantity * item_cost
+                    total_list_price = billable_quantity * item_list_price
+                    savings_vs_list = total_list_price - total_direct_cost
+
+                    st.markdown("### Cost Estimate")
+
+                    e1, e2, e3, e4 = st.columns(4)
+                    e1.metric("Billable Qty", f"{billable_quantity:,.0f}")
+                    e2.metric("Total Direct Cost", f"${total_direct_cost:,.2f}")
+                    e3.metric("Total List Price", f"${total_list_price:,.2f}")
+                    e4.metric("Savings vs List", f"${savings_vs_list:,.2f}")
+
+                with image_right:
+                    st.markdown("""
+                    <div class="product-image-card">
+                        <div class="product-image-title">Product Image</div>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+                    image_urls = get_product_image_urls(selected_item.get(image_col, "")) if image_col else []
+
+                    if image_urls:
+                        st.image(image_urls[0], use_container_width=True)
+
+                        if len(image_urls) > 1:
+                            image_choice = st.selectbox(
+                                "More images",
+                                options=list(range(1, len(image_urls) + 1)),
+                                format_func=lambda image_number: f"Image {image_number}",
+                                key=f"image_choice_{calculator_location_key}_{selected_item['ISG Product Code']}"
+                            )
+                            st.image(image_urls[image_choice - 1], use_container_width=True)
+
+                        st.caption("Image pulled from the V2 file image column.")
+                    else:
+                        st.info("No image found for this item in the V2 file.")
+
+            else:
+                st.warning("No item number matches found in the Direct Buy file.")
+
+# ==========================
 # BEST MATCH SEARCH
 # ==========================
 
@@ -720,6 +863,10 @@ with st.container(border=True):
             st.success(f"Selected item from Best Match Search: {selected_best_item_number}")
 
         st.info(f"Showing top {min(len(best_results), 100)} best matches.")
+
+        # Calculator now appears directly under the Best Matching Products table,
+        # so users do not have to scroll to the bottom for the estimate.
+        render_item_number_cost_calculator("best_match")
 
 st.write("")
 
@@ -850,6 +997,11 @@ with st.container(border=True):
 
         st.info(f"Showing {len(results):,} products sorted from best deal to highest cost.")
 
+        # When someone uses Category Search without Best Match Search,
+        # keep the calculator directly under that selected table too.
+        if not best_match_search:
+            render_item_number_cost_calculator("category")
+
     else:
         results = pd.DataFrame()
 
@@ -858,139 +1010,3 @@ with st.container(border=True):
         st.markdown("# Select a category")
         st.info("Choose a category from the dropdown to view matching products.")
 
-# ==========================
-# ITEM NUMBER COST CALCULATOR
-# ==========================
-
-if selected_class or best_match_search or st.session_state.get("calculator_item_number"):
-    st.write("")
-
-    with st.container(border=True):
-        st.markdown(f"""
-        <div class="section-header">
-            <div class="icon-bubble">{calculator_icon}</div>
-            <div>
-                <div class="card-title">Item Number Cost Calculator</div>
-                <div class="card-subtitle">Click a product row above or enter an item number to estimate direct cost, list price, and savings.</div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.write("")
-
-        selected_source = st.session_state.get("calculator_selected_source", "")
-        selected_calculator_item = st.session_state.get("calculator_item_number", "")
-
-        if selected_calculator_item:
-            if selected_source:
-                st.success(f"Selected item from {selected_source}: {selected_calculator_item}")
-            else:
-                st.success(f"Selected item: {selected_calculator_item}")
-
-        item_number_search = st.text_input(
-            "Enter Item Number",
-            placeholder="Example: ABFARB8012M",
-            key="calculator_item_number"
-        )
-
-        if item_number_search:
-            # Search the full file, not just the selected category.
-            # This allows Best Match Search clicks to work even when no category is selected.
-            item_matches = df[
-                df["ISG Product Code"]
-                .astype(str)
-                .str.contains(item_number_search, case=False, na=False)
-            ].copy()
-
-            if not item_matches.empty:
-                item_matches = item_matches.sort_values(direct_cost_col, ascending=True)
-
-                item_choices = (
-                    item_matches["Manufacturer Name"].astype(str)
-                    + " | "
-                    + item_matches["ISG Product Code"].astype(str)
-                    + " | "
-                    + item_matches["Short Description"].astype(str)
-                    + " | $"
-                    + item_matches[direct_cost_col].round(2).astype(str)
-                )
-
-                selected_item_label = st.selectbox("Select matching item", item_choices)
-
-                selected_item_index = item_choices[item_choices == selected_item_label].index[0]
-                selected_item = item_matches.loc[selected_item_index]
-
-                item_cost = selected_item[direct_cost_col]
-                item_list_price = selected_item[list_price_col]
-                item_moq = selected_item[moq_col] if moq_col in df.columns else 1
-                item_uom = selected_item[uom_col] if uom_col in df.columns else "N/A"
-
-                calculator_left, image_right = st.columns([3, 1], gap="large")
-
-                with calculator_left:
-                    st.markdown("### Item Details")
-
-                    c1, c2, c3, c4 = st.columns(4)
-                    c1.metric("Direct Cost", f"${item_cost:,.2f}")
-                    c2.metric("List Price", f"${item_list_price:,.2f}")
-                    c3.metric("MOQ", f"{item_moq:,.0f}" if pd.notna(item_moq) else "N/A")
-                    c4.metric("ISG UOM", str(item_uom))
-
-                    st.markdown("#### Product")
-                    st.write(selected_item["Short Description"])
-
-                    quantity = st.number_input(
-                        "Enter quantity you want to buy",
-                        min_value=1,
-                        value=int(item_moq) if pd.notna(item_moq) and item_moq > 0 else 1,
-                        step=1
-                    )
-
-                    if pd.notna(item_moq) and quantity < item_moq:
-                        st.warning(
-                            f"This item has an MOQ of {item_moq:,.0f}. "
-                            f"You entered {quantity:,}, so the estimate uses the MOQ."
-                        )
-                        billable_quantity = item_moq
-                    else:
-                        billable_quantity = quantity
-
-                    total_direct_cost = billable_quantity * item_cost
-                    total_list_price = billable_quantity * item_list_price
-                    savings_vs_list = total_list_price - total_direct_cost
-
-                    st.markdown("### Cost Estimate")
-
-                    e1, e2, e3, e4 = st.columns(4)
-                    e1.metric("Billable Qty", f"{billable_quantity:,.0f}")
-                    e2.metric("Total Direct Cost", f"${total_direct_cost:,.2f}")
-                    e3.metric("Total List Price", f"${total_list_price:,.2f}")
-                    e4.metric("Savings vs List", f"${savings_vs_list:,.2f}")
-
-                with image_right:
-                    st.markdown("""
-                    <div class="product-image-card">
-                        <div class="product-image-title">Product Image</div>
-                    </div>
-                    """, unsafe_allow_html=True)
-
-                    image_urls = get_product_image_urls(selected_item.get(image_col, "")) if image_col else []
-
-                    if image_urls:
-                        st.image(image_urls[0], use_container_width=True)
-
-                        if len(image_urls) > 1:
-                            image_choice = st.selectbox(
-                                "More images",
-                                options=list(range(1, len(image_urls) + 1)),
-                                format_func=lambda image_number: f"Image {image_number}",
-                                key=f"image_choice_{selected_item['ISG Product Code']}"
-                            )
-                            st.image(image_urls[image_choice - 1], use_container_width=True)
-
-                        st.caption("Image pulled from the V2 file image column.")
-                    else:
-                        st.info("No image found for this item in the V2 file.")
-
-            else:
-                st.warning("No item number matches found in the Direct Buy file.")
