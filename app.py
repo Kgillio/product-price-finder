@@ -257,6 +257,67 @@ button[title="View fullscreen"] { display: none !important; }
     box-shadow: 0 6px 14px rgba(8, 123, 59, 0.06);
 }
 
+/* Small visual differences so stacked sections do not feel repetitive */
+.section-header.best-match-header {
+    background:
+        radial-gradient(circle at 8% 20%, rgba(40,132,189,0.10), transparent 28%),
+        linear-gradient(180deg, #f7fbff 0%, #eef7ff 100%);
+    border-left: 4px solid #2884bd;
+}
+
+.section-header.category-header {
+    background:
+        radial-gradient(circle at 8% 20%, rgba(39,174,96,0.09), transparent 28%),
+        linear-gradient(180deg, #f8fcff 0%, #edf8ff 100%);
+    border-left: 4px solid #3aa0db;
+}
+
+.section-header.calculator-header {
+    background:
+        radial-gradient(circle at 8% 20%, rgba(255,171,64,0.10), transparent 30%),
+        linear-gradient(180deg, #f8fcff 0%, #eef7ff 100%);
+    border-left: 4px solid #f4a340;
+}
+
+.table-action-tip {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 0.25rem 0 0.8rem 0;
+    padding: 0.74rem 0.95rem;
+    border: 1px solid #cfe5ff;
+    border-radius: 13px;
+    background: linear-gradient(180deg, #f8fbff 0%, #eef7ff 100%);
+    color: #2c4663;
+    font-size: 0.91rem;
+    font-weight: 750;
+    box-shadow: 0 8px 18px rgba(40,132,189,0.045);
+}
+
+.table-action-tip span {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: #2884bd;
+    color: #ffffff;
+    font-weight: 900;
+    font-size: 0.8rem;
+}
+
+.calculator-mini-note {
+    margin: -0.2rem 0 1rem 0;
+    padding: 0.74rem 0.95rem;
+    border: 1px solid #e4edf7;
+    border-radius: 13px;
+    background: #fbfdff;
+    color: #5f6f84;
+    font-size: 0.9rem;
+    font-weight: 650;
+}
+
 
 
 /* ==========================
@@ -266,9 +327,9 @@ button[title="View fullscreen"] { display: none !important; }
 .directory-notice {
     max-width: 1120px;
     margin: 0 auto 1.05rem auto;
-    padding: 0.95rem 1.25rem;
+    padding: 1.05rem 1.25rem;
     border: 1px solid #b9d9ff;
-    border-radius: 10px;
+    border-radius: 12px;
     background: linear-gradient(180deg, #f8fbff 0%, #eef7ff 100%);
     color: #314057;
     display: flex;
@@ -397,6 +458,15 @@ div[data-baseweb="select"] > div:focus-within {
     border: 1px solid #dfe8f2 !important;
     box-shadow: 0 10px 24px rgba(16,24,40,0.04);
     background: #ffffff !important;
+}
+
+[data-testid="stDataFrame"] div[role="columnheader"] {
+    font-weight: 850 !important;
+    color: #223047 !important;
+}
+
+[data-testid="stDataFrame"] div[role="gridcell"] {
+    color: #26344c !important;
 }
 
 /* ==========================
@@ -581,8 +651,8 @@ st.markdown("""
 <div class="directory-notice">
     <div class="directory-notice-icon">i</div>
     <div class="directory-notice-text">
-        Search thousands of supplier products currently in the direct buy file.
-        If an item is not in the direct buy file, visit the supplier page in the
+        Search thousands of supplier products currently available in the Direct Buy file.
+        If an item is not found, visit the supplier's page in the
         <a href="/Members/Supplier-Directory" target="_blank">Supplier Directory</a>.
     </div>
 </div>
@@ -753,15 +823,27 @@ def render_item_number_cost_calculator(calculator_location_key="main"):
     """Shows the item number calculator wherever this function is placed on the page."""
     st.write("")
 
+    calculator_titles = {
+        "best_match": "Best Match Cost Calculator",
+        "category": "Category Search Cost Calculator",
+        "main": "Item Number Cost Calculator"
+    }
+
+    calculator_title = calculator_titles.get(
+        calculator_location_key,
+        "Item Number Cost Calculator"
+    )
+
     with st.container(border=True):
         st.markdown(f"""
-        <div class="section-header">
+        <div class="section-header calculator-header">
             <div class="icon-bubble">{calculator_icon}</div>
             <div>
-                <div class="card-title">Item Number Cost Calculator</div>
+                <div class="card-title">{calculator_title}</div>
                 <div class="card-subtitle">Click a product row above or enter an item number to estimate direct cost, list price, and total price.</div>
             </div>
         </div>
+        <div class="calculator-mini-note">This calculator is tied to this section, so Best Match Search and Category Search can each be used separately.</div>
         """, unsafe_allow_html=True)
 
         st.write("")
@@ -879,7 +961,7 @@ def render_item_number_cost_calculator(calculator_location_key="main"):
 
 with st.container(border=True):
     st.markdown(f"""
-    <div class="section-header">
+    <div class="section-header best-match-header">
         <div class="icon-bubble">{best_match_icon}</div>
         <div>
             <div class="card-title-wrap">
@@ -927,7 +1009,15 @@ with st.container(border=True):
         best_results = st.session_state.get("best_match_results", pd.DataFrame())
 
         st.markdown("### Best Matching Products")
-        st.caption("Click a row below to auto-fill the calculator.")
+        st.markdown(
+            """
+            <div class="table-action-tip">
+                <span>✓</span>
+                Click any product row to auto-fill the Best Match Cost Calculator below.
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
         best_display = best_results[
             [
@@ -941,26 +1031,32 @@ with st.container(border=True):
             ]
         ].head(100).copy()
 
-        best_display[list_price_col] = best_display[list_price_col].apply(
-            lambda x: f"${x:,.2f}" if pd.notna(x) else ""
-        )
-
-        best_display[direct_cost_col] = best_display[direct_cost_col].apply(
-            lambda x: f"${x:,.2f}" if pd.notna(x) else ""
-        )
+        best_display = best_display.rename(columns={
+            "Manufacturer Name": "Manufacturer",
+            "ISG Product Code": "Product Code",
+            "Short Description": "Description",
+            list_price_col: "List Price",
+            direct_cost_col: "Direct Cost"
+        })
 
         best_match_selection = st.dataframe(
             best_display,
             use_container_width=True,
             height=420,
+            hide_index=True,
             on_select="rerun",
             selection_mode="single-row",
-            key="best_match_products_table"
+            key="best_match_products_table",
+            column_config={
+                "Match Score": st.column_config.NumberColumn("Match Score", format="%d"),
+                "List Price": st.column_config.NumberColumn("List Price", format="$%.2f"),
+                "Direct Cost": st.column_config.NumberColumn("Direct Cost", format="$%.2f"),
+            }
         )
 
         if best_match_selection.selection.rows:
             selected_row_position = best_match_selection.selection.rows[0]
-            selected_best_item_number = best_display.iloc[selected_row_position]["ISG Product Code"]
+            selected_best_item_number = best_display.iloc[selected_row_position]["Product Code"]
 
             st.session_state["best_match_calculator_item_number"] = str(selected_best_item_number)
             st.session_state["best_match_calculator_selected_source"] = "Best Match Search"
@@ -981,7 +1077,7 @@ st.write("")
 
 with st.container(border=True):
     st.markdown(f"""
-    <div class="section-header">
+    <div class="section-header category-header">
         <div class="icon-bubble">{category_icon}</div>
         <div>
             <div class="card-title">Category Search</div>
@@ -1043,7 +1139,15 @@ with st.container(border=True):
 
         st.write("")
         st.markdown(f"## Best deals in {selected_class}")
-        st.caption("Click a row below to auto-fill the calculator.")
+        st.markdown(
+            """
+            <div class="table-action-tip">
+                <span>✓</span>
+                Click any product row to auto-fill the Category Search Cost Calculator below.
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
         display_columns = [
             "Manufacturer Name",
@@ -1072,23 +1176,19 @@ with st.container(border=True):
 
         display_df = display_df.rename(columns=rename_map)
 
-        if "List Price" in display_df.columns:
-            display_df["List Price"] = display_df["List Price"].apply(
-                lambda x: f"${x:,.2f}" if pd.notna(x) else ""
-            )
-
-        if "Direct Cost" in display_df.columns:
-            display_df["Direct Cost"] = display_df["Direct Cost"].apply(
-                lambda x: f"${x:,.2f}" if pd.notna(x) else ""
-            )
-
         table_selection = st.dataframe(
             display_df,
             use_container_width=True,
+            hide_index=True,
             on_select="rerun",
             selection_mode="single-row",
             key="cheapest_products_table",
-            height=440
+            height=440,
+            column_config={
+                "MOQ": st.column_config.NumberColumn("MOQ", format="%d"),
+                "List Price": st.column_config.NumberColumn("List Price", format="$%.2f"),
+                "Direct Cost": st.column_config.NumberColumn("Direct Cost", format="$%.2f"),
+            }
         )
 
         if table_selection.selection.rows:
@@ -1112,5 +1212,5 @@ with st.container(border=True):
         st.write("")
         st.markdown("## Best deals in")
         st.markdown("# Select a category")
-        st.info("Choose a category from the dropdown to view matching products.")
+        st.info("Choose a category from the dropdown to view matching products. You can then narrow the list by description, brand, or manufacturer.")
 
