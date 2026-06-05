@@ -817,44 +817,48 @@ h6 a.anchor-link {
 
 /* ==========================
    ACTIVE SECTION BACKGROUND
-   Turns the active search section light gray so users can see
-   they are still inside that section while scrolling
+   Uses hidden markers + CSS :has() to tint the full Streamlit card.
+   This avoids broken open HTML wrappers and keeps headers/input aligned.
    ========================== */
 
-.active-section-shell {
-    margin: -0.1rem -0.1rem 0.15rem -0.1rem;
-    padding: 0.55rem 0.7rem 0.85rem 0.7rem;
-    border-radius: 22px;
-    background: linear-gradient(180deg, #f3f5f8 0%, #eef2f6 100%);
-    border: 1px solid #dde5ed;
+.active-section-marker {
+    display: none !important;
+}
+
+[data-testid="stVerticalBlockBorderWrapper"]:has(.best-match-active-marker),
+[data-testid="stVerticalBlockBorderWrapper"]:has(.category-active-marker) {
+    background:
+        linear-gradient(180deg, #f3f5f8 0%, #eef2f6 100%) !important;
+    border-color: #d7e0ea !important;
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.9),
-        0 10px 26px rgba(16, 33, 59, 0.035);
+        0 20px 50px rgba(7, 26, 51, 0.08),
+        inset 0 1px 0 rgba(255,255,255,0.92) !important;
 }
 
-.active-section-shell.best-match-shell {
-    border-top: 4px solid rgba(11, 185, 197, 0.95);
+[data-testid="stVerticalBlockBorderWrapper"]:has(.best-match-active-marker) {
+    border-top: 4px solid rgba(11, 185, 197, 0.95) !important;
 }
 
-.active-section-shell.category-shell {
-    border-top: 4px solid rgba(8, 46, 103, 0.95);
+[data-testid="stVerticalBlockBorderWrapper"]:has(.category-active-marker) {
+    border-top: 4px solid rgba(8, 46, 103, 0.95) !important;
 }
 
-.active-section-shell .section-header {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+/* Keep Best Match header and helper clean when the active gray background is on */
+[data-testid="stVerticalBlockBorderWrapper"]:has(.best-match-active-marker) .section-header.best-match-header {
+    margin: -0.25rem -0.25rem 1.1rem -0.25rem !important;
 }
 
-.active-section-shell .best-match-search-intro {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+[data-testid="stVerticalBlockBorderWrapper"]:has(.best-match-active-marker) .best-match-search-intro {
+    margin: 0 0 0.7rem 0 !important;
+    padding: 0.82rem 1rem 0.35rem 1rem !important;
+    border-radius: 14px !important;
+    background: #ffffff !important;
+    border: 1px solid #dbe7f3 !important;
 }
 
-.active-section-shell .table-action-tip,
-.active-section-shell div[data-testid="stAlert"],
-.active-section-shell [data-testid="stVerticalBlockBorderWrapper"] {
-    position: relative;
-    z-index: 1;
+[data-testid="stVerticalBlockBorderWrapper"]:has(.best-match-active-marker) .best-match-search-label {
+    margin-bottom: 0 !important;
+    line-height: 1.35 !important;
 }
 
 </style>
@@ -1259,7 +1263,7 @@ best_match_active = bool(st.session_state.get("best_match_search_input", "").str
 
 with st.container(border=True):
     if best_match_active:
-        st.markdown('<div class="active-section-shell best-match-shell">', unsafe_allow_html=True)
+        st.markdown('<span class="active-section-marker best-match-active-marker"></span>', unsafe_allow_html=True)
 
     st.markdown(f"""
     <div class="section-header best-match-header">
@@ -1377,9 +1381,6 @@ with st.container(border=True):
         # Calculator appears directly under the Best Matching Products table.
         render_item_number_cost_calculator("best_match")
 
-    if best_match_active:
-        st.markdown('</div>', unsafe_allow_html=True)
-
 st.markdown("""
 <div class="category-transition">
     <div class="category-transition-dots-left"></div>
@@ -1406,7 +1407,7 @@ category_active = bool(st.session_state.get("selected_category_input", "").strip
 
 with st.container(border=True):
     if category_active:
-        st.markdown('<div class="active-section-shell category-shell">', unsafe_allow_html=True)
+        st.markdown('<span class="active-section-marker category-active-marker"></span>', unsafe_allow_html=True)
 
     st.markdown(f"""
     <div class="section-header category-header">
@@ -1551,6 +1552,4 @@ with st.container(border=True):
         st.markdown("# Select a category")
         st.info("Choose a category from the dropdown to view matching products. You can then narrow the list by description, brand, or manufacturer.")
 
-    if category_active:
-        st.markdown('</div>', unsafe_allow_html=True)
 
