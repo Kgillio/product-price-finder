@@ -640,6 +640,37 @@ hr { margin-top: 2rem; margin-bottom: 2rem; }
     .hero-title { font-size: 2.05rem; }
 }
 
+
+/* ==========================
+   HIDE STREAMLIT HEADING LINK ICONS
+   Removes the small chain/link icons that appear beside headings
+   ========================== */
+
+a.anchor-link,
+[data-testid="stMarkdownContainer"] a.anchor-link,
+h1 a.anchor-link,
+h2 a.anchor-link,
+h3 a.anchor-link,
+h4 a.anchor-link,
+h5 a.anchor-link,
+h6 a.anchor-link {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+[data-testid="stMarkdownContainer"] h1:hover a,
+[data-testid="stMarkdownContainer"] h2:hover a,
+[data-testid="stMarkdownContainer"] h3:hover a,
+[data-testid="stMarkdownContainer"] h4:hover a,
+[data-testid="stMarkdownContainer"] h5:hover a,
+[data-testid="stMarkdownContainer"] h6:hover a {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
