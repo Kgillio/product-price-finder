@@ -191,6 +191,47 @@ body,
     line-height: 1.5;
 }
 
+.hero-disclaimer-callout {
+    position: relative;
+    z-index: 3;
+    margin-top: 1.35rem;
+    padding: 0.85rem 1rem;
+    max-width: 820px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    color: #ffffff;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    font-weight: 700;
+    box-shadow:
+        0 12px 28px rgba(0,0,0,0.16),
+        inset 0 1px 0 rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+}
+
+.hero-disclaimer-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-right: 0.35rem;
+    color: #ffffff;
+    font-weight: 950;
+    text-transform: uppercase;
+    letter-spacing: 0.045em;
+}
+
+.hero-disclaimer-callout a {
+    color: #ffffff;
+    font-weight: 950;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.hero-disclaimer-callout a:hover {
+    color: #dffaff;
+}
+
 /* ==========================
    NOTICE
    ========================== */
@@ -740,24 +781,14 @@ st.markdown("""
 </div>
 <div class="hero-copy">
 <h1 class="hero-title">Direct Buy File Search</h1>
-<div class="hero-subtitle">Search thousands of supplier products instantly by item number, manufacturer, brand, description, or category.</div>
+<div class="hero-subtitle">Search thousands of Direct Buy supplier products instantly by item number, manufacturer, brand, description, or category.</div>
+<div class="hero-disclaimer-callout">
+    <span class="hero-disclaimer-label">Disclaimer</span>
+    If an item is not found, visit the supplier’s page in the
+    <a href="/Members/Supplier-Directory" target="_blank">Supplier Directory</a>.
 </div>
 </div>
 </div>
-""", unsafe_allow_html=True)
-
-# ==========================
-# DIRECT BUY FILE DISCLAIMER
-# ==========================
-
-st.markdown("""
-<div class="directory-notice">
-    <div class="directory-notice-icon">i</div>
-    <div class="directory-notice-text">
-        Search thousands of supplier products currently available in the Direct Buy file.
-        If an item is not found, visit the supplier's page in the
-        <a href="/Members/Supplier-Directory" target="_blank">Supplier Directory</a>.
-    </div>
 </div>
 """, unsafe_allow_html=True)
 
