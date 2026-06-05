@@ -53,16 +53,22 @@ button[title="View fullscreen"] { display: none !important; }
 }
 
 .stApp {
-    background:
-        radial-gradient(circle at 8% 0%, rgba(56,213,238,0.025), transparent 26rem),
-        radial-gradient(circle at 93% 7%, rgba(21,119,210,0.02), transparent 28rem),
-        linear-gradient(180deg, #fbfcfe 0%, #ffffff 45%, #fcfdff 100%) !important;
+    background: #ffffff !important;
     color: var(--ink);
     font-family: Inter, "Segoe UI", Arial, sans-serif;
 }
 
+html,
+body,
+[data-testid="stAppViewContainer"],
+[data-testid="stAppViewContainer"] > .main,
+.main,
+.block-container {
+    background: #ffffff !important;
+}
+
 [data-testid="stAppViewContainer"] {
-    background: transparent !important;
+    background: #ffffff !important;
 }
 
 [data-testid="stHeader"] {
