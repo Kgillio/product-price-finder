@@ -814,6 +814,49 @@ h6 a.anchor-link {
     font-weight: 650 !important;
 }
 
+
+/* ==========================
+   ACTIVE SECTION BACKGROUND
+   Turns the active search section light gray so users can see
+   they are still inside that section while scrolling
+   ========================== */
+
+.active-section-shell {
+    margin: -0.1rem -0.1rem 0.15rem -0.1rem;
+    padding: 0.55rem 0.7rem 0.85rem 0.7rem;
+    border-radius: 22px;
+    background: linear-gradient(180deg, #f3f5f8 0%, #eef2f6 100%);
+    border: 1px solid #dde5ed;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        0 10px 26px rgba(16, 33, 59, 0.035);
+}
+
+.active-section-shell.best-match-shell {
+    border-top: 4px solid rgba(11, 185, 197, 0.95);
+}
+
+.active-section-shell.category-shell {
+    border-top: 4px solid rgba(8, 46, 103, 0.95);
+}
+
+.active-section-shell .section-header {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.active-section-shell .best-match-search-intro {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.active-section-shell .table-action-tip,
+.active-section-shell div[data-testid="stAlert"],
+.active-section-shell [data-testid="stVerticalBlockBorderWrapper"] {
+    position: relative;
+    z-index: 1;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -1212,7 +1255,12 @@ def render_item_number_cost_calculator(calculator_location_key="main"):
 # BEST MATCH SEARCH
 # ==========================
 
+best_match_active = bool(st.session_state.get("best_match_search_input", "").strip())
+
 with st.container(border=True):
+    if best_match_active:
+        st.markdown('<div class="active-section-shell best-match-shell">', unsafe_allow_html=True)
+
     st.markdown(f"""
     <div class="section-header best-match-header">
         <div class="icon-bubble">{best_match_icon}</div>
@@ -1232,7 +1280,8 @@ with st.container(border=True):
     best_match_search = st.text_input(
         "Search anything — Example: clear report covers, blue folder, Avery binder",
         placeholder="Search anything — Example: clear report covers, blue folder, Avery binder",
-        label_visibility="collapsed"
+        label_visibility="collapsed",
+        key="best_match_search_input"
     )
 
     search_columns = [
@@ -1328,6 +1377,9 @@ with st.container(border=True):
         # Calculator appears directly under the Best Matching Products table.
         render_item_number_cost_calculator("best_match")
 
+    if best_match_active:
+        st.markdown('</div>', unsafe_allow_html=True)
+
 st.markdown("""
 <div class="category-transition">
     <div class="category-transition-dots-left"></div>
@@ -1350,7 +1402,12 @@ st.markdown("""
 # CATEGORY SEARCH
 # ==========================
 
+category_active = bool(st.session_state.get("selected_category_input", "").strip())
+
 with st.container(border=True):
+    if category_active:
+        st.markdown('<div class="active-section-shell category-shell">', unsafe_allow_html=True)
+
     st.markdown(f"""
     <div class="section-header category-header">
         <div class="icon-bubble">{category_icon}</div>
@@ -1375,7 +1432,8 @@ with st.container(border=True):
         selected_class = st.selectbox(
             "Select Category",
             options=[""] + product_classes,
-            index=0
+            index=0,
+            key="selected_category_input"
         )
 
     description_search = ""
@@ -1492,4 +1550,7 @@ with st.container(border=True):
         st.markdown("## Best deals in")
         st.markdown("# Select a category")
         st.info("Choose a category from the dropdown to view matching products. You can then narrow the list by description, brand, or manufacturer.")
+
+    if category_active:
+        st.markdown('</div>', unsafe_allow_html=True)
 
