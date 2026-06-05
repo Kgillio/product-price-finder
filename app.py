@@ -516,20 +516,22 @@ hr { margin-top: 2rem; margin-bottom: 2rem; }
 
 .category-transition {
     max-width: 1120px;
-    margin: 2.15rem auto 1.25rem auto;
-    padding: 1.35rem 1.25rem 1.25rem 1.25rem;
+    margin: 2.15rem auto 1.35rem auto;
+    padding: 1.45rem 1.5rem 1.3rem 1.5rem;
     position: relative;
     text-align: center;
     overflow: hidden;
     border-radius: 18px;
     background:
-        radial-gradient(circle at 16% 45%, rgba(56,213,238,0.14), transparent 10rem),
-        radial-gradient(circle at 84% 45%, rgba(0,166,180,0.12), transparent 10rem),
-        linear-gradient(180deg, rgba(255,255,255,0.10), rgba(238,250,253,0.82));
-    border: 1px solid rgba(171, 223, 236, 0.55);
+        radial-gradient(circle at 50% -18%, rgba(52, 181, 255, 0.30), transparent 22%),
+        radial-gradient(circle at 8% 105%, rgba(0, 170, 255, 0.30), transparent 22%),
+        radial-gradient(circle at 92% 105%, rgba(0, 170, 255, 0.30), transparent 22%),
+        linear-gradient(135deg, #082e67 0%, #062556 42%, #031c45 100%);
+    border: 1px solid rgba(56, 177, 255, 0.28);
     box-shadow:
-        0 18px 42px rgba(7,26,51,0.055),
-        inset 0 1px 0 rgba(255,255,255,0.85);
+        0 18px 42px rgba(7,26,51,0.16),
+        inset 0 1px 0 rgba(255,255,255,0.10),
+        inset 0 -18px 40px rgba(0, 10, 28, 0.20);
 }
 
 .category-transition::before,
@@ -537,77 +539,80 @@ hr { margin-top: 2rem; margin-bottom: 2rem; }
     content: "";
     position: absolute;
     top: 50%;
-    width: 34%;
+    width: 26%;
     height: 3px;
     border-radius: 999px;
-    background: linear-gradient(90deg, transparent, rgba(0,166,180,0.95), rgba(56,213,238,0.35));
+    background: linear-gradient(90deg, transparent, rgba(81, 210, 255, 0.95), rgba(81, 210, 255, 0.25));
+    box-shadow: 0 0 12px rgba(81, 210, 255, 0.35);
 }
 
 .category-transition::before {
-    left: 2rem;
+    left: 2.15rem;
 }
 
 .category-transition::after {
-    right: 2rem;
+    right: 2.15rem;
     transform: rotate(180deg);
 }
 
 .category-transition-dots-left,
 .category-transition-dots-right {
     position: absolute;
-    top: 0.65rem;
+    top: 1rem;
     width: 9rem;
-    height: 5.5rem;
-    opacity: 0.32;
-    background-image: radial-gradient(rgba(0,166,180,0.55) 1.2px, transparent 1.2px);
+    height: 5.8rem;
+    opacity: 0.55;
+    background-image: radial-gradient(rgba(70, 206, 255, 0.70) 1.2px, transparent 1.2px);
     background-size: 10px 10px;
     pointer-events: none;
 }
 
-.category-transition-dots-left { left: 1.1rem; }
-.category-transition-dots-right { right: 1.1rem; }
+.category-transition-dots-left { left: 1.3rem; }
+.category-transition-dots-right { right: 1.3rem; }
 
 .category-transition-icon {
-    width: 52px;
-    height: 52px;
+    width: 64px;
+    height: 64px;
     border-radius: 999px;
-    margin: -0.2rem auto 0.45rem auto;
+    margin: -0.15rem auto 0.6rem auto;
     display: grid;
     place-items: center;
     color: #ffffff;
-    background: linear-gradient(145deg, #057c8f, #0ac7d7);
-    border: 1px solid rgba(255,255,255,0.72);
+    background: radial-gradient(circle at 35% 30%, #1eb6ff 0%, #0b4aa0 55%, #062b67 100%);
+    border: 1px solid rgba(255,255,255,0.42);
     box-shadow:
-        0 16px 32px rgba(0, 143, 165, 0.25),
-        0 0 0 8px rgba(10, 183, 197, 0.08);
+        0 18px 34px rgba(0, 45, 111, 0.38),
+        0 0 0 10px rgba(43, 154, 255, 0.10),
+        inset 0 1px 6px rgba(255,255,255,0.18);
     position: relative;
     z-index: 2;
 }
 
 .category-transition-icon svg {
-    width: 25px;
-    height: 25px;
+    width: 27px;
+    height: 27px;
     stroke: #ffffff !important;
 }
 
 .category-transition-title {
     position: relative;
     z-index: 2;
-    color: #008ca0;
-    font-size: 1rem;
+    color: #ffffff;
+    font-size: 1.18rem;
     font-weight: 950;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     margin: 0;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.22);
 }
 
 .category-transition-subtitle {
     position: relative;
     z-index: 2;
-    color: #60718a;
-    font-size: 0.94rem;
-    font-weight: 700;
-    margin-top: 0.25rem;
+    color: #e8f4ff;
+    font-size: 0.98rem;
+    font-weight: 750;
+    margin-top: 0.35rem;
 }
 
 .category-zone-start {
