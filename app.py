@@ -257,6 +257,56 @@ button[title="View fullscreen"] { display: none !important; }
     box-shadow: 0 6px 14px rgba(8, 123, 59, 0.06);
 }
 
+
+
+/* ==========================
+   DISCLAIMER / DIRECTORY NOTICE
+   ========================== */
+
+.directory-notice {
+    max-width: 1120px;
+    margin: 0 auto 1.05rem auto;
+    padding: 0.95rem 1.25rem;
+    border: 1px solid #b9d9ff;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #f8fbff 0%, #eef7ff 100%);
+    color: #314057;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    box-shadow: 0 8px 20px rgba(40, 132, 189, 0.055);
+    font-size: 0.95rem;
+    line-height: 1.45;
+}
+
+.directory-notice-icon {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #2f8ee5, #62aef4);
+    color: #ffffff;
+    display: grid;
+    place-items: center;
+    font-weight: 900;
+    font-size: 0.95rem;
+    box-shadow: 0 7px 16px rgba(47, 142, 229, 0.22);
+}
+
+.directory-notice-text {
+    font-weight: 650;
+}
+
+.directory-notice a {
+    color: #1669c8;
+    font-weight: 850;
+    text-decoration: none;
+}
+
+.directory-notice a:hover {
+    text-decoration: underline;
+}
+
 /* ==========================
    STREAMLIT CONTAINERS
    Softer white cards
@@ -520,6 +570,21 @@ st.markdown("""
 <div class="hero-subtitle">Search thousands of supplier products instantly by item number, manufacturer, brand, description, or category.</div>
 </div>
 </div>
+</div>
+""", unsafe_allow_html=True)
+
+# ==========================
+# DIRECT BUY FILE DISCLAIMER
+# ==========================
+
+st.markdown("""
+<div class="directory-notice">
+    <div class="directory-notice-icon">i</div>
+    <div class="directory-notice-text">
+        Search thousands of supplier products currently in the direct buy file.
+        If an item is not in the direct buy file, visit the supplier page in the
+        <a href="/Members/Supplier-Directory" target="_blank">Supplier Directory</a>.
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
