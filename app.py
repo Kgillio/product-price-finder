@@ -717,6 +717,103 @@ h6 a.anchor-link {
     opacity: 0 !important;
 }
 
+
+/* ==========================
+   BEST MATCH SEARCH - CONNECTED PREMIUM HEADER
+   Makes the header feel like one unified search module
+   ========================== */
+
+.section-header.best-match-header {
+    margin: -0.25rem -0.25rem 1.35rem -0.25rem !important;
+    padding: 2rem 2rem 2.05rem 2rem !important;
+    align-items: center !important;
+    gap: 1.45rem !important;
+    border-radius: 18px 18px 0 0 !important;
+    border: 1px solid #cfe3f6 !important;
+    border-top: 5px solid #0bb9c5 !important;
+    border-left: 1px solid #cfe3f6 !important;
+    background:
+        radial-gradient(circle at 8% 18%, rgba(10, 183, 197, 0.16), transparent 12rem),
+        radial-gradient(circle at 96% 6%, rgba(21, 119, 210, 0.06), transparent 18rem),
+        linear-gradient(180deg, #ffffff 0%, #f6fbff 100%) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.96),
+        0 12px 28px rgba(7, 26, 51, 0.045) !important;
+}
+
+.section-header.best-match-header::after {
+    height: 1px !important;
+    background: linear-gradient(90deg, rgba(10, 183, 197, 0.38), rgba(21, 119, 210, 0.12), transparent) !important;
+}
+
+.section-header.best-match-header .icon-bubble {
+    width: 76px !important;
+    height: 76px !important;
+    min-width: 76px !important;
+    border-radius: 22px !important;
+    background:
+        radial-gradient(circle at 35% 28%, rgba(255,255,255,0.28), transparent 36%),
+        linear-gradient(145deg, #0794a7 0%, #05b7c4 100%) !important;
+    box-shadow:
+        0 20px 34px rgba(0, 143, 165, 0.25),
+        0 0 0 8px rgba(10, 183, 197, 0.08) !important;
+}
+
+.section-header.best-match-header .icon-bubble svg {
+    width: 36px !important;
+    height: 36px !important;
+}
+
+.section-header.best-match-header .card-title {
+    font-size: 1.75rem !important;
+    line-height: 1.08 !important;
+}
+
+.section-header.best-match-header .card-subtitle {
+    margin-top: 0.65rem !important;
+    font-size: 1.02rem !important;
+    color: #566b86 !important;
+    max-width: 900px !important;
+}
+
+.section-header.best-match-header .loaded-pill {
+    font-size: 0.86rem !important;
+    padding: 0.5rem 0.86rem !important;
+    box-shadow: 0 10px 22px rgba(15, 159, 101, 0.10) !important;
+}
+
+.best-match-search-intro {
+    margin: -0.25rem 0 0.5rem 0;
+    padding: 0.95rem 1rem 0.15rem 1rem;
+    border-radius: 0 0 15px 15px;
+    background:
+        linear-gradient(180deg, rgba(247,251,255,0.75) 0%, rgba(255,255,255,0.98) 62%);
+    border-left: 1px solid rgba(207, 227, 246, 0.70);
+    border-right: 1px solid rgba(207, 227, 246, 0.70);
+}
+
+.best-match-search-label {
+    color: #213955;
+    font-size: 0.92rem;
+    font-weight: 800;
+    margin-bottom: 0.55rem;
+}
+
+/* Make the Best Match input feel like it belongs to the header card */
+.best-match-search-intro + div [data-baseweb="input"] {
+    min-height: 58px !important;
+    border-radius: 16px !important;
+    border-color: #c6d8ea !important;
+    box-shadow:
+        0 1px 0 rgba(255,255,255,0.96) inset,
+        0 14px 30px rgba(7,26,51,0.045) !important;
+}
+
+.best-match-search-intro + div input {
+    font-size: 1rem !important;
+    font-weight: 650 !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -785,7 +882,7 @@ st.markdown("""
 <div class="hero-disclaimer-callout">
     <span class="hero-disclaimer-label">Disclaimer</span>
     If an item is not found, visit the supplier’s page in the
-    <a href="https://cms214.isg.coop/Members/Supplier-Directory" target="_blank">Supplier Directory</a>.
+    <a href="/Members/Supplier-Directory" target="_blank">Supplier Directory</a>.
 </div>
 </div>
 </div>
@@ -1127,13 +1224,15 @@ with st.container(border=True):
             <div class="card-subtitle">Search anything to find the most relevant products across categories, brands, descriptions, and item numbers.</div>
         </div>
     </div>
+    <div class="best-match-search-intro">
+        <div class="best-match-search-label">Search anything — Example: clear report covers, blue folder, Avery binder</div>
+    </div>
     """, unsafe_allow_html=True)
-
-    st.write("")
 
     best_match_search = st.text_input(
         "Search anything — Example: clear report covers, blue folder, Avery binder",
-        placeholder="Search anything — Example: clear report covers, blue folder, Avery binder"
+        placeholder="Search anything — Example: clear report covers, blue folder, Avery binder",
+        label_visibility="collapsed"
     )
 
     search_columns = [
