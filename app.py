@@ -199,14 +199,14 @@ body,
     max-width: 1120px;
     margin: 0 auto 1.1rem auto;
     padding: 1rem 1.25rem;
-    border: 1px solid #b9d9ff;
+    border: 1px solid #c93b3b;
     border-radius: 12px;
-    background: linear-gradient(180deg, #f9fcff 0%, #edf6ff 100%);
-    color: #233857;
+    background: linear-gradient(180deg, #e24b4b 0%, #c92f2f 100%);
+    color: #ffffff;
     display: flex;
     align-items: center;
     gap: 0.95rem;
-    box-shadow: 0 12px 28px rgba(14, 48, 86, 0.07);
+    box-shadow: 0 12px 28px rgba(160, 24, 24, 0.18);
     font-size: 0.95rem;
     line-height: 1.45;
 }
@@ -216,22 +216,23 @@ body,
     height: 30px;
     min-width: 30px;
     border-radius: 999px;
-    background: linear-gradient(135deg, #0076d6, #12c6d1);
+    background: rgba(255,255,255,0.18);
     color: #ffffff;
     display: grid;
     place-items: center;
     font-weight: 900;
     font-size: 0.95rem;
-    box-shadow: 0 10px 20px rgba(0, 132, 196, 0.26);
+    box-shadow: 0 8px 18px rgba(120, 16, 16, 0.22);
+    border: 1px solid rgba(255,255,255,0.28);
 }
 
-.directory-notice-text { font-weight: 700; }
+.directory-notice-text { font-weight: 700; color: #ffffff; }
 .directory-notice a {
-    color: #006ecb;
+    color: #ffffff;
     font-weight: 900;
-    text-decoration: none;
+    text-decoration: underline;
 }
-.directory-notice a:hover { text-decoration: underline; }
+.directory-notice a:hover { color: #ffe6e6; }
 
 /* ==========================
    STREAMLIT CARDS
