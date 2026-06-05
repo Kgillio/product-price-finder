@@ -929,7 +929,7 @@ st.markdown("""
 <div class="hero-disclaimer-callout">
     <span class="hero-disclaimer-label">Disclaimer</span>
     If an item is not found, visit the supplier’s page in the
-    <a href="/Members/Supplier-Directory" target="_blank">Supplier Directory</a>.
+    <a href="https://cms214.isg.coop/Members/Supplier-Directory" target="_blank">Supplier Directory</a>.
 </div>
 </div>
 </div>
