@@ -666,14 +666,19 @@ def get_item_matches(item_number_search):
 selected_class = ""
 results = pd.DataFrame()
 
-# Keep the selected calculator item available across reruns.
-# This lets someone click a row in either Best Match Search or Category Search
-# and have the calculator auto-fill with that item number.
-if "calculator_item_number" not in st.session_state:
-    st.session_state["calculator_item_number"] = ""
+# Keep each calculator independent across reruns.
+# Important: Streamlit does not let us change a widget-backed session_state key
+# after that widget has already been created in the same run.
+# So Best Match and Category Search each get their own calculator item key.
+for calculator_key in ["best_match", "category", "main"]:
+    item_key = f"{calculator_key}_calculator_item_number"
+    source_key = f"{calculator_key}_calculator_selected_source"
 
-if "calculator_selected_source" not in st.session_state:
-    st.session_state["calculator_selected_source"] = ""
+    if item_key not in st.session_state:
+        st.session_state[item_key] = ""
+
+    if source_key not in st.session_state:
+        st.session_state[source_key] = ""
 
 # ==========================
 # ITEM NUMBER COST CALCULATOR FUNCTION
@@ -696,8 +701,11 @@ def render_item_number_cost_calculator(calculator_location_key="main"):
 
         st.write("")
 
-        selected_source = st.session_state.get("calculator_selected_source", "")
-        selected_calculator_item = st.session_state.get("calculator_item_number", "")
+        item_state_key = f"{calculator_location_key}_calculator_item_number"
+        source_state_key = f"{calculator_location_key}_calculator_selected_source"
+
+        selected_source = st.session_state.get(source_state_key, "")
+        selected_calculator_item = st.session_state.get(item_state_key, "")
 
         if selected_calculator_item:
             if selected_source:
@@ -708,7 +716,7 @@ def render_item_number_cost_calculator(calculator_location_key="main"):
         item_number_search = st.text_input(
             "Enter Item Number",
             placeholder="Example: ABFARB8012M",
-            key="calculator_item_number"
+            key=item_state_key
         )
 
         if item_number_search:
@@ -889,8 +897,8 @@ with st.container(border=True):
             selected_row_position = best_match_selection.selection.rows[0]
             selected_best_item_number = best_display.iloc[selected_row_position]["ISG Product Code"]
 
-            st.session_state["calculator_item_number"] = str(selected_best_item_number)
-            st.session_state["calculator_selected_source"] = "Best Match Search"
+            st.session_state["best_match_calculator_item_number"] = str(selected_best_item_number)
+            st.session_state["best_match_calculator_selected_source"] = "Best Match Search"
 
             st.success(f"Selected item from Best Match Search: {selected_best_item_number}")
 
@@ -1022,17 +1030,16 @@ with st.container(border=True):
             selected_row_position = table_selection.selection.rows[0]
             clicked_item_number = display_df.iloc[selected_row_position]["Product Code"]
 
-            st.session_state["calculator_item_number"] = str(clicked_item_number)
-            st.session_state["calculator_selected_source"] = "Category Search"
+            st.session_state["category_calculator_item_number"] = str(clicked_item_number)
+            st.session_state["category_calculator_selected_source"] = "Category Search"
 
             st.success(f"Selected item from Category Search: {clicked_item_number}")
 
         st.info(f"Showing {len(results):,} products sorted from best deal to highest cost.")
 
-        # When someone uses Category Search without Best Match Search,
-        # keep the calculator directly under that selected table too.
-        if not best_match_search:
-            render_item_number_cost_calculator("category")
+        # Category Search has its own independent calculator.
+        # This can be used at the same time as the Best Match calculator.
+        render_item_number_cost_calculator("category")
 
     else:
         results = pd.DataFrame()
