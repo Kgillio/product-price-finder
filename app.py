@@ -54,9 +54,9 @@ button[title="View fullscreen"] { display: none !important; }
 
 .stApp {
     background:
-        radial-gradient(circle at 8% 0%, rgba(56,213,238,0.10), transparent 28rem),
-        radial-gradient(circle at 93% 7%, rgba(21,119,210,0.10), transparent 30rem),
-        linear-gradient(180deg, #f5f8fc 0%, #ffffff 42%, #f8fbff 100%) !important;
+        radial-gradient(circle at 8% 0%, rgba(56,213,238,0.025), transparent 26rem),
+        radial-gradient(circle at 93% 7%, rgba(21,119,210,0.02), transparent 28rem),
+        linear-gradient(180deg, #fbfcfe 0%, #ffffff 45%, #fcfdff 100%) !important;
     color: var(--ink);
     font-family: Inter, "Segoe UI", Arial, sans-serif;
 }
