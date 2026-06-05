@@ -720,7 +720,7 @@ st.markdown("""
     <div class="directory-notice-text">
         Search thousands of supplier products currently available in the Direct Buy file.
         If an item is not found, visit the supplier's page in the
-        <a href="/Members/Supplier-Directory" target="_blank">Supplier Directory</a>.
+        <a href="https://cms214.isg.coop/Members/Supplier-Directory" target="_blank">Supplier Directory</a>.
     </div>
 </div>
 """, unsafe_allow_html=True)
