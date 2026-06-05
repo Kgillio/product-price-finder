@@ -720,7 +720,7 @@ st.markdown("""
     <div class="directory-notice-text">
         Search thousands of supplier products currently available in the Direct Buy file.
         If an item is not found, visit the supplier's page in the
-        <a href="https://cms214.isg.coop/Members/Supplier-Directory" target="_blank">Supplier Directory</a>.
+        <a href="/Members/Supplier-Directory" target="_blank">Supplier Directory</a>.
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -1106,6 +1106,14 @@ with st.container(border=True):
             direct_cost_col: "Direct Cost"
         })
 
+        if st.session_state.get("best_match_calculator_item_number"):
+            st.success(
+                f"Selected item from Best Match Search: "
+                f"{st.session_state['best_match_calculator_item_number']}"
+            )
+
+        st.info(f"Showing top {min(len(best_results), 100)} best matches.")
+
         best_match_selection = st.dataframe(
             best_display,
             use_container_width=True,
@@ -1127,13 +1135,9 @@ with st.container(border=True):
 
             st.session_state["best_match_calculator_item_number"] = str(selected_best_item_number)
             st.session_state["best_match_calculator_selected_source"] = "Best Match Search"
+            st.rerun()
 
-            st.success(f"Selected item from Best Match Search: {selected_best_item_number}")
-
-        st.info(f"Showing top {min(len(best_results), 100)} best matches.")
-
-        # Calculator now appears directly under the Best Matching Products table,
-        # so users do not have to scroll to the bottom for the estimate.
+        # Calculator now appears directly under the Best Matching Products table.
         render_item_number_cost_calculator("best_match")
 
 st.markdown("""
@@ -1259,6 +1263,14 @@ with st.container(border=True):
 
         display_df = display_df.rename(columns=rename_map)
 
+        if st.session_state.get("category_calculator_item_number"):
+            st.success(
+                f"Selected item from Category Search: "
+                f"{st.session_state['category_calculator_item_number']}"
+            )
+
+        st.info(f"Showing {len(results):,} products sorted from best deal to highest cost.")
+
         table_selection = st.dataframe(
             display_df,
             use_container_width=True,
@@ -1280,10 +1292,7 @@ with st.container(border=True):
 
             st.session_state["category_calculator_item_number"] = str(clicked_item_number)
             st.session_state["category_calculator_selected_source"] = "Category Search"
-
-            st.success(f"Selected item from Category Search: {clicked_item_number}")
-
-        st.info(f"Showing {len(results):,} products sorted from best deal to highest cost.")
+            st.rerun()
 
         # Category Search has its own independent calculator.
         # This can be used at the same time as the Best Match calculator.
