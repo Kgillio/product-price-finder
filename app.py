@@ -501,6 +501,121 @@ hr { margin-top: 2rem; margin-bottom: 2rem; }
     line-height: 1.35;
 }
 
+
+/* ==========================
+   STRONG SECTION DIVIDER
+   Separates Best Match from Category Search
+   ========================== */
+
+.category-transition {
+    max-width: 1120px;
+    margin: 2.15rem auto 1.25rem auto;
+    padding: 1.35rem 1.25rem 1.25rem 1.25rem;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    border-radius: 18px;
+    background:
+        radial-gradient(circle at 16% 45%, rgba(56,213,238,0.14), transparent 10rem),
+        radial-gradient(circle at 84% 45%, rgba(0,166,180,0.12), transparent 10rem),
+        linear-gradient(180deg, rgba(255,255,255,0.10), rgba(238,250,253,0.82));
+    border: 1px solid rgba(171, 223, 236, 0.55);
+    box-shadow:
+        0 18px 42px rgba(7,26,51,0.055),
+        inset 0 1px 0 rgba(255,255,255,0.85);
+}
+
+.category-transition::before,
+.category-transition::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 34%;
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, rgba(0,166,180,0.95), rgba(56,213,238,0.35));
+}
+
+.category-transition::before {
+    left: 2rem;
+}
+
+.category-transition::after {
+    right: 2rem;
+    transform: rotate(180deg);
+}
+
+.category-transition-dots-left,
+.category-transition-dots-right {
+    position: absolute;
+    top: 0.65rem;
+    width: 9rem;
+    height: 5.5rem;
+    opacity: 0.32;
+    background-image: radial-gradient(rgba(0,166,180,0.55) 1.2px, transparent 1.2px);
+    background-size: 10px 10px;
+    pointer-events: none;
+}
+
+.category-transition-dots-left { left: 1.1rem; }
+.category-transition-dots-right { right: 1.1rem; }
+
+.category-transition-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 999px;
+    margin: -0.2rem auto 0.45rem auto;
+    display: grid;
+    place-items: center;
+    color: #ffffff;
+    background: linear-gradient(145deg, #057c8f, #0ac7d7);
+    border: 1px solid rgba(255,255,255,0.72);
+    box-shadow:
+        0 16px 32px rgba(0, 143, 165, 0.25),
+        0 0 0 8px rgba(10, 183, 197, 0.08);
+    position: relative;
+    z-index: 2;
+}
+
+.category-transition-icon svg {
+    width: 25px;
+    height: 25px;
+    stroke: #ffffff !important;
+}
+
+.category-transition-title {
+    position: relative;
+    z-index: 2;
+    color: #008ca0;
+    font-size: 1rem;
+    font-weight: 950;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.category-transition-subtitle {
+    position: relative;
+    z-index: 2;
+    color: #60718a;
+    font-size: 0.94rem;
+    font-weight: 700;
+    margin-top: 0.25rem;
+}
+
+.category-zone-start {
+    margin-top: 0.4rem;
+}
+
+.category-header {
+    background:
+        radial-gradient(circle at 2% 28%, rgba(0,166,180,0.22), transparent 10rem),
+        linear-gradient(180deg, #f2fbfd 0%, #eaf8fb 100%) !important;
+    border-color: rgba(0, 166, 180, 0.35) !important;
+    border-left: 5px solid #0aa6b7 !important;
+}
+
+
 /* ==========================
    RESPONSIVE
    ========================== */
@@ -1014,7 +1129,23 @@ with st.container(border=True):
         # so users do not have to scroll to the bottom for the estimate.
         render_item_number_cost_calculator("best_match")
 
-st.write("")
+st.markdown("""
+<div class="category-transition">
+    <div class="category-transition-dots-left"></div>
+    <div class="category-transition-dots-right"></div>
+    <div class="category-transition-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+            <path d="M3 6h18"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+    </div>
+    <div class="category-transition-title">Browse by Category</div>
+    <div class="category-transition-subtitle">Can’t find what you need above? Explore the full Direct Buy product catalog below.</div>
+</div>
+""", unsafe_allow_html=True)
 
 # ==========================
 # CATEGORY SEARCH
