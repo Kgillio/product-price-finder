@@ -743,6 +743,10 @@ def load_data():
 
 df = load_data()
 
+# Column A from the spreadsheet. This is shown to users as Vend Code
+# instead of showing the internal Match Score.
+vend_code_col = df.columns[0]
+
 direct_cost_col = next(col for col in df.columns if "JUN 2026" in col and "Direct Cost" in col)
 list_price_col = next(col for col in df.columns if "MAY 2026 List Price" in col)
 
@@ -1106,7 +1110,7 @@ with st.container(border=True):
 
         best_display = best_results[
             [
-                "Match Score",
+                vend_code_col,
                 "Product Class",
                 "Manufacturer Name",
                 "ISG Product Code",
@@ -1117,6 +1121,7 @@ with st.container(border=True):
         ].head(100).copy()
 
         best_display = best_display.rename(columns={
+            vend_code_col: "Vend Code",
             "Manufacturer Name": "Manufacturer",
             "ISG Product Code": "Product Code",
             "Short Description": "Description",
@@ -1141,7 +1146,7 @@ with st.container(border=True):
             selection_mode="single-row",
             key="best_match_products_table",
             column_config={
-                "Match Score": st.column_config.NumberColumn("Match Score", format="%d"),
+                "Vend Code": st.column_config.TextColumn("Vend Code"),
                 "List Price": st.column_config.NumberColumn("List Price", format="$%.2f"),
                 "Direct Cost": st.column_config.NumberColumn("Direct Cost", format="$%.2f"),
             }
