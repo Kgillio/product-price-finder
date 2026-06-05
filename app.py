@@ -875,12 +875,20 @@ results = pd.DataFrame()
 for calculator_key in ["best_match", "category", "main"]:
     item_key = f"{calculator_key}_calculator_item_number"
     source_key = f"{calculator_key}_calculator_selected_source"
+    pending_item_key = f"{calculator_key}_pending_calculator_item_number"
+    pending_source_key = f"{calculator_key}_pending_calculator_selected_source"
 
     if item_key not in st.session_state:
         st.session_state[item_key] = ""
 
     if source_key not in st.session_state:
         st.session_state[source_key] = ""
+
+    if pending_item_key not in st.session_state:
+        st.session_state[pending_item_key] = ""
+
+    if pending_source_key not in st.session_state:
+        st.session_state[pending_source_key] = ""
 
 # ==========================
 # ITEM NUMBER COST CALCULATOR FUNCTION
@@ -917,6 +925,16 @@ def render_item_number_cost_calculator(calculator_location_key="main"):
 
         item_state_key = f"{calculator_location_key}_calculator_item_number"
         source_state_key = f"{calculator_location_key}_calculator_selected_source"
+        pending_item_key = f"{calculator_location_key}_pending_calculator_item_number"
+        pending_source_key = f"{calculator_location_key}_pending_calculator_selected_source"
+
+        # Apply clicked-row selections before the text input widget is created.
+        # This keeps row-click auto-fill fast and prevents the calculator from going blank.
+        if st.session_state.get(pending_item_key):
+            st.session_state[item_state_key] = st.session_state[pending_item_key]
+            st.session_state[source_state_key] = st.session_state.get(pending_source_key, "")
+            st.session_state[pending_item_key] = ""
+            st.session_state[pending_source_key] = ""
 
         selected_source = st.session_state.get(source_state_key, "")
         selected_calculator_item = st.session_state.get(item_state_key, "")
@@ -1131,13 +1149,12 @@ with st.container(border=True):
 
         if best_match_selection.selection.rows:
             selected_row_position = best_match_selection.selection.rows[0]
-            selected_best_item_number = best_display.iloc[selected_row_position]["Product Code"]
+            selected_best_item_number = str(best_display.iloc[selected_row_position]["Product Code"])
 
-            st.session_state["best_match_calculator_item_number"] = str(selected_best_item_number)
-            st.session_state["best_match_calculator_selected_source"] = "Best Match Search"
-            st.rerun()
+            st.session_state["best_match_pending_calculator_item_number"] = selected_best_item_number
+            st.session_state["best_match_pending_calculator_selected_source"] = "Best Match Search"
 
-        # Calculator now appears directly under the Best Matching Products table.
+        # Calculator appears directly under the Best Matching Products table.
         render_item_number_cost_calculator("best_match")
 
 st.markdown("""
@@ -1288,11 +1305,10 @@ with st.container(border=True):
 
         if table_selection.selection.rows:
             selected_row_position = table_selection.selection.rows[0]
-            clicked_item_number = display_df.iloc[selected_row_position]["Product Code"]
+            clicked_item_number = str(display_df.iloc[selected_row_position]["Product Code"])
 
-            st.session_state["category_calculator_item_number"] = str(clicked_item_number)
-            st.session_state["category_calculator_selected_source"] = "Category Search"
-            st.rerun()
+            st.session_state["category_pending_calculator_item_number"] = clicked_item_number
+            st.session_state["category_pending_calculator_selected_source"] = "Category Search"
 
         # Category Search has its own independent calculator.
         # This can be used at the same time as the Best Match calculator.
