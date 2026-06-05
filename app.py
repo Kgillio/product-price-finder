@@ -1373,10 +1373,14 @@ with st.container(border=True):
 
         if best_match_selection.selection.rows:
             selected_row_position = best_match_selection.selection.rows[0]
-            selected_best_item_number = str(best_display.iloc[selected_row_position]["Product Code"])
 
-            st.session_state["best_match_pending_calculator_item_number"] = selected_best_item_number
-            st.session_state["best_match_pending_calculator_selected_source"] = "Best Match Search"
+            # Streamlit can remember a previously selected row after the results change.
+            # This guard prevents an old row number from crashing the app.
+            if selected_row_position < len(best_display):
+                selected_best_item_number = str(best_display.iloc[selected_row_position]["Product Code"])
+
+                st.session_state["best_match_pending_calculator_item_number"] = selected_best_item_number
+                st.session_state["best_match_pending_calculator_selected_source"] = "Best Match Search"
 
         # Calculator appears directly under the Best Matching Products table.
         render_item_number_cost_calculator("best_match")
@@ -1535,10 +1539,14 @@ with st.container(border=True):
 
         if table_selection.selection.rows:
             selected_row_position = table_selection.selection.rows[0]
-            clicked_item_number = str(display_df.iloc[selected_row_position]["Product Code"])
 
-            st.session_state["category_pending_calculator_item_number"] = clicked_item_number
-            st.session_state["category_pending_calculator_selected_source"] = "Category Search"
+            # Streamlit can remember a previously selected row after filters/results change.
+            # This guard prevents an old row number from crashing the app.
+            if selected_row_position < len(display_df):
+                clicked_item_number = str(display_df.iloc[selected_row_position]["Product Code"])
+
+                st.session_state["category_pending_calculator_item_number"] = clicked_item_number
+                st.session_state["category_pending_calculator_selected_source"] = "Category Search"
 
         # Category Search has its own independent calculator.
         # This can be used at the same time as the Best Match calculator.
