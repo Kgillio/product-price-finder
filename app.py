@@ -608,6 +608,60 @@ df[list_price_col] = pd.to_numeric(df[list_price_col], errors="coerce")
 if moq_col in df.columns:
     df[moq_col] = pd.to_numeric(df[moq_col], errors="coerce")
 
+# Speed helper: create a lowercase item number column once.
+# This makes calculator lookups faster, especially when a row click sends an exact item number.
+if "ISG Product Code" in df.columns:
+    df["_item_code_search"] = df["ISG Product Code"].astype(str).str.strip().str.lower()
+
+# ==========================
+# SPEED HELPERS
+# ==========================
+
+def run_best_match_search(search_text, available_search_columns, direct_cost_column):
+    """Run fuzzy Best Match Search only when the actual search text changes."""
+    search_df = df.copy()
+
+    search_df["Search Text"] = (
+        search_df[available_search_columns]
+        .fillna("")
+        .astype(str)
+        .agg(" ".join, axis=1)
+    )
+
+    search_df["Match Score"] = search_df["Search Text"].apply(
+        lambda text: fuzz.token_set_ratio(search_text.lower(), text.lower())
+    )
+
+    best_results = search_df[search_df["Match Score"] >= 40].copy()
+
+    best_results = best_results.sort_values(
+        ["Match Score", direct_cost_column],
+        ascending=[False, True]
+    )
+
+    return best_results
+
+def get_item_matches(item_number_search):
+    """Fast calculator lookup. Exact item-code matches are used first, then contains search."""
+    clean_search = str(item_number_search).strip().lower()
+
+    if not clean_search or "_item_code_search" not in df.columns:
+        return pd.DataFrame()
+
+    exact_matches = df[df["_item_code_search"] == clean_search].copy()
+
+    if not exact_matches.empty:
+        return exact_matches.sort_values(direct_cost_col, ascending=True)
+
+    contains_matches = df[
+        df["_item_code_search"].str.contains(clean_search, case=False, na=False, regex=False)
+    ].copy()
+
+    if not contains_matches.empty:
+        contains_matches = contains_matches.sort_values(direct_cost_col, ascending=True)
+
+    return contains_matches
+
 # Set defaults so later sections do not break
 selected_class = ""
 results = pd.DataFrame()
@@ -660,14 +714,9 @@ def render_item_number_cost_calculator(calculator_location_key="main"):
         if item_number_search:
             # Search the full file, not just the selected category.
             # This allows Best Match Search clicks to work even when no category is selected.
-            item_matches = df[
-                df["ISG Product Code"]
-                .astype(str)
-                .str.contains(item_number_search, case=False, na=False)
-            ].copy()
+            item_matches = get_item_matches(item_number_search)
 
             if not item_matches.empty:
-                item_matches = item_matches.sort_values(direct_cost_col, ascending=True)
 
                 item_choices = (
                     item_matches["Manufacturer Name"].astype(str)
@@ -788,25 +837,21 @@ with st.container(border=True):
     available_search_columns = [col for col in search_columns if col in df.columns]
 
     if best_match_search:
-        search_df = df.copy()
+        # Important speed fix:
+        # Streamlit reruns the whole page after row clicks and quantity changes.
+        # This stores the fuzzy Best Match results so the expensive fuzzy search
+        # only reruns when the search box text changes.
+        best_match_cache_key = f"{best_match_search}|{'|'.join(available_search_columns)}"
 
-        search_df["Search Text"] = (
-            search_df[available_search_columns]
-            .fillna("")
-            .astype(str)
-            .agg(" ".join, axis=1)
-        )
+        if st.session_state.get("best_match_cache_key") != best_match_cache_key:
+            st.session_state["best_match_cache_key"] = best_match_cache_key
+            st.session_state["best_match_results"] = run_best_match_search(
+                best_match_search,
+                available_search_columns,
+                direct_cost_col
+            )
 
-        search_df["Match Score"] = search_df["Search Text"].apply(
-            lambda text: fuzz.token_set_ratio(best_match_search.lower(), text.lower())
-        )
-
-        best_results = search_df[search_df["Match Score"] >= 40].copy()
-
-        best_results = best_results.sort_values(
-            ["Match Score", direct_cost_col],
-            ascending=[False, True]
-        )
+        best_results = st.session_state.get("best_match_results", pd.DataFrame())
 
         st.markdown("### Best Matching Products")
         st.caption("Click a row below to auto-fill the calculator.")
