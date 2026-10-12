@@ -958,8 +958,8 @@ df = load_data()
 # instead of showing the internal Match Score.
 vend_code_col = df.columns[0]
 
-direct_cost_col = next(col for col in df.columns if "OCT 2026 Direct Cost" in " ".join(col.split()))
-list_price_col = next(col for col in df.columns if "OCT 2026 List Price" in " ".join(col.split()))
+direct_cost_col = next(col for col in df.columns if "JUN 2026" in col and "Direct Cost" in col)
+list_price_col = next(col for col in df.columns if "MAY 2026 List Price" in col)
 
 # Image column support.
 # Your V2 file has the product picture links in the "Images" column.
